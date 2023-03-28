@@ -1,11 +1,12 @@
 import { createTheme } from '@mui/material';
 import { fontFaces } from './fontFaces';
+import { colors } from './colors'
 
 const theme = createTheme({
   typography: {
     fontFamily: 'Mont, sans-serif'
   },
-  palette: {},
+  colors,
   components: {
     MuiCssBaseline: {
       styleOverrides: {
