@@ -29,7 +29,11 @@ class HttpSerivce {
     };
   }
 
-  private extractUrlAndDataFromConfig({ data, url, ...configWithoutDataAndUrl }: IHttpConfig) {
+  private extractUrlAndDataFromConfig({
+    data,
+    url,
+    ...configWithoutDataAndUrl
+  }: IHttpConfig) {
     return configWithoutDataAndUrl;
   }
 

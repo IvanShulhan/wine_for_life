@@ -1,3 +1,3 @@
 export const DetailsPage = () => {
-  return <>Details</>
-}
+  return <>Details</>;
+};

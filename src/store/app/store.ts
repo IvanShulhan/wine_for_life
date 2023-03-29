@@ -3,8 +3,8 @@ import productsReducer from '../products/productsSlice';
 
 export const store = configureStore({
   reducer: {
-    products: productsReducer,
-  },
+    products: productsReducer
+  }
 });
 
 export type AppDispatch = typeof store.dispatch;

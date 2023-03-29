@@ -1,5 +1,11 @@
-import { FooterComponent } from '../../components/footer'
+import { FooterComponent } from '../../components/footer';
+import { HeaderComponent } from '../../components/header';
 
 export const CatalogPage = () => {
-  return <FooterComponent />
-}
+  return (
+    <>
+      <HeaderComponent />
+      <FooterComponent />
+    </>
+  );
+};

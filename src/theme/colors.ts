@@ -26,4 +26,5 @@ export const colors = {
   'disabled': '#EDEDED',
   'light-gray': '#F8F8F8',
   white: '#FFFFFF',
+  warning: '#DE3C63',
 }

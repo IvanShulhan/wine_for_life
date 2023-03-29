@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material';
 import { fontFaces } from './fontFaces';
-import { colors } from './colors'
+import { colors } from './colors';
 
 const theme = createTheme({
   typography: {
@@ -11,9 +11,9 @@ const theme = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         '@font-face': fontFaces
-      },
-    },
-  },
+      }
+    }
+  }
 });
 
 export default theme;

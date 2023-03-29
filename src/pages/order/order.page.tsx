@@ -1,3 +1,3 @@
 export const OrderPage = () => {
-  return <>Order</>
-}
+  return <>Order</>;
+};

@@ -5,18 +5,14 @@ interface IProps {
   text: string;
   bgColor?: buttonColors;
   textColor?: buttonColors;
-} 
+}
 
-export const ButtonComponent: React.FC<IProps> = ({ 
-  text, 
+export const ButtonComponent: React.FC<IProps> = ({
+  text,
   bgColor = buttonColors.red,
-  textColor = buttonColors.white,  
+  textColor = buttonColors.white
 }) => (
-  <CustomButton 
-    textColor={textColor} 
-    bgColor={bgColor}
-    type="submit"
-  >
+  <CustomButton textColor={textColor} bgColor={bgColor} type="submit">
     {text}
   </CustomButton>
-)
+);

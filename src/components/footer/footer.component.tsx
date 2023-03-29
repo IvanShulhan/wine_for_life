@@ -7,7 +7,7 @@ import { CallbackFormComponent } from './callback-form';
 export const Wrapper = styled(Box)(({ theme }) => ({
   paddingTop: 24,
   paddingBottom: 40,
-  backgroundColor: theme.colors['text-gray'],
+  backgroundColor: theme.colors['text-gray']
 }));
 
 export const FooterComponent = () => {
@@ -27,5 +27,5 @@ export const FooterComponent = () => {
         </Grid>
       </Container>
     </Wrapper>
-  )
-}
+  );
+};

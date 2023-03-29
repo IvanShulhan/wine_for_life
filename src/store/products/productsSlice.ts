@@ -8,7 +8,7 @@ export interface CounterState {
 
 const initialState: CounterState = {
   goods: ['aaa'],
-  status: 'idle',
+  status: 'idle'
 };
 
 export const fetchGoods = createAsyncThunk(
@@ -23,7 +23,7 @@ export const counterSlice = createSlice({
   extraReducers: (builder) => {
     // builder
     //   .addCase(incrementAsync.pending, (state) => {})
-  },
+  }
 });
 
 export const {} = counterSlice.actions;
