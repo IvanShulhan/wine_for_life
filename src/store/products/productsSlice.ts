@@ -1,3 +1,5 @@
+/* eslint-disable no-empty-pattern */
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../app/store';
 
@@ -11,10 +13,7 @@ const initialState: CounterState = {
   status: 'idle'
 };
 
-export const fetchGoods = createAsyncThunk(
-  'counter/fetchCount',
-  async () => {}
-);
+export const fetchGoods = createAsyncThunk('counter/fetchCount', async () => {});
 
 export const counterSlice = createSlice({
   name: 'counter',

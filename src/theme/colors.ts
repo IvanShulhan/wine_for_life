@@ -1,13 +1,13 @@
 declare module '@mui/material/styles' {
   interface Theme {
     colors: {
-      [key: string]: string,
-    }
+      [key: string]: string;
+    };
   }
   interface ThemeOptions {
     colors: {
-      [key: string]: string
-    }
+      [key: string]: string;
+    };
   }
 }
 
@@ -21,10 +21,10 @@ export const colors = {
   'almost-black': '#121212',
   'text-gray': '#232323',
   'gray-dark': '#373737',
-  'secondary-text': "#595959",
+  'secondary-text': '#595959',
   'darker-gray': '#8F8F8F',
-  'disabled': '#EDEDED',
+  disabled: '#EDEDED',
   'light-gray': '#F8F8F8',
   white: '#FFFFFF',
-  warning: '#DE3C63',
-}
+  warning: '#DE3C63'
+};

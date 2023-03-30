@@ -1,4 +1,4 @@
-import helper from '../../../utils/helper.funcs';
+import helper from '../../../common/utils/helper.funcs';
 import { Input } from './input.styled';
 
 interface IProps {

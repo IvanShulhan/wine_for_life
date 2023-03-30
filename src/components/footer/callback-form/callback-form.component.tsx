@@ -2,16 +2,14 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { COMMON_CONST } from '../../../common/consts';
 import { Box } from '@mui/material';
-import { buttonColors } from '../../../common/types/button-colors.enum';
+import { ButtonColors, TitleColors } from '../../../common/types/colors.enums';
 import { InputComponent } from '../input';
-import { TitleComponent } from '../title.component';
+import { TitleComponent } from '../../title.component';
 import { ButtonComponent } from '../../button';
+import { ButtoTypes } from '../../../common/types/button-types.enum';
 
 const validationSchema = yup.object({
-  name: yup
-    .string()
-    .min(3, 'Must be at least 3 characters long')
-    .required('Name is required'),
+  name: yup.string().min(3, 'Must be at least 3 characters long').required('Name is required'),
   phone: yup
     .string()
     .test('len', 'Phone length equal 10 numbers', (val) => val?.length === 10)
@@ -33,7 +31,9 @@ export const CallbackFormComponent = () => {
 
   return (
     <Box>
-      <TitleComponent title="Call back form" />
+      <Box sx={{ marginBottom: 3 }}>
+        <TitleComponent title="Call back form" color={TitleColors.white} />
+      </Box>
       <form onSubmit={formik.handleSubmit}>
         <InputComponent
           isThin={false}
@@ -54,8 +54,9 @@ export const CallbackFormComponent = () => {
         />
         <ButtonComponent
           text="Call me"
-          bgColor={buttonColors.white}
-          textColor={buttonColors.gray}
+          type={ButtoTypes.submit}
+          bgColor={ButtonColors.white}
+          textColor={ButtonColors.gray}
         />
       </form>
     </Box>

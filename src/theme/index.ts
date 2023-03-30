@@ -7,10 +7,23 @@ const theme = createTheme({
     fontFamily: 'Mont, sans-serif'
   },
   colors,
+  palette: {
+    background: {
+      default: colors['screen-color']
+    }
+  },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         '@font-face': fontFaces
+      }
+    },
+    MuiContainer: {
+      styleOverrides: {
+        root: {
+          maxWidth: '1240px !important',
+          padding: '0 20px !important'
+        }
       }
     }
   }

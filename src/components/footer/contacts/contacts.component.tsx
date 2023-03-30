@@ -1,17 +1,20 @@
 import { Box } from '@mui/material';
-import { TitleComponent } from '../title.component';
+import { TitleColors } from '../../../common/types/colors.enums';
+import { TitleComponent } from '../../title.component';
 import * as Styled from './contacts.styled';
 
 export const ContactsComponent = () => (
   <Box>
-    <TitleComponent title="Contact and service" />
+    <Box sx={{ marginBottom: 3 }}>
+      <TitleComponent title="Contact and service" color={TitleColors.white} />
+    </Box>
+
     <Styled.Wrapper>
       <Styled.CustomLink
         href="https://goo.gl/maps/YbPvVGZawVdLAu4XA"
         target="_blank"
         rel="noreferrer"
-        underline="hover"
-      >
+        underline="hover">
         <Styled.Wrapper>
           <Styled.Text>21 Shevchenko Str.</Styled.Text>
           <Styled.Text>Kyiv</Styled.Text>
