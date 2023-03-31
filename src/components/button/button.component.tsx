@@ -17,7 +17,7 @@ export const ButtonComponent: React.FC<IProps> = ({
   textColor = ButtonColors.white,
   onClick
 }) => (
-  <CustomButton textColor={textColor} bgColor={bgColor} type={type} onClick={onClick}>
+  <CustomButton textcolor={textColor} bgcolor={bgColor} type={type} onClick={onClick}>
     {text}
   </CustomButton>
 );

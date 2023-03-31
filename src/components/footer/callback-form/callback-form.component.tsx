@@ -36,7 +36,7 @@ export const CallbackFormComponent = () => {
       </Box>
       <form onSubmit={formik.handleSubmit}>
         <InputComponent
-          isThin={false}
+          isBold={true}
           name="name"
           placeholder="Name"
           value={formik.values.name}

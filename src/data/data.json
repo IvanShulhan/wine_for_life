@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Chardonnay Barrel",
+    "photo": "../assets/images/image 13.png",
+    "description": "Warm, creamy and very pleasant con the palate.",
+    "price": 259
+  },
+  {
+    "id": 2,
+    "name": "Chardonnay Barrel",
+    "photo": "../assets/images/image 13.png",
+    "description": "Warm, creamy and very pleasant con the palate.",
+    "price": 559
+  },
+  {
+    "id": 3,
+    "name": "Chardonnay Barrel",
+    "photo": "../assets/images/image 13.png",
+    "description": "Warm, creamy and very pleasant con the palate.",
+    "price": 359
+  }
+]

@@ -2,19 +2,19 @@ import { TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 interface IInput {
-  isthin: boolean;
-  hasvalue: boolean;
+  weigth: number;
+  display: string;
 }
 
-export const Input = styled(TextField)<IInput>(({ theme, isthin, hasvalue }) => ({
+export const Input = styled(TextField)<IInput>(({ theme, weigth, display }) => ({
   marginBottom: 16,
   '&:last-of-type': {
     marginBottom: 24
   },
   '& .MuiFormLabel-root': {
     color: theme.colors.white,
-    fontWeight: isthin ? 400 : 600,
-    display: hasvalue ? 'none' : 'block',
+    fontWeight: weigth,
+    display: display,
     '&.Mui-focused': {
       opacity: 0
     },

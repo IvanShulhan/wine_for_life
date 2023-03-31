@@ -2,8 +2,9 @@ import { Box, Container } from '@mui/material';
 import { FooterComponent } from '../../components/footer';
 import { HeaderComponent } from '../../components/header';
 import { TitleComponent } from '../../components/title.component';
-import * as Styled from './catalog.styled';
 import { SidebarComponent } from '../../components/sidebar';
+import { ProductListComponent } from '../../components/product-list';
+import * as Styled from './catalog.styled';
 
 export const CatalogPage = () => {
   return (
@@ -20,7 +21,7 @@ export const CatalogPage = () => {
                 <SidebarComponent />
               </Styled.Item>
               <Styled.Item>
-                <>List</>
+                <ProductListComponent />
               </Styled.Item>
             </Styled.Content>
           </Styled.Wrapper>

@@ -1,22 +1,24 @@
 /* eslint-disable no-empty-pattern */
 /* eslint-disable @typescript-eslint/no-empty-function */
+import data from '../../data/data.json';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../app/store';
+import { IProduct } from '../../common/types/product.type';
 
 export interface CounterState {
-  goods: string[];
+  products: IProduct[];
   status: 'idle' | 'loading' | 'failed';
 }
 
 const initialState: CounterState = {
-  goods: ['aaa'],
+  products: data,
   status: 'idle'
 };
 
-export const fetchGoods = createAsyncThunk('counter/fetchCount', async () => {});
+export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {});
 
-export const counterSlice = createSlice({
-  name: 'counter',
+export const productsSlice = createSlice({
+  name: 'products',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -25,6 +27,6 @@ export const counterSlice = createSlice({
   }
 });
 
-export const {} = counterSlice.actions;
-export const selectCount = (state: RootState) => state.products.goods;
-export default counterSlice.reducer;
+export const {} = productsSlice.actions;
+export const selectProducts = (state: RootState) => state.products.products;
+export default productsSlice.reducer;

@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import { ButtonColors } from '../../common/types/colors.enums';
@@ -34,7 +34,7 @@ export const SidebarComponent = () => {
     return filterKeys[key].some((el) => el === value);
   };
 
-  const handleChange = useCallback((key: string, value: string) => {
+  const handleChange = (key: string, value: string) => {
     const values = searchParams.get(key) || '';
 
     const isChekedValue = isChecked(key, value);
@@ -59,7 +59,7 @@ export const SidebarComponent = () => {
     }
 
     setSearchParams(searchParams);
-  }, []);
+  };
 
   const onSubmit = () => {
     alert(JSON.stringify(filterKeys));

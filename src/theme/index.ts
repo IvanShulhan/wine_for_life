@@ -1,5 +1,4 @@
 import { createTheme } from '@mui/material';
-import { fontFaces } from './fontFaces';
 import { colors } from './colors';
 
 const theme = createTheme({
@@ -13,11 +12,6 @@ const theme = createTheme({
     }
   },
   components: {
-    MuiCssBaseline: {
-      styleOverrides: {
-        '@font-face': fontFaces
-      }
-    },
     MuiContainer: {
       styleOverrides: {
         root: {
