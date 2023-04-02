@@ -1,8 +1,7 @@
-import { Icon, InputAdornment } from '@mui/material';
 import { useState } from 'react';
-import { Input } from './search.styled';
 import { ReactComponent as Search } from '../../../assets/icons/search.svg';
 import { useLocation, useSearchParams } from 'react-router-dom';
+import './search.scss';
 
 export const SearchComponent = () => {
   const { search } = useLocation();
@@ -23,22 +22,15 @@ export const SearchComponent = () => {
   };
 
   return (
-    <Input
-      fullWidth
-      variant="outlined"
-      name="search"
-      placeholder="Search"
-      value={value}
-      onChange={handleChange}
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position="end">
-            <Icon>
-              <Search />
-            </Icon>
-          </InputAdornment>
-        )
-      }}
-    />
+    <div className="search">
+      <input
+        placeholder="Search"
+        type="text"
+        className="search__input"
+        value={value}
+        onChange={handleChange}
+      />
+      <Search className="search__icon" />
+    </div>
   );
 };

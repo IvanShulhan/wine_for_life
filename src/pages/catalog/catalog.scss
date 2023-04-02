@@ -1,0 +1,23 @@
+@import '../../styles/mixins';
+
+.catalog {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  &__inner {
+    flex-grow: 1;
+  }
+
+  &__content {
+    display: flex;
+    gap: 20px;
+    padding: toEm(20) 0 toEm(40);
+  }
+
+  &__title-block {
+    width: 100%;
+    @include flex();
+    margin-top: 20px;
+  }
+}

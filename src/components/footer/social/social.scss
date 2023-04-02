@@ -1,0 +1,37 @@
+@import '../../../styles/placeholders';
+@import '../../../styles/mixins';
+@import '../../../styles/colors';
+
+.social {
+  width: 32%;
+  @extend %footer-box;
+
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &__link {
+    @include no-border();
+    width: 58px;
+    height: 58px;
+    @include flex();
+    border-radius: 50%;
+    background-color: $color_white;
+
+    & svg, & path {
+      transition: transition(transform);
+    }
+
+    &:hover, &:focus {
+      & svg {
+        transform: scale(1.1);
+      }
+
+      & path {
+        fill: $color_warning;
+      }
+    }
+  }
+}

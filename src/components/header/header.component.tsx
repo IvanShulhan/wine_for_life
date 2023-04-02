@@ -1,45 +1,32 @@
-import { Box, Grid } from '@mui/material';
-import { Container } from '@mui/system';
 import { SearchComponent } from './search';
+import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/icons/logo.svg';
 import { ReactComponent as User } from '../../assets/icons/user.svg';
 import { ReactComponent as Bag } from '../../assets/icons/bag.svg';
-
-import * as Styled from './header.styled';
-import { Link } from 'react-router-dom';
+import './header.scss';
 
 export const HeaderComponent = () => {
   return (
-    <Box sx={{ paddingY: 2 }}>
-      <Container>
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <Styled.CustomIcon width={78} height={60}>
-              <Logo />
-            </Styled.CustomIcon>
-          </Grid>
-          <Grid item xs={6}>
-            <Styled.Navbar>
-              <SearchComponent />
-              <Link to="/profile">
-                <Styled.CustomIcon width={32} height={32}>
-                  <User />
-                </Styled.CustomIcon>
+    <header className="header">
+      <div className="container header__container">
+        <div className="header__inner">
+          <Link to="/catalog" className="header__link">
+            <Logo className="logo header__logo" />
+          </Link>
+          <div className="header__content">
+            <SearchComponent />
+            <nav className="navbar header__navbar">
+              <Link to="/profile" className="navbar__link">
+                <User className="navbar__icon" />
               </Link>
-              <Styled.CustomBadge
-                badgeContent={1}
-                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-                <Link to="/bag">
-                  <Styled.CustomIcon width={32} height={32}>
-                    <Bag />
-                  </Styled.CustomIcon>
-                </Link>
-              </Styled.CustomBadge>
-              <Styled.CustomButton>Log in</Styled.CustomButton>
-            </Styled.Navbar>
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
+              <button className="navbar__button">
+                <Bag className="navbar__icon" />
+              </button>
+              <button className="navbar__button">Log in</button>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
   );
 };

@@ -1,0 +1,37 @@
+@import './variables';
+@import './colors';
+
+@mixin toRem($value) {
+  font-size: #{$value / $browser-font-size}rem;
+}
+
+@mixin no-border() {
+  border: none;
+  outline: none;
+}
+
+@mixin flex($justify: center) {
+  display: flex;
+  align-items: center;
+  justify-content: $justify;
+}
+
+@mixin button-bg($color) {
+  background-color: $color;
+  &:hover, &:focus  {
+    background-color: darken($color, 10);
+  }
+}
+
+@function toEm($pixels, $context: $browser-font-size) {
+  @return #{$pixels/$context}em;
+}
+
+@mixin border($width: 1, $color: $color_secondary_text) {
+  border: $width + px solid $color;
+}
+
+@function transition($value, $time: 0.3) {
+  @return $value #{$time}s linear;
+}
+

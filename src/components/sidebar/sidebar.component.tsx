@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
-import { ButtonColors } from '../../common/types/colors.enums';
-import { Box } from '@mui/material';
-import { TitleComponent } from '../title.component';
+import { TitleComponent } from '../title';
 import { ButtonComponent } from '../button';
 import { filterValues } from '../../common/consts/filterValues.const';
 import { FilterListComponent } from './filter-list/filter-list.component';
 import helperFuncs from '../../common/utils/helper.funcs';
-import * as Styled from './sidebar.styled';
+import { ColorShema } from '../../common/types/button-types.enum';
+import './sidebar.scss';
 
 interface IFilterKeys {
   [key: string]: string[];
@@ -66,23 +65,16 @@ export const SidebarComponent = () => {
   };
 
   return (
-    <Styled.Wrapper>
-      <Styled.Inner>
+    <div className="sidebar">
+      <div className="sidebar__inner">
         {filterValues.map((obj) => (
-          <Box key={uuid()}>
-            <Box sx={{ marginBottom: 3 }}>
-              <TitleComponent title={helperFuncs.modifyFirstChar(obj.key)} />
-            </Box>
+          <div className="sidebar__filter-item" key={uuid()}>
+            <TitleComponent title={helperFuncs.modifyFirstChar(obj.key)} />
             <FilterListComponent obj={obj} onChange={handleChange} isChecked={isChecked} />
-          </Box>
+          </div>
         ))}
-      </Styled.Inner>
-      <ButtonComponent
-        onClick={onSubmit}
-        text="Apply"
-        bgColor={ButtonColors.gray}
-        textColor={ButtonColors.white}
-      />
-    </Styled.Wrapper>
+      </div>
+      <ButtonComponent onClick={onSubmit} text="Apply" colorSchema={ColorShema.dark} />
+    </div>
   );
 };

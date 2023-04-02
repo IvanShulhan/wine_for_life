@@ -1,0 +1,22 @@
+@import '../../../styles/placeholders';
+@import '../../../styles/mixins';
+@import '../../../styles/colors';
+
+.callback {
+  width: 32%;
+  @extend %footer-box;
+
+  &__form {
+    gap: 24px;
+  }
+
+  &__form-inputs {
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  &__form, &__form-inputs {
+    display: flex;
+    flex-direction: column;
+  }
+}

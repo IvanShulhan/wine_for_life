@@ -1,8 +1,19 @@
-* {font-weight: 400;}
+@import "./styles/colors";
+@import "./styles/variables";
+@import "./styles/mixins";
+@import "./styles/container";
 
-body {
-  margin: 0;
+* {
   padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Mont', sans-serif;
+}
+
+.wrapper {
   max-width: 100vw;
+  width: 100%;
   overflow-x: hidden;
+  min-height: 100vh;
+  background-color: #FFFCFA;
 }

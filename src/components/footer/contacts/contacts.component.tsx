@@ -1,32 +1,28 @@
-import { Box } from '@mui/material';
-import { TitleColors } from '../../../common/types/colors.enums';
-import { TitleComponent } from '../../title.component';
-import * as Styled from './contacts.styled';
+import { TitleComponent } from '../../title';
+import './contacts.scss';
 
 export const ContactsComponent = () => (
-  <Box>
-    <Box sx={{ marginBottom: 3 }}>
-      <TitleComponent title="Contact and service" color={TitleColors.white} />
-    </Box>
+  <div className="contacts">
+    <TitleComponent title="Contact and service" isWhite={true} isThin={true} />
 
-    <Styled.Wrapper>
-      <Styled.CustomLink
+    <div className="contacts__content">
+      <a
+        className="contacts__link"
         href="https://goo.gl/maps/YbPvVGZawVdLAu4XA"
         target="_blank"
-        rel="noreferrer"
-        underline="hover">
-        <Styled.Wrapper>
-          <Styled.Text>21 Shevchenko Str.</Styled.Text>
-          <Styled.Text>Kyiv</Styled.Text>
-          <Styled.Text>Ukraine</Styled.Text>
-        </Styled.Wrapper>
-      </Styled.CustomLink>
-      <Styled.CustomLink href="tel:+380310000000" underline="hover">
-        <Styled.Text>+ 380 (31) 000 00 00</Styled.Text>
-      </Styled.CustomLink>
-      <Styled.CustomLink href="mailto:winehouse@mail.ua" underline="hover">
-        <Styled.Text>winehouse@mail.ua</Styled.Text>
-      </Styled.CustomLink>
-    </Styled.Wrapper>
-  </Box>
+        rel="noreferrer">
+        <div className="contacts__link-text-items">
+          <span className="contacts__link-text-item">21 Shevchenko Str.</span>
+          <span className="contacts__link-text-item">Kyiv</span>
+          <span className="contacts__link-text-item">Ukraine</span>
+        </div>
+      </a>
+      <a className="contacts__link" href="tel:+380310000000">
+        + 380 (31) 000 00 00
+      </a>
+      <a className="contacts__link" href="mailto:winehouse@mail.ua">
+        winehouse@mail.ua
+      </a>
+    </div>
+  </div>
 );

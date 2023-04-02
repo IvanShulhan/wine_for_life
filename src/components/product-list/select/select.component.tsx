@@ -1,11 +1,11 @@
-import { Box, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import classNames from 'classnames';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
-import React, { useState } from 'react';
 import { ReactComponent as ArrowDown } from '../../../assets/icons/arrow-down.svg';
 import { ReactComponent as ArrowTop } from '../../../assets/icons/arrow-top.svg';
 import helperFuncs from '../../../common/utils/helper.funcs';
-import * as Styled from './select.styled';
+import './select.scss';
 
 interface IProps {
   name: string;
@@ -25,28 +25,25 @@ export const SelectComponent: React.FC<IProps> = React.memo(({ name, values }) =
   };
 
   return (
-    <Box>
-      <Styled.CustomSelect open={isOpen} onClick={() => setIsOpen(!isOpen)}>
-        <Typography>
-          {filterValue
-            ? helperFuncs.modifyFirstChar(filterValue)
-            : helperFuncs.modifyFirstChar(name)}
-        </Typography>
+    <div className="select">
+      <div
+        className={classNames('select__content', { 'select__content--is-open': isOpen })}
+        tabIndex={0}
+        onClick={() => setIsOpen(!isOpen)}>
+        <h3 className="select__text">{helperFuncs.modifyFirstChar(name)}</h3>
         {isOpen ? <ArrowTop /> : <ArrowDown />}
-        {isOpen && (
-          <Styled.List>
-            {values.map((it) => (
-              <Styled.ListItem key={uuid()}>
-                <Styled.Button onClick={() => handleChange(it)}>
-                  {helperFuncs.modifyFirstChar(it)}
-                </Styled.Button>
-              </Styled.ListItem>
-            ))}
-          </Styled.List>
-        )}
-      </Styled.CustomSelect>
-      {isOpen && <Styled.Mask onClick={() => setIsOpen(false)} />}
-    </Box>
+        <ul className={classNames('select__list', { 'select__list--is-visible': isOpen })}>
+          {values.map((item) => (
+            <li className="select__list-item" key={uuid()}>
+              <button className="select__button" onClick={() => handleChange(item)}>
+                <h3 className="select__text">{helperFuncs.modifyFirstChar(item)}</h3>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+      {isOpen && <span className="select__mask" onClick={() => setIsOpen(false)} />}
+    </div>
   );
 });
 

@@ -1,23 +1,39 @@
-import { ButtoTypes } from '../../common/types/button-types.enum';
-import { ButtonColors } from '../../common/types/colors.enums';
-import { CustomButton } from './button.styled';
+import classNames from 'classnames';
+import { ButtonTypes, ColorShema } from '../../common/types/button-types.enum';
+import './button.scss';
 
 interface IProps {
   text: string;
-  type?: ButtoTypes;
-  bgColor?: ButtonColors;
-  textColor?: ButtonColors;
+  colorSchema?: ColorShema;
+  type?: ButtonTypes;
+  outlined?: boolean;
   onClick?: () => void;
 }
 
 export const ButtonComponent: React.FC<IProps> = ({
   text,
-  type = ButtoTypes.button,
-  bgColor = ButtonColors.red,
-  textColor = ButtonColors.white,
+  outlined = false,
+  colorSchema = ColorShema.dark,
+  type = ButtonTypes.button,
   onClick
-}) => (
-  <CustomButton textcolor={textColor} bgcolor={bgColor} type={type} onClick={onClick}>
-    {text}
-  </CustomButton>
-);
+}) => {
+  const generateClassName = () => {
+    switch (colorSchema) {
+      case ColorShema.white:
+        return 'button--is-white';
+      case ColorShema.red:
+        return 'button--is-red';
+      default:
+        return '';
+    }
+  };
+
+  return (
+    <button
+      className={classNames('button', generateClassName(), { 'button--is-outlined': outlined })}
+      type={type}
+      onClick={onClick}>
+      {text}
+    </button>
+  );
+};

@@ -2,22 +2,43 @@
   {
     "id": 1,
     "name": "Chardonnay Barrel",
-    "photo": "../assets/images/image 13.png",
+    "photo": "../assets/images/bottle.png",
     "description": "Warm, creamy and very pleasant con the palate.",
-    "price": 259
+    "price": 259.99
   },
   {
     "id": 2,
     "name": "Chardonnay Barrel",
-    "photo": "../assets/images/image 13.png",
+    "photo": "../assets/images/bottle.png",
     "description": "Warm, creamy and very pleasant con the palate.",
-    "price": 559
+    "price": 559.00
   },
   {
     "id": 3,
     "name": "Chardonnay Barrel",
-    "photo": "../assets/images/image 13.png",
+    "photo": "../assets/images/bottle.png",
     "description": "Warm, creamy and very pleasant con the palate.",
-    "price": 359
+    "price": 359.00
+  },
+  {
+    "id": 4,
+    "name": "Chardonnay Barrel",
+    "photo": "../assets/images/bottle.png",
+    "description": "Warm, creamy and very pleasant con the palate.",
+    "price": 259.99
+  },
+  {
+    "id": 5,
+    "name": "Chardonnay Barrel",
+    "photo": "../assets/images/bottle.png",
+    "description": "Warm, creamy and very pleasant con the palate.",
+    "price": 559.99
+  },
+  {
+    "id": 6,
+    "name": "Chardonnay Barrel",
+    "photo": "../assets/images/bottle.png",
+    "description": "Warm, creamy and very pleasant con the palate.",
+    "price": 359.00
   }
 ]

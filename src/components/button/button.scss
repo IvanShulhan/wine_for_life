@@ -1,0 +1,36 @@
+@import "../../styles/colors";
+@import "../../styles/mixins";
+
+.button {
+  color: $color_white;
+  width: 100%;
+  font-size: 25px;
+  @include toRem(18);
+  padding: toEm(10, 18);
+  font-weight: 700;
+  line-height: 1.2;
+  @include no-border;
+  transition: transition(background-color); 
+  @include button-bg($color_gray_dark);
+
+  &--is-white {
+    color: $color_gray_dark;
+    @include button-bg($color_white);
+  }
+
+  &--is-red {
+    @include button-bg($color_red);
+  }
+
+  &--is-outlined {
+    background-color: transparent;
+    @include border(1, $color_gray_dark);
+    color: $color_gray_dark;
+    transition: transition(color), transition(background-color);
+
+    &:hover {
+      background-color: $color_gray_dark;
+      color: $color_white;
+    }
+  }
+}
