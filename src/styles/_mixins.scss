@@ -1,7 +1,7 @@
 @import './variables';
 @import './colors';
 
-@mixin toRem($value) {
+@mixin toRem($value: $browser-font-size) {
   font-size: #{$value / $browser-font-size}rem;
 }
 

@@ -1,4 +1,3 @@
-import { FooterComponent } from '../../components/footer';
 import { HeaderComponent } from '../../components/header';
 import { ProductListComponent } from '../../components/product-list';
 import { SidebarComponent } from '../../components/sidebar';
@@ -8,7 +7,7 @@ import './catalog.scss';
 export const CatalogPage = () => {
   return (
     <section className="catalog">
-      <HeaderComponent />
+      <HeaderComponent hasSearch={true} />
       <div className="catalog__inner">
         <div className="catalog__title-block">
           <TitleComponent title="Catalog" isLarge={true} />
@@ -20,7 +19,6 @@ export const CatalogPage = () => {
           </div>
         </div>
       </div>
-      <FooterComponent />
     </section>
   );
 };

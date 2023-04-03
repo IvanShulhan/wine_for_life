@@ -1,19 +1,20 @@
 @import '../../styles/mixins';
+$gap: 20px;
 
 .product-list {
-  width: calc(69% - 20px);
+  width: calc(69% - $gap);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: $gap;
 
   &__header {
     display: flex;
-    gap: 20px;
+    gap: $gap;
   }
 
   &__content {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: $gap;
   }
 }

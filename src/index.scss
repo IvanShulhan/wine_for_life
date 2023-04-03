@@ -16,4 +16,10 @@
   overflow-x: hidden;
   min-height: 100vh;
   background-color: #FFFCFA;
+  display: flex;
+  flex-direction: column;
+
+  &__copntent {
+    flex-grow: 1;
+  }
 }

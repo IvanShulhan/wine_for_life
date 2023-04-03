@@ -1,0 +1,23 @@
+@import '../../styles/mixins';
+@import '../../styles/colors';
+
+.description-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 57px;
+  width: max-content;
+
+  &__name {
+    width: 100px;
+    font-weight: 700;
+    @include toRem(18);
+    line-height: 1.2;
+    color: $color_almost_black;
+  }
+
+  &__text {
+    @include toRem(16);
+    color: $color_gray_dark;
+  }
+}

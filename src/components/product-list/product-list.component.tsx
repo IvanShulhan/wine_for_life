@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
 import { useAppSelector } from '../../store/app/hooks';
-import { selectProducts } from '../../store/products/productsSlice';
+import { selectProducts } from '../../store/slices/products/products.slice';
 import { ProductCardComponent } from '../product-card';
 import { SelectComponent } from './select';
 import './product-list.scss';

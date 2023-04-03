@@ -14,6 +14,5 @@ export const ROUTER_KEYS = {
   ANOTHER: '*',
   HOME: '/',
   CATALOG: '/catalog',
-  DETAILS: '/details',
   ORDER: '/order'
 };

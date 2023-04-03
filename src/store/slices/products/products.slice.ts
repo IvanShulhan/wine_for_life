@@ -1,9 +1,9 @@
 /* eslint-disable no-empty-pattern */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import data from '../../data/data.json';
+import data from '../../../data/data.json';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../app/store';
-import { IProduct } from '../../common/types/product.type';
+import { RootState } from '../../app/store';
+import { IProduct } from '../../../common/types/product.type';
 
 export interface CounterState {
   products: IProduct[];

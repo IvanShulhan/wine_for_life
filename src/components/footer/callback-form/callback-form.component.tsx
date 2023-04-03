@@ -32,8 +32,6 @@ export const CallbackFormComponent = () => {
     }
   });
 
-  console.log(formik.errors.phone, formik.values.phone);
-
   return (
     <div className="callback">
       <TitleComponent title="Call back form" isWhite={true} isThin={true} />

@@ -44,7 +44,21 @@
     transform: scale(1.1);
   }
 
+  &__bag-icon {
+    position: absolute;
+    right: -6px;
+    bottom: -6px;
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background-color: $color_warning;
+    @include flex();
+    @include toRem(16);
+    color: $color_white;
+  }
+
   &__button {
+    position: relative;
     @include flex;
     cursor: pointer;
     font-weight: 600;
