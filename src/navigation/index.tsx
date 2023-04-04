@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { ROUTER_KEYS } from '../common/consts';
 import { CatalogPage } from '../pages/catalog';
 import { DetailsPage } from '../pages/details';
@@ -6,7 +6,7 @@ import { HomePage } from '../pages/home';
 import { OrderPage } from '../pages/order';
 
 export const MainRouter = () => (
-  <BrowserRouter>
+  <HashRouter>
     <Routes>
       <Route path={ROUTER_KEYS.HOME} element={<HomePage />} />
       <Route path={ROUTER_KEYS.CATALOG} element={<CatalogPage />} />
@@ -14,5 +14,5 @@ export const MainRouter = () => (
       <Route path={ROUTER_KEYS.ORDER} element={<OrderPage />} />
       <Route path={ROUTER_KEYS.ANOTHER} element={<>Page not found</>} />
     </Routes>
-  </BrowserRouter>
+  </HashRouter>
 );
