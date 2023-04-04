@@ -1,6 +1,7 @@
 {
   "name": "wine_for_life",
   "version": "0.1.0",
+  "homepage": "https://IvanShulhan.github.io/wine_for_life",
   "keywords": [
     "React",
     "React Router",
@@ -46,7 +47,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
-    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -75,6 +77,7 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
+    "gh-pages": "^5.0.0",
     "onchange": "^7.1.0",
     "prettier": "^2.8.7"
   }
