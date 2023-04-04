@@ -1,0 +1,135 @@
+@import '../../styles/colors';
+@import '../../styles/mixins';
+$gap: 20px;
+
+.details {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  @include toRem(16);
+
+  &__inner {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: toEm(38) 0 toEm(50);
+  }
+
+  &__navigation {
+    margin-bottom: toEm(40);
+    color: $color_text_gray;
+    display: flex;
+    align-items: center;
+    line-height: 1.4;
+    gap: 5px;
+
+
+    &-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    &-text {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  }
+
+  &__image-block {
+    background-color: $color_pale_bage;
+    height: 100%;
+    @include flex();
+  }
+
+  &__content {
+    display: flex;
+    gap: $gap;
+    margin-bottom: $gap;
+
+    &-item {
+      width: calc(50% - $gap/2);
+    }
+  }
+
+  &__price {
+    font-weight: 800;
+    @include toRem(24);
+    color: $color_text_gray;
+  }
+
+  &__description-block, &__description-header,&__description {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__description-header, &__description {
+    gap: 24px;
+  }
+
+  &__description-block {
+    gap: 36px;
+  }
+
+  &__buttons-wrapper {
+    display: flex;
+    gap: $gap;
+  }
+
+  &__description {
+    padding-bottom: toEm(36, 16);
+    border-bottom: 1px solid $color_dividers;
+  }
+
+  &__taste {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    &-title {
+      font-weight: 700;
+      @include toRem(18);
+      line-height: 1.2;
+      color: $color_almost_black;
+    }
+
+    &-text {
+      font-weight: 400;
+      @include toRem(16);
+      line-height: 1.4;
+      color: $color_text_gray;
+    }
+  }
+
+  &__cards {
+    display: flex;
+    gap: $gap;
+  }
+
+  &__card {
+    width: calc(25% - $gap/3);
+    padding: toEm(24, 16); 
+    background-color: $color_pale_bage;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    &-title {
+      font-weight: 600;
+      @include toRem(16);
+      line-height: 1.4;
+      text-align: center;
+      color: $color_text_gray;
+    }
+
+    &-text {
+      text-align: center;
+      font-weight: 600;
+      @include toRem(14);
+      line-height: 1.5;
+      color: $color_secondary_text;
+    }
+  }
+}

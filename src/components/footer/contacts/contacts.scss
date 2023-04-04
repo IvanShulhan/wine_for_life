@@ -1,0 +1,29 @@
+@import '../../../styles/mixins';
+@import '../../../styles/colors';
+@import '../../../styles/placeholders';
+
+.contacts {
+  width: 32%;
+  @extend %footer-box;
+
+  &__content, &__link-text-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__link {
+    @include no-border();
+    text-decoration: none;
+    font-family: 'Mont', sans-serif;
+    font-weight: 400;
+    @include toRem(16);
+    line-height: 1.4;
+    color: $color_white;
+    transition: transition(color);
+
+    &:hover, &:focus {
+      color: $color_warning;
+    }
+  }
+}

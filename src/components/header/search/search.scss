@@ -1,0 +1,42 @@
+@import '../../../styles/colors';
+@import '../../../styles/mixins';
+
+.search {
+  max-width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: toEm(8) toEm(12);
+  @include border(1, $color_pale_bage);
+  transition: transition(border-color);
+
+  &:has(input:focus) {
+    border-color: $color_darker_gray;
+  }
+
+  &:hover {
+    border-color: $color_darker_gray;
+  }
+
+  &__input {
+    @include no-border();
+    background-color: transparent;
+    flex-grow: 1;
+    font-weight: 600;
+    @include toRem( 16);
+    line-height: 1.4;
+    color: $color_text_gray;
+
+    &::placeholder {
+      font-family: inherit;
+      @include toRem(16);
+      font-weight: 400;
+      line-height: 1.4;
+      color: $color_darker_gray;
+    }
+  }
+
+  &__icon path{
+    fill: $color_secondary_text;
+  }
+}

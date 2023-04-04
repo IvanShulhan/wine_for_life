@@ -1,6 +1,6 @@
 import axios, { AxiosStatic } from 'axios';
 import { BACKEND_KEYS, STORAGE_KEYS } from '../common/consts/app-keys.const';
-import { IHttpConfig } from '../common/types/config.types';
+import { IHttpConfig } from '../common/types/config.type';
 
 class HttpSerivce {
   baseUrl: string;
@@ -29,7 +29,11 @@ class HttpSerivce {
     };
   }
 
-  private extractUrlAndDataFromConfig({ data, url, ...configWithoutDataAndUrl }: IHttpConfig) {
+  private extractUrlAndDataFromConfig({
+    data,
+    url,
+    ...configWithoutDataAndUrl
+  }: IHttpConfig) {
     return configWithoutDataAndUrl;
   }
 

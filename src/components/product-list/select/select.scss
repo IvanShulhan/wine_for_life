@@ -1,0 +1,86 @@
+@import '../../../styles/mixins';
+@import '../../../styles/colors';
+
+.select {
+  cursor: pointer;
+  width: calc(50% - 10px);
+  position: relative;
+  @include border();
+  z-index: 2;
+  transition: transition(border-color);
+
+  &:has(&__content:hover), &:has(&__content:focus) {
+    border-color: $color_gray_dark;
+
+    & path {
+      fill: $color_gray_dark;
+    }
+  }
+
+  &__content {
+    @include no-border();
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: toEm(13, 16) toEm(24, 16);
+    transition: transition(background-color);
+
+    &--is-open {
+      background-color: $color_pale_bage;
+    }
+  }
+
+  & svg {
+    width: 22px;
+    height: 12px;
+    transition: transition(fill);
+  }
+
+  &__text {
+    color: $color_gray_dark;
+    font-weight: 400;
+    @include toRem(16);
+    line-height: 1.4;
+  }
+
+  &__list {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    visibility: hidden;
+    transform: translate(-1px, 100%);
+    width: calc(100% + 2px);
+    list-style: none;
+    @include border;
+    border-bottom: none;
+    transition: transition(visibility, 0.1), transition(opacity);
+
+    &--is-visible {
+      visibility: visible;
+    }
+  }
+
+  &__list-item {
+    border-bottom: 1px solid $color_secondary_text;
+  }
+
+  &__button {
+    cursor: pointer;
+    width: 100%;
+    padding: toEm(13, 16) toEm(24, 16);
+    background-color: $color_screen;
+    @include no-border;
+    text-align: left;
+  }
+
+  &__mask {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    background-color: transparent;
+  }
+}

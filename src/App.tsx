@@ -1,16 +1,19 @@
 import React from 'react';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from './theme/theme';
 import { MainRouter } from './navigation';
 import { store } from './store/app/store';
 import { Provider } from 'react-redux';
+import './index.scss';
+import { FooterComponent } from './components/footer';
 
 const App = () => (
-  <ThemeProvider theme={theme}>
-    <Provider store={store}>
-      <MainRouter />
-    </Provider>
-  </ThemeProvider>
+  <Provider store={store}>
+    <div className="wrapper">
+      <div className="wrapper__copntent">
+        <MainRouter />
+      </div>
+      <FooterComponent />
+    </div>
+  </Provider>
 );
 
 export default App;

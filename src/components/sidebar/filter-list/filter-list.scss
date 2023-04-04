@@ -1,0 +1,35 @@
+@import '../../../styles/colors';
+@import '../../../styles/mixins';
+
+.filter-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  & svg {
+    transition: transition(transform);
+  }
+
+  & input:hover ~ svg, & input:focus ~ svg {
+    transform: scale(1.1);
+  }
+
+  &__label {
+    max-width: max-content;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__input {
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+
+  &__text {
+    @include toRem(16);
+    line-height: 1.4;
+  }
+}

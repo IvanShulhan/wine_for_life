@@ -1,0 +1,90 @@
+@import '../../styles/mixins';
+@import '../../styles/colors';
+@import '../../styles/variables';
+
+.header {
+  height: #{$header-height}px;
+  position: relative;
+  padding: toEm(10) 0;
+  border-bottom: 1px solid $color_darker_gray;
+
+  &__bag-mask {
+    position: absolute;
+    top: #{$header-height}px;
+    left: 0;
+    z-index: 2;
+    width: 100vw;
+    height: calc(100vh - #{$header-height}px);
+    background: #37373799;
+  }
+
+  &__inner {
+    @include flex(space-between);
+  }
+
+  &__link {
+    @include no-border();
+  }
+
+  &__logo {
+    width: 78px;
+    height: 60px;
+  }
+
+  &__content {
+    @include flex();
+    gap: 40px;
+  }
+}
+
+.navbar {
+  @include flex();
+  gap: 40px;
+
+  &__link {
+    outline: none;
+    @include flex;
+    transition: transition(transform);
+  }
+
+  &__icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  &__link:hover, &__link:focus, &__button:hover, &__button:focus {
+    text-align: center;
+    transform: scale(1.1);
+  }
+
+  &__bag-icon {
+    position: absolute;
+    right: -6px;
+    bottom: -6px;
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background-color: $color_warning;
+    @include flex();
+    @include toRem(16);
+    color: $color_white;
+  }
+
+  &__button {
+    position: relative;
+    @include flex;
+    cursor: pointer;
+    font-weight: 600;
+    @include toRem(16);
+    line-height: 1.4;
+    color: $color_text_gray;
+    width: max-content;
+    @include no-border();
+    background-color: transparent;
+    transition: transition(color),  transition(transform);
+
+    &:hover, &:focus {
+      color: $color_warning;
+    }
+  }
+}

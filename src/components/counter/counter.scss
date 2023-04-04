@@ -1,0 +1,35 @@
+@import '../../styles/colors';
+@import '../../styles/mixins';
+
+.counter {
+  @include border();
+  display: flex;
+  width: max-content;
+
+  &__button {
+    cursor: pointer;
+    @include no-border();
+    @include flex();
+    background-color: $color_screen;
+    width: 48px;
+    height: 48px;
+
+    & path {
+      transition: transition(fill);
+    }
+
+    &:hover path {
+      fill: $color_text_gray;
+    }
+  }
+
+  &__count {
+    width: 48px;
+    @include flex();
+    background-color: $color_pale_bage;
+    font-weight: 800;
+    @include toRem(18);
+    color: $color_text_gray;
+    line-height: 1.2;
+  }
+}

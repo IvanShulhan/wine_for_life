@@ -1,0 +1,22 @@
+@import "../../styles/colors";
+@import "../../styles/mixins";
+
+.title {
+  font-family: 'Cormorant', serif;
+  color: $color_text_gray;
+  font-weight: 600;
+  @include toRem(32);
+  line-height: 1.2;
+
+  &--is-large {
+    @include toRem(48);
+  }
+
+  &--is-thin {
+    font-weight: 400;
+  }
+
+  &--is-white {
+    color: $color_white;
+  }
+}
