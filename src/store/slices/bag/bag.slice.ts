@@ -6,13 +6,13 @@ import { IProduct } from '../../../common/types/product.type';
 import { STORAGE_KEYS } from '../../../common/consts';
 import helperFuncs from '../../../common/utils/helper.funcs';
 
-interface IBagItiem {
+export interface IBagItem {
   product: IProduct;
   count: number;
 }
 
 export interface BagState {
-  bagItems: IBagItiem[];
+  bagItems: IBagItem[];
 }
 
 const initialState: BagState = {
@@ -23,9 +23,8 @@ export const bagSlice = createSlice({
   name: 'bag',
   initialState,
   reducers: {
-    addToBag: (state: BagState, action: PayloadAction<{ item: IBagItiem }>) => {
+    addToBag: (state: BagState, action: PayloadAction<{ item: IBagItem }>) => {
       if (!action.payload.item.count) return;
-      console.log(action.payload.item.product.id);
 
       const bagItem = state.bagItems.find((el) => el.product.id === action.payload.item.product.id);
 
@@ -39,19 +38,21 @@ export const bagSlice = createSlice({
     },
     removeFromBag: (state: BagState, action: PayloadAction<{ id: number }>) => {
       state.bagItems =
-        state.bagItems?.filter((item) => item.product.id === action.payload.id) || null;
+        state.bagItems?.filter((item) => item.product.id !== action.payload.id) || null;
 
       localStorage.setItem(STORAGE_KEYS.BAG, JSON.stringify(state.bagItems));
     },
     changeCount: (state: BagState, action: PayloadAction<{ id: number; count: number }>) => {
       const item = state.bagItems?.find((item) => item.product.id === action.payload.id);
+
       if (item) {
         item.count = action.payload.count;
+        localStorage.setItem(STORAGE_KEYS.BAG, JSON.stringify(state.bagItems));
       }
     }
   }
 });
 
-export const { addToBag, removeFromBag } = bagSlice.actions;
+export const { addToBag, removeFromBag, changeCount } = bagSlice.actions;
 export const selectBagItems = (state: RootState) => state.bag.bagItems;
 export default bagSlice.reducer;

@@ -1,0 +1,55 @@
+@import '../../styles/colors';
+@import '../../styles/mixins';
+
+.order-item {
+  @include toRem(16);
+  padding: toEm(24);
+  padding-left: 0;
+  @include border(1, $color_dividers);
+  display: flex;
+  gap: 22px;
+
+  &__image-box {
+    width: 108px;
+    height: 162px;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  &__content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__title {
+    font-weight: 700;
+    @include toRem(18);
+    line-height: 1.2;
+    color: $color_text_gray;
+  }
+
+  &__price {
+    flex-grow: 1;
+    @include toRem(16);
+    line-height: 1.4;
+    counter-reset: $color_almost_black;
+  }
+
+  &__count-block {
+    width: 100%;
+    @include flex(space-between);
+  }
+
+  &__count-text {
+    font-weight: 600;
+    @include toRem(16);
+    line-height: 1.4;
+    color: $color_secondary_text;
+  }
+}

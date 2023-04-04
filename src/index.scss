@@ -3,6 +3,12 @@
 @import "./styles/mixins";
 @import "./styles/container";
 
+body {
+  &.is-open-bag {
+    overflow: hidden;
+  }
+}
+
 * {
   padding: 0;
   margin: 0;

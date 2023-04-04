@@ -1,9 +1,22 @@
 @import '../../styles/mixins';
 @import '../../styles/colors';
+@import '../../styles/variables';
 
 .header {
+  height: #{$header-height}px;
+  position: relative;
   padding: toEm(10) 0;
   border-bottom: 1px solid $color_darker_gray;
+
+  &__bag-mask {
+    position: absolute;
+    top: #{$header-height}px;
+    left: 0;
+    z-index: 2;
+    width: 100vw;
+    height: calc(100vh - #{$header-height}px);
+    background: #37373799;
+  }
 
   &__inner {
     @include flex(space-between);
