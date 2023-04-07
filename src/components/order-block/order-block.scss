@@ -6,6 +6,11 @@
   padding-bottom: toEm(40);
   border-bottom: 1px solid $color_pale_bage;
 
+  &--witout-divider {
+    padding-bottom: toEm(20);
+    border-bottom: none;
+  }
+
   &__step {
     @include flex(space-between);
     font-weight: 600;

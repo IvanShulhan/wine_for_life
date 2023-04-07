@@ -6,14 +6,15 @@ import classNames from 'classnames';
 interface IOrder {
   step: number;
   maxStep: number;
+  withDivider?: boolean;
   name: string;
   isFinished: boolean;
   children: JSX.Element;
 }
 
 export const OrderBlockComponent: React.FC<IOrder> = React.memo(
-  ({ step, maxStep, name, isFinished, children }) => (
-    <div className="order-block">
+  ({ step, maxStep, name, isFinished, children, withDivider = true }) => (
+    <div className={classNames('order-block', { 'order-block--witout-divider': !withDivider })}>
       <div className="order-block__step">
         <div className="order-block__step-count">
           <span

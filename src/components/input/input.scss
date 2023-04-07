@@ -4,6 +4,23 @@
 .input-block {
   position: relative;
 
+  &__wrapper {
+    position: relative;
+  }
+
+  &__button {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    @include no-border;
+    background-color: transparent;
+    width: 36px;
+    height: 36px;
+    @include flex();
+  }
+
   &__input {
     @include no-border();
     background-color: transparent;
