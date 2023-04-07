@@ -1,0 +1,44 @@
+@import '../../styles/colors';
+@import '../../styles/mixins';
+
+.order-block {
+  @include toRem(16);
+  padding-bottom: toEm(40);
+  border-bottom: 1px solid $color_pale_bage;
+
+  &__step {
+    @include flex(space-between);
+    font-weight: 600;
+    @include toRem(14);
+    line-height: 1.5;
+    margin-bottom: toEm(20, 14);
+  }
+
+  &__step-count {
+    @include flex();
+    gap: 16px;
+  }
+
+  &__step-number {
+    width: 26px;
+    height: 26px;
+    @include flex();
+    border-radius: 50%;
+    @include border(1, $color_secondary_text);
+    color: $color_secondary_text;
+    transition: transition(border-color), transition(background-color);
+
+    &--is-finished {
+      border-color: $color_sucsess;
+      background-color: $color_sucsess;
+    }
+  }
+
+  &__step-text {
+    color: $color_black;
+  }
+
+  &__step-info {
+    color: $color_secondary_text;
+  }
+}

@@ -10,8 +10,12 @@ export const MainRouter = () => (
     <Routes>
       <Route path={ROUTER_KEYS.HOME} element={<HomePage />} />
       <Route path={ROUTER_KEYS.CATALOG} element={<CatalogPage />} />
-      <Route path={`${ROUTER_KEYS.CATALOG}/:id`} element={<DetailsPage />} />
-      <Route path={ROUTER_KEYS.ORDER} element={<OrderPage />} />
+      <Route path={`${ROUTER_KEYS.CATALOG}${ROUTER_KEYS.DETAILS}/:id`} element={<DetailsPage />} />
+      <Route path={`${ROUTER_KEYS.CATALOG}${ROUTER_KEYS.ORDER}`} element={<OrderPage />} />
+      <Route
+        path={`${ROUTER_KEYS.CATALOG}${ROUTER_KEYS.DETAILS}${ROUTER_KEYS.ORDER}`}
+        element={<OrderPage />}
+      />
       <Route path={ROUTER_KEYS.ANOTHER} element={<>Page not found</>} />
     </Routes>
   </HashRouter>

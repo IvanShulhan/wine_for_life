@@ -1,0 +1,20 @@
+@import '../../styles/mixins';
+
+.radio {
+  & input {
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+
+  &__label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-bottom: toEm(20, 16);
+  }
+
+  &__label-text {
+    margin-left: toEm(16);
+  }
+}

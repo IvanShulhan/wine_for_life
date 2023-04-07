@@ -2,7 +2,7 @@
 @import "../../styles/mixins";
 
 .title {
-  font-family: 'Cormorant', serif;
+  font-family: 'Cormorant', 'serif';
   color: $color_text_gray;
   font-weight: 600;
   @include toRem(32);

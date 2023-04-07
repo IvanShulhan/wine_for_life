@@ -18,6 +18,7 @@ import './details.scss';
 // delete
 import bottle from '../../assets/images/large__bottle.png';
 import { selectProducts } from '../../store/slices/products/products.slice';
+import { NavigationComponent } from '../../components/navigation/navigation.component';
 
 export const DetailsPage = () => {
   const { search } = useLocation();
@@ -53,14 +54,9 @@ export const DetailsPage = () => {
       <div className="container">
         {product ? (
           <div className="details__inner">
-            <div className="details__navigation">
-              <Link className="details__navigation-link" to="/catalog">
-                Catalog
-              </Link>
-              <span className="details__navigation-text">
-                <img src={pipe} alt="pipe" /> Details
-              </span>
-            </div>
+            <span className="details__navigation-wrapper">
+              <NavigationComponent currentPage="Details" />
+            </span>
             <div className="details__content">
               <div className="details__content-item">
                 <div className="details__image-block">

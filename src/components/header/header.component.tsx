@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../store/app/hooks';
 import { selectBagItems } from '../../store/slices/bag/bag.slice';
@@ -7,17 +7,22 @@ import { BagComponent } from '../bag';
 import { ReactComponent as Logo } from '../../assets/icons/logo.svg';
 import { ReactComponent as User } from '../../assets/icons/user.svg';
 import { ReactComponent as Bag } from '../../assets/icons/bag.svg';
+import classNames from 'classnames';
 import './header.scss';
 
 interface IProps {
   hasSearch?: boolean;
-  withBag?: boolean;
+  hasBag?: boolean;
 }
 
 export const HeaderComponent: React.FC<IProps> = React.memo(
-  ({ hasSearch = false, withBag = true }) => {
+  ({ hasSearch = false, hasBag = true }) => {
     const bagItems = useAppSelector(selectBagItems);
     const [isOpenBag, setIsOpenBag] = useState(false);
+
+    const closeBag = useCallback(() => {
+      setIsOpenBag(false);
+    }, []);
 
     useEffect(() => {
       isOpenBag
@@ -27,10 +32,15 @@ export const HeaderComponent: React.FC<IProps> = React.memo(
 
     return (
       <header className="header">
-        {withBag && isOpenBag && (
+        {hasBag && (
           <>
-            <div className="header__bag-mask" onClick={() => setIsOpenBag(false)} />
-            <BagComponent closeFn={() => setIsOpenBag(false)} />
+            <div
+              className={classNames('header__bag-mask', {
+                'header__bag-mask--is-visible': isOpenBag
+              })}
+              onClick={closeBag}
+            />
+            <BagComponent closeFn={closeBag} isOpen={isOpenBag} />
           </>
         )}
         <div className="container header__container">
@@ -44,12 +54,14 @@ export const HeaderComponent: React.FC<IProps> = React.memo(
                 <Link to="/profile" className="navbar__link">
                   <User className="navbar__icon" />
                 </Link>
-                <button className="navbar__button" onClick={() => setIsOpenBag(!isOpenBag)}>
-                  <Bag className="navbar__icon" />
-                  {Boolean(bagItems.length) && (
-                    <span className="navbar__bag-icon">{bagItems.length}</span>
-                  )}
-                </button>
+                {hasBag && (
+                  <button className="navbar__button" onClick={() => setIsOpenBag(!isOpenBag)}>
+                    <Bag className="navbar__icon" />
+                    {Boolean(bagItems.length) && (
+                      <span className="navbar__bag-icon">{bagItems.length}</span>
+                    )}
+                  </button>
+                )}
                 <button className="navbar__button">Log in</button>
               </nav>
             </div>

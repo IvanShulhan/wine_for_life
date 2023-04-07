@@ -1,0 +1,21 @@
+@import '../../styles/colors';
+@import '../../styles/mixins';
+
+.naked-button {
+  font-weight: 600;
+  @include toRem(16);
+  padding: toEm(10, 16) toEm(20, 16);
+  line-height: 1.4;
+  border: 1px solid transparent;
+  color: $color_secondary_text;
+  background-color: transparent;
+  transition: transition(all);
+
+  &--is-active {
+    font-weight: 700;
+    @include toRem(18);
+    line-height: 1.20;
+    color: $color_text_gray;
+    border-color: $color_secondary_text;
+  }
+}

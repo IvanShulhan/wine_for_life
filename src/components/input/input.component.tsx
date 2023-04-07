@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import './input.scss';
 
 interface IProps {
+  isDark?: boolean;
   isPhoneInput?: boolean;
   isBold?: boolean;
   placeholder: string;
@@ -18,6 +19,7 @@ interface IProps {
 
 export const InputComponent: React.FC<IProps> = React.memo(
   ({
+    isDark = false,
     isBold = false,
     placeholder,
     name,
@@ -33,6 +35,7 @@ export const InputComponent: React.FC<IProps> = React.memo(
         <InputMask
           mask="+380(99) 999-99-99"
           className={classNames('input-block__input', 'input-block__input--is-mask', {
+            'input-block__input--is-dark': isDark,
             'input-block__input--is-bold': isBold,
             'input-block__input--is-error': error,
             'input-block__input--is-warning': warning
@@ -45,6 +48,7 @@ export const InputComponent: React.FC<IProps> = React.memo(
       ) : (
         <input
           className={classNames('input-block__input', {
+            'input-block__input--is-dark': isDark,
             'input-block__input--is-bold': isBold,
             'input-block__input--is-error': error,
             'input-block__input--is-warning': warning

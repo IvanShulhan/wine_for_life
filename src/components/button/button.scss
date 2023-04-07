@@ -2,6 +2,7 @@
 @import "../../styles/mixins";
 
 .button {
+  cursor: pointer;
   color: $color_white;
   width: 100%;
   font-size: 25px;

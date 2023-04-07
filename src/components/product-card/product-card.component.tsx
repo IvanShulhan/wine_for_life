@@ -11,6 +11,7 @@ import './product-card.scss';
 
 // delete
 import bottle from '../../assets/images/bottle.png';
+import { ROUTER_KEYS } from '../../common/consts';
 
 interface IProps {
   product: IProduct;
@@ -25,7 +26,9 @@ export const ProductCardComponent: React.FC<IProps> = React.memo(({ product }) =
 
   return (
     <div className="product-card">
-      <Link className="product-card__link" to={`${product.id}`}>
+      <Link
+        className="product-card__link"
+        to={`${ROUTER_KEYS.CATALOG}${ROUTER_KEYS.DETAILS}/${product.id}`}>
         <TitleComponent title={product.name} />
         <div className="product-card__image-box">
           <img src={bottle} alt="bottle of good wine" className="product-card__image" />

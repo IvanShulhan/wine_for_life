@@ -1,13 +1,19 @@
-@import '../../../styles/mixins';
-@import '../../../styles/colors';
+@import '../../styles/mixins';
+@import '../../styles/colors';
 
 .select {
-  cursor: pointer;
   width: calc(50% - 10px);
   position: relative;
   @include border();
-  z-index: 2;
   transition: transition(border-color);
+
+  &--is-full {
+    width: 100%;
+
+    .select__content, .select__button {
+      padding: toEm(12) toEm(13);
+    }
+  }
 
   &:has(&__content:hover), &:has(&__content:focus) {
     border-color: $color_gray_dark;
@@ -17,7 +23,22 @@
     }
   }
 
+  &--is-disabled {
+    border-color: $color_disabled !important;
+
+    & path {
+      fill: $color_disabled !important; 
+    }
+
+    .select__content {
+      cursor: default;
+    }
+  }
+
   &__content {
+    position: relative;
+    z-index: 0;
+    cursor: pointer;
     @include no-border();
     display: flex;
     align-items: center;
@@ -26,7 +47,12 @@
     transition: transition(background-color);
 
     &--is-open {
+      z-index: 3;
       background-color: $color_pale_bage;
+    }
+
+    &--is-disabled {
+      cursor: default;
     }
   }
 
@@ -47,16 +73,21 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    z-index: 1;
     visibility: hidden;
     transform: translate(-1px, 100%);
     width: calc(100% + 2px);
     list-style: none;
     @include border;
     border-bottom: none;
-    transition: transition(visibility, 0.1), transition(opacity);
+    max-height: 132px;
+    overflow: auto; 
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
 
     &--is-visible {
+      z-index: 3;
       visibility: visible;
     }
   }
@@ -68,7 +99,7 @@
   &__button {
     cursor: pointer;
     width: 100%;
-    padding: toEm(13, 16) toEm(24, 16);
+    padding: toEm(13) toEm(24);
     background-color: $color_screen;
     @include no-border;
     text-align: left;

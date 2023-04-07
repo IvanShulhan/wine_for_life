@@ -1,0 +1,40 @@
+{
+  "cities": [
+    "Cherkasy",	
+    "Chernihiv",
+    "Chernivtsi",	
+    "Dnipro",
+    "Ivano-Frankivsk",
+    "Kharkiv",
+    "Kherson",
+    "Kyiv",
+    "Luhansk",
+    "Lutsk",
+    "Lviv",
+    "Mariupol",
+    "Mykolaiv",
+    "Odesa",
+    "Poltava",
+    "Rivne",
+    "Sumy",
+    "Ternopil",
+    "Uzhhorod",
+    "Vinnytsia",
+    "Yalta",
+    "Zaporizhzhia",
+    "Zhytomyr"
+  ],
+  "streets": [
+    "Shevchenka", 
+    "Lesi Ukrainky",
+    "Heroiv UPA", 
+    "Molodizna", 
+    "Ivana Franka", 
+    "Heroiv Maidanu", 
+    "Sahaydachnogo", 
+    "Shashkevycha", 
+    "Sheptyckoho", 
+    "Hrushevskoho", 
+    "Doroshenka"
+  ]
+}

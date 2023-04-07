@@ -1,5 +1,5 @@
-@import '../../../styles/colors';
-@import '../../../styles/mixins';
+@import '../../styles/colors';
+@import '../../styles/mixins';
 
 .input-block {
   position: relative;
@@ -43,6 +43,26 @@
     &:focus {
       &::placeholder {
         color: $color_darker_gray;
+      }
+    }
+
+    &--is-dark {
+      @include border(1, $color_secondary_text);
+      padding: toEm(13);
+      font-weight: 600;
+      color: $color_secondary_text;
+
+      &::placeholder {
+        font-weight: 400;
+        color: $color_secondary_text;
+      }
+
+      &.input-block__input--is-warning {
+        border-color: $color_warning_msg;
+      }
+
+      &.input-block__input--is-error {
+        border-color: $color_warning;
       }
     }
   }

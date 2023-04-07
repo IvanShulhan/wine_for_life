@@ -8,33 +8,15 @@ $gap: 20px;
   flex-direction: column;
   @include toRem(16);
 
+  &__navigation-wrapper {
+    margin-bottom: toEm(40);
+  }
+
   &__inner {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     padding: toEm(38) 0 toEm(50);
-  }
-
-  &__navigation {
-    margin-bottom: toEm(40);
-    color: $color_text_gray;
-    display: flex;
-    align-items: center;
-    line-height: 1.4;
-    gap: 5px;
-
-
-    &-link {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    &-text {
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
   }
 
   &__image-block {

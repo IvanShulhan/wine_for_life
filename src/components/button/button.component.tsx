@@ -6,6 +6,7 @@ import './button.scss';
 interface IProps {
   text: string;
   colorSchema?: ColorShema;
+  isDisabled?: boolean;
   type?: ButtonTypes;
   outlined?: boolean;
   onClick?: () => void;
@@ -17,6 +18,7 @@ export const ButtonComponent: React.FC<IProps> = React.memo(
     outlined = false,
     colorSchema = ColorShema.dark,
     type = ButtonTypes.button,
+    isDisabled = false,
     onClick
   }) => {
     const generateClassName = () => {
@@ -32,6 +34,7 @@ export const ButtonComponent: React.FC<IProps> = React.memo(
 
     return (
       <button
+        disabled={isDisabled}
         className={classNames('button', generateClassName(), { 'button--is-outlined': outlined })}
         type={type}
         onClick={onClick}>

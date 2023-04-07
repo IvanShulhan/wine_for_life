@@ -3,7 +3,7 @@
 
 .order-item {
   @include toRem(16);
-  padding: toEm(24);
+  padding: toEm(16);
   padding-left: 0;
   @include border(1, $color_dividers);
   display: flex;

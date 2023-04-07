@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react';
 import { useAppSelector } from '../../store/app/hooks';
 import { selectProducts } from '../../store/slices/products/products.slice';
 import { ProductCardComponent } from '../product-card';
-import { SelectComponent } from './select';
+import { SelectComponent } from '../select';
 import './product-list.scss';
 import { ButtonComponent } from '../button';
 import { useLocation, useSearchParams } from 'react-router-dom';
@@ -13,6 +13,8 @@ export const ProductListComponent = () => {
   const { search } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams(search);
   const [page, setPage] = useState(searchParams.get('page') || 1);
+
+  console.log(search);
 
   const increasePage = () => {
     setPage(+page + 1);

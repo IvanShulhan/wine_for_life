@@ -1,0 +1,25 @@
+@import '../../styles/mixins';
+@import '../../styles/colors';
+
+.input-label {
+  position: relative;
+  width: calc(50% - 10px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &__text {
+    font-weight: 600;
+    @include toRem(14);
+    line-height: 1.5;
+    color: $color_text_gray;
+  }
+
+  &__error {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transform: translateY(calc(100% + 1px));
+    color: $color_warning;
+  }
+}

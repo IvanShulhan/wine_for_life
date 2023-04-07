@@ -1,22 +1,10 @@
-import * as yup from 'yup';
 import { useFormik } from 'formik';
-import { COMMON_CONST } from '../../../common/consts';
-import { InputComponent } from '../input';
+import { InputComponent } from '../../input';
 import { TitleComponent } from '../../title';
 import { ButtonComponent } from '../../button';
 import './callback.scss';
 import { ButtonTypes, ColorShema } from '../../../common/types/button-types.enum';
-
-const validationSchema = yup.object({
-  name: yup.string().min(3, 'Must be at least 3 characters long').required('Name is required'),
-  phone: yup
-    .string()
-    .test('len', 'Phone length equal 12 numbers', (val) => {
-      const onlyDigits = val?.split('').filter((ch) => COMMON_CONST.DIGIT_REGEX.test(ch));
-      return onlyDigits?.length === 12;
-    })
-    .required('Phone number is required')
-});
+import { callbackFormSchema } from '../../../schemas';
 
 export const CallbackFormComponent = () => {
   const formik = useFormik({
@@ -24,7 +12,7 @@ export const CallbackFormComponent = () => {
       name: '',
       phone: ''
     },
-    validationSchema: validationSchema,
+    validationSchema: callbackFormSchema,
     validateOnChange: true,
     validateOnMount: true,
     onSubmit: (values) => {

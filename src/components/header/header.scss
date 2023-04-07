@@ -5,17 +5,25 @@
 .header {
   height: #{$header-height}px;
   position: relative;
-  padding: toEm(10) 0;
+  padding: toEm(19) 0;
   border-bottom: 1px solid $color_darker_gray;
 
   &__bag-mask {
     position: absolute;
     top: #{$header-height}px;
     left: 0;
-    z-index: 2;
+    opacity: 0;
+    transform: translateX(100%);
+    z-index: 3;
     width: 100vw;
     height: calc(100vh - #{$header-height}px);
     background: #37373799;
+    transition: transition(transform), transition(opacity);
+
+    &--is-visible {
+      opacity: 1;
+      transform: translateX(0)
+    }
   }
 
   &__inner {
@@ -27,8 +35,8 @@
   }
 
   &__logo {
-    width: 78px;
-    height: 60px;
+    width: 83px;
+    height: 41px;
   }
 
   &__content {
@@ -50,11 +58,6 @@
   &__icon {
     width: 32px;
     height: 32px;
-  }
-
-  &__link:hover, &__link:focus, &__button:hover, &__button:focus {
-    text-align: center;
-    transform: scale(1.1);
   }
 
   &__bag-icon {
