@@ -30,6 +30,7 @@ export const SidebarComponent = () => {
   });
 
   const isChecked = (key: string, value: string) => {
+    console.log(key, value);
     return filterKeys[key].some((el) => el === value);
   };
 

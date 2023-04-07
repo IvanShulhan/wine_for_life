@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
 import { addToBag } from '../../store/slices/bag/bag.slice';
 import { HeaderComponent } from '../../components/header';
@@ -12,7 +12,7 @@ import cheese from '../../assets/icons/cheese.svg';
 import grape from '../../assets/icons/grape.svg';
 import taste from '../../assets/icons/tasre.svg';
 import temperature from '../../assets/icons/temperature.svg';
-import pipe from '../../assets/icons/pipe.svg';
+import { motion } from 'framer-motion';
 import './details.scss';
 
 // delete
@@ -49,7 +49,11 @@ export const DetailsPage = () => {
   };
 
   return (
-    <section className="details">
+    <motion.section
+      className="details"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}>
       <HeaderComponent />
       <div className="container">
         {product ? (
@@ -126,6 +130,6 @@ export const DetailsPage = () => {
           <>Product not found</>
         )}
       </div>
-    </section>
+    </motion.section>
   );
 };

@@ -73,7 +73,8 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    visibility: hidden;
+    opacity: 0;
+    height: 0;
     transform: translate(-1px, 100%);
     width: calc(100% + 2px);
     list-style: none;
@@ -81,6 +82,8 @@
     border-bottom: none;
     max-height: 132px;
     overflow: auto; 
+    transition: transition(all);
+    border-bottom: 1px solid $color_secondary_text;
 
     &::-webkit-scrollbar {
       width: 0;
@@ -88,11 +91,12 @@
 
     &--is-visible {
       z-index: 3;
-      visibility: visible;
+      opacity: 1;
+      height: max-content;
     }
   }
 
-  &__list-item {
+  &__list-item:not(:last-child) {
     border-bottom: 1px solid $color_secondary_text;
   }
 

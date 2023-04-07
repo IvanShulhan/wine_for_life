@@ -23,6 +23,7 @@ import masterCard from '../../assets/icons/mastercard.png';
 import visa from '../../assets/icons/visa.png';
 import googlePay from '../../assets/icons/googlepay.png';
 import adreses from '../../data/warehouses.json';
+import { motion } from 'framer-motion';
 import './order.scss';
 
 export const OrderPage = () => {
@@ -47,8 +48,13 @@ export const OrderPage = () => {
     validateOnChange: true,
     validateOnMount: true,
     onSubmit: (values) => {
-      console.log(values);
-      alert(JSON.stringify(values));
+      alert(
+        JSON.stringify({
+          ...values,
+          goods: BagItems.map((it) => ({ ...it, product: it.product.id }))
+        })
+      );
+      formik.resetForm();
     }
   });
 
@@ -98,10 +104,18 @@ export const OrderPage = () => {
     }
   }, [totalPrice]);
 
+  useEffect(() => {
+    loginFormik.setValues({ password: '', email: '' });
+  }, [isNewCustomer]);
+
   const getIsChacked = (val: string) => formik.values.payment === val;
 
   return (
-    <section className="order">
+    <motion.section
+      className="order"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}>
       <HeaderComponent hasBag={false} />
       <div className="container">
         <div className="order__inner">
@@ -228,6 +242,7 @@ export const OrderPage = () => {
                           <SelectComponent
                             name="choose your city"
                             values={adreses.cities}
+                            currentVal={formik.values.city}
                             property="city"
                             onChangeFun={setFormicValue}
                             withParams={false}
@@ -378,6 +393,6 @@ export const OrderPage = () => {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
