@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import axios, { AxiosStatic } from 'axios';
-import { STORAGE_KEYS } from '../common/consts/app-keys.const';
+import { BACKEND_KEYS, STORAGE_KEYS } from '../common/consts/app-keys.const';
 import { IHttpConfig } from '../common/types/config.type';
 
 class HttpSerivce {
@@ -8,13 +8,20 @@ class HttpSerivce {
 
   fetchingService: AxiosStatic;
 
-  constructor(baseUrl = process.env.REACT_APP_SERVER_URL, fetchingService = axios) {
+  apiVersion: string;
+
+  constructor(
+    baseUrl = process.env.REACT_APP_SERVER_URL,
+    apiVersion = BACKEND_KEYS.API_VERSION,
+    fetchingService = axios
+  ) {
     this.baseUrl = baseUrl || '';
+    this.apiVersion = apiVersion;
     this.fetchingService = fetchingService;
   }
 
   private getFullApiUrl(url: string) {
-    return `${this.baseUrl}/${url}`;
+    return `${this.baseUrl}/${this.apiVersion}/${url}`;
   }
 
   private populateTokenToHeaderConfig() {

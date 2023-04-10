@@ -3,8 +3,6 @@ declare module '*.woff';
 declare module '*.jpg';
 declare module '*.png';
 
-declare module 'framer-motion';
-
 declare module '*.svg' {
   import React = require('react');
   export const ReactComponent: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;

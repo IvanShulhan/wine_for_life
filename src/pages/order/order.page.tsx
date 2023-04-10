@@ -23,7 +23,6 @@ import masterCard from '../../assets/icons/mastercard.png';
 import visa from '../../assets/icons/visa.png';
 import googlePay from '../../assets/icons/googlepay.png';
 import adreses from '../../data/warehouses.json';
-import { motion } from 'framer-motion';
 import './order.scss';
 
 export const OrderPage = () => {
@@ -112,11 +111,7 @@ export const OrderPage = () => {
   const getIsChacked = (val: string) => formik.values.payment === val;
 
   return (
-    <motion.section
-      className="order"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}>
+    <section className="order">
       <HeaderComponent hasBag={false} />
       <div className="container">
         <div className="order__inner">
@@ -400,6 +395,6 @@ export const OrderPage = () => {
           </div>
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 };

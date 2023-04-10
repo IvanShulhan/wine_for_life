@@ -12,7 +12,6 @@ import cheese from '../../assets/icons/cheese.svg';
 import grape from '../../assets/icons/grape.svg';
 import taste from '../../assets/icons/tasre.svg';
 import temperature from '../../assets/icons/temperature.svg';
-import { motion } from 'framer-motion';
 import './details.scss';
 
 // delete
@@ -53,11 +52,7 @@ export const DetailsPage = () => {
   };
 
   return (
-    <motion.section
-      className="details"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}>
+    <section className="details">
       <HeaderComponent />
       <div className="container">
         {product ? (
@@ -134,6 +129,6 @@ export const DetailsPage = () => {
           <>Product not found</>
         )}
       </div>
-    </motion.section>
+    </section>
   );
 };

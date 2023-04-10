@@ -25,7 +25,7 @@ export const LoginPage = () => {
   });
 
   return (
-    <div className="login">
+    <section className="login">
       <div className="login__content">
         <TitleComponent title="Login" isLarge={true} />
         <form onSubmit={formik.handleSubmit}>
@@ -74,6 +74,6 @@ export const LoginPage = () => {
           </Link>
         </span>
       </div>
-    </div>
+    </section>
   );
 };

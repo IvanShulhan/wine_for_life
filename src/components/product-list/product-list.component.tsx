@@ -16,9 +16,9 @@ export const ProductListComponent = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getProducts(search));
     searchParams.set('page', page.toString());
     setSearchParams(searchParams);
+    dispatch(getProducts(search));
   }, [page]);
 
   const increasePage = () => {
