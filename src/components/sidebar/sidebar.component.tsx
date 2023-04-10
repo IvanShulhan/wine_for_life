@@ -8,6 +8,8 @@ import { FilterListComponent } from './filter-list/filter-list.component';
 import helperFuncs from '../../common/utils/helper.funcs';
 import { ColorShema } from '../../common/types/button-types.enum';
 import './sidebar.scss';
+import { useAppDispatch } from '../../store/app/hooks';
+import { getProducts } from '../../store/slices/products/products.slice';
 
 interface IFilterKeys {
   [key: string]: string[];
@@ -16,6 +18,7 @@ interface IFilterKeys {
 export const SidebarComponent = () => {
   const { search } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams(search);
+  const dispatch = useAppDispatch();
 
   const getSearcValues = (key: string) => {
     const values = searchParams.get(key);
@@ -30,7 +33,6 @@ export const SidebarComponent = () => {
   });
 
   const isChecked = (key: string, value: string) => {
-    console.log(key, value);
     return filterKeys[key].some((el) => el === value);
   };
 
@@ -62,7 +64,7 @@ export const SidebarComponent = () => {
   };
 
   const onSubmit = () => {
-    alert(JSON.stringify(filterKeys));
+    dispatch(getProducts(search));
   };
 
   return (

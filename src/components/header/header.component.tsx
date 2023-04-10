@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../store/app/hooks';
 import { selectBagItems } from '../../store/slices/bag/bag.slice';
 import { SearchComponent } from './search';
@@ -17,6 +17,7 @@ interface IProps {
 
 export const HeaderComponent: React.FC<IProps> = React.memo(
   ({ hasSearch = false, hasBag = true }) => {
+    const navigate = useNavigate();
     const bagItems = useAppSelector(selectBagItems);
     const [isOpenBag, setIsOpenBag] = useState(false);
 
@@ -62,7 +63,9 @@ export const HeaderComponent: React.FC<IProps> = React.memo(
                     )}
                   </button>
                 )}
-                <button className="navbar__button">Log in</button>
+                <button onClick={() => navigate('/login')} className="navbar__button">
+                  Log in
+                </button>
               </nav>
             </div>
           </div>

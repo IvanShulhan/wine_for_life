@@ -5,6 +5,8 @@ import { DetailsPage } from '../pages/details';
 import { HomePage } from '../pages/home';
 import { OrderPage } from '../pages/order';
 import { AnimatePresence } from 'framer-motion';
+import { LoginPage } from '../pages/login';
+import { RegistrationPage } from '../pages/register';
 
 export const AnimateRoutes = () => {
   const location = useLocation();
@@ -23,6 +25,8 @@ export const AnimateRoutes = () => {
           path={`${ROUTER_KEYS.CATALOG}${ROUTER_KEYS.DETAILS}${ROUTER_KEYS.ORDER}`}
           element={<OrderPage />}
         />
+        <Route path={ROUTER_KEYS.REGISTRATION} element={<RegistrationPage />} />
+        <Route path={ROUTER_KEYS.LOGIN} element={<LoginPage />} />
         <Route path={ROUTER_KEYS.ANOTHER} element={<Navigate to={ROUTER_KEYS.CATALOG} />} />
       </Routes>
     </AnimatePresence>

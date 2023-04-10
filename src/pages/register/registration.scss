@@ -1,0 +1,40 @@
+@import '../../styles/mixins';
+
+.registration {
+  flex-grow: 1;
+  @include flex;
+
+  & .title {
+    margin-bottom: 40px;
+  }
+
+  &__button-wrapper {
+    width: 100%;
+    @include flex;
+  }
+
+  &__link {
+    align-self: start;
+    margin-bottom: 20px;
+  }
+
+  &__content {
+    width: 387px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &__form {
+    width: 794px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+
+    & button {
+      width: 50%;
+    }
+  }
+}

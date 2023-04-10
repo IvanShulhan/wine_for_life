@@ -28,6 +28,7 @@ import './order.scss';
 
 export const OrderPage = () => {
   const [isNewCustomer, setIsNewCustomer] = useState(true);
+  const [isRegisterAfterOrder, setIsRegisterAfterOrder] = useState(false);
   const BagItems = useAppSelector(selectBagItems);
   const navigate = useNavigate();
 
@@ -224,6 +225,12 @@ export const OrderPage = () => {
                             helperText={formik.errors.phone}
                           />
                         </InputLabelComponent>
+                        <CheckboxComponent
+                          name="create account"
+                          onChange={() => setIsRegisterAfterOrder(!isRegisterAfterOrder)}
+                          text="Create account?"
+                          isChecked={isRegisterAfterOrder}
+                        />
                       </div>
                     </OrderBlockComponent>
                     <OrderBlockComponent
@@ -364,7 +371,7 @@ export const OrderPage = () => {
                             helperText={loginFormik.errors.password}
                           />
                         </InputLabelComponent>
-                        <Link className="order__link" to="/restore-password">
+                        <Link className="link order__link" to="/restore-password">
                           Forgot password?
                         </Link>
                       </div>

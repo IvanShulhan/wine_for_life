@@ -71,7 +71,7 @@ export const SelectComponent: React.FC<IProps> = React.memo(
               ? helperFuncs.modifyFirstChar(name)
               : value || helperFuncs.modifyFirstChar(name)}
           </h3>
-          {isOpen ? <ArrowTop /> : <ArrowDown />}
+          {!isDisabled && (isOpen ? <ArrowTop /> : <ArrowDown />)}
           <ul className={classNames('select__list', { 'select__list--is-visible': isOpen })}>
             {values.map((item) => (
               <li className="select__list-item" key={uuid()}>

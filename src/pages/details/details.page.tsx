@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useParams, useSearchParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
+import { useAppDispatch } from '../../store/app/hooks';
 import { addToBag } from '../../store/slices/bag/bag.slice';
 import { HeaderComponent } from '../../components/header';
 import { TitleComponent } from '../../components/title';
@@ -17,17 +17,21 @@ import './details.scss';
 
 // delete
 import bottle from '../../assets/images/large__bottle.png';
-import { selectProducts } from '../../store/slices/products/products.slice';
 import { NavigationComponent } from '../../components/navigation/navigation.component';
+import productsService from '../../services/products.service';
+import { IProduct } from '../../common/types/product.type';
 
 export const DetailsPage = () => {
+  const [product, setProduct] = useState<IProduct | null>(null);
   const { search } = useLocation();
   const [serchParams, setSearchParams] = useSearchParams(search);
   const [count, setCount] = useState(+(serchParams.get('count') || 0));
   const dispatch = useAppDispatch();
-  const products = useAppSelector(selectProducts);
   const { id = '' } = useParams();
-  const product = products.find((item) => item.id === +id);
+
+  useEffect(() => {
+    productsService.getProduct(+id).then(({ data }) => setProduct(data));
+  }, []);
 
   const addHandler = () => {
     product && dispatch(addToBag({ item: { count, product } }));

@@ -44,6 +44,7 @@
   &__count-block {
     width: 100%;
     @include flex(space-between);
+    gap: 10px;
   }
 
   &__count-text {

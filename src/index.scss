@@ -2,6 +2,7 @@
 @import "./styles/variables";
 @import "./styles/mixins";
 @import "./styles/container";
+@import "./styles/link";
 
 body {
   &.is-open-bag {
@@ -26,6 +27,8 @@ body {
   flex-direction: column;
 
   &__copntent {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
   }
 }

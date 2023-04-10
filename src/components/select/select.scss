@@ -24,12 +24,6 @@
   }
 
   &--is-disabled {
-    border-color: $color_disabled !important;
-
-    & path {
-      fill: $color_disabled !important; 
-    }
-
     .select__content {
       cursor: default;
     }

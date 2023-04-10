@@ -1,11 +1,11 @@
-import { Fragment, useState } from 'react';
-import { useAppSelector } from '../../store/app/hooks';
-import { selectProducts } from '../../store/slices/products/products.slice';
+import { Fragment, useState, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
 import { ProductCardComponent } from '../product-card';
 import { SelectComponent } from '../select';
-import './product-list.scss';
 import { ButtonComponent } from '../button';
 import { useLocation, useSearchParams } from 'react-router-dom';
+import { getProducts, selectProducts } from '../../store/slices/products/products.slice';
+import './product-list.scss';
 
 const sortValues = ['low to high', 'high to low'];
 
@@ -13,13 +13,16 @@ export const ProductListComponent = () => {
   const { search } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams(search);
   const [page, setPage] = useState(searchParams.get('page') || 1);
+  const dispatch = useAppDispatch();
 
-  console.log(search);
+  useEffect(() => {
+    dispatch(getProducts(search));
+    searchParams.set('page', page.toString());
+    setSearchParams(searchParams);
+  }, [page]);
 
   const increasePage = () => {
     setPage(+page + 1);
-    searchParams.set('page', `${+page + 1}`);
-    setSearchParams(searchParams);
   };
 
   const products = useAppSelector(selectProducts);

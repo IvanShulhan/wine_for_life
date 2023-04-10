@@ -5,9 +5,10 @@ export const STORAGE_KEYS = {
 };
 
 export const BACKEND_KEYS = {
-  API_VERSION: 'api',
   BASE_URL: process.env.REACT_APP_SERVER_URL,
-  TODOS: 'todos'
+  PRODUCTS: 'products',
+  SIGN_UP: 'sign-up',
+  LOG_IN: 'log-in'
 };
 
 export const ROUTER_KEYS = {
@@ -15,5 +16,8 @@ export const ROUTER_KEYS = {
   HOME: '/',
   CATALOG: '/catalog',
   ORDER: '/order',
-  DETAILS: '/details'
+  DETAILS: '/details',
+  REGISTRATION: '/registration',
+  LOGIN: '/login',
+  RESTORE: '/restore-password'
 };

@@ -33,17 +33,23 @@ export const BagComponent: React.FC<IBag> = React.memo(({ closeFn, isOpen }) => 
         </button>
       </div>
       <div className="bag__body">
-        {BagItems.length ? (
-          <ul className="bag__body-list">
-            {BagItems.map((item) => (
-              <li key={item.product.id}>
-                <OrderItemComponent item={item} />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <h5 className="bag__body-info-text">It’s empty now.</h5>
-        )}
+        <div className="bag__body-list-wrapper">
+          {BagItems.length ? (
+            <ul className="bag__body-list">
+              {BagItems.map((item) => (
+                <li key={item.product.id}>
+                  <OrderItemComponent item={item} />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <h5 className="bag__body-info-text">It’s empty now.</h5>
+          )}
+        </div>
+      </div>
+      <div className="bag__footer">
+        <span className="bag__footer-text">Total</span>
+        <span className="bag__footer-price">${totalPrice.toFixed(2)}</span>
         <div
           className={classNames('bag__body-button-wrapper', {
             'bag__body-button-wrapper--is-hidden': !BagItems.length
@@ -55,10 +61,6 @@ export const BagComponent: React.FC<IBag> = React.memo(({ closeFn, isOpen }) => 
             colorSchema={ColorShema.red}
           />
         </div>
-      </div>
-      <div className="bag__footer">
-        <span className="bag__footer-text">Total</span>
-        <span className="bag__footer-price">${totalPrice.toFixed(2)}</span>
       </div>
     </div>
   );

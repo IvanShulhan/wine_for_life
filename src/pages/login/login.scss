@@ -1,0 +1,30 @@
+@import '../../styles/mixins';
+
+.login {
+  flex-grow: 1;
+  @include flex;
+
+  & .title {
+    margin-bottom: 40px;
+  }
+
+  &__link {
+    align-self: start;
+    margin-bottom: 20px;
+  }
+
+  &__content {
+    width: 387px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  & form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+}
