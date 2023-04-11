@@ -1,15 +1,22 @@
+import { useEffect } from 'react';
 import { useFormik } from 'formik';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
+import { loginUser, resetAuthStatus, selectUser } from '../../store/slices/auth/auth.slice';
 import { InputComponent } from '../../components/input';
 import { InputLabelComponent } from '../../components/input-label/input-label.component';
 import { TitleComponent } from '../../components/title';
-import './login.scss';
 import { loginSchema } from '../../schemas';
 import { ButtonComponent } from '../../components/button';
 import { ButtonTypes } from '../../common/types/button-types.enum';
-import { Link } from 'react-router-dom';
 import { ROUTER_KEYS } from '../../common/consts';
+import './login.scss';
 
 export const LoginPage = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -19,10 +26,15 @@ export const LoginPage = () => {
     validateOnChange: true,
     validateOnMount: true,
     onSubmit: (values) => {
-      console.log(values);
-      alert(JSON.stringify(values));
+      dispatch(loginUser(values));
     }
   });
+
+  useEffect(() => {
+    if (user) {
+      navigate(ROUTER_KEYS.CATALOG);
+    }
+  }, [user]);
 
   return (
     <section className="login">
@@ -69,7 +81,10 @@ export const LoginPage = () => {
         </form>
         <span className="login_help-text">
           New user?
-          <Link className="link login__link" to={ROUTER_KEYS.REGISTRATION}>
+          <Link
+            onClick={() => dispatch(resetAuthStatus())}
+            className="link login__link"
+            to={ROUTER_KEYS.REGISTRATION}>
             Create an account
           </Link>
         </span>

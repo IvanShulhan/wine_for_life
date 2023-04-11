@@ -1,3 +1,4 @@
+import { FooterComponent } from '../../components/footer';
 import { HeaderComponent } from '../../components/header';
 import { ProductListComponent } from '../../components/product-list';
 import { SidebarComponent } from '../../components/sidebar';
@@ -19,6 +20,7 @@ export const CatalogPage = () => {
           </div>
         </div>
       </div>
+      <FooterComponent />
     </div>
   );
 };

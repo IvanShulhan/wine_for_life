@@ -1,12 +1,12 @@
 export interface IUser {
-  'first name': string;
-  'last name': string;
+  firstName: string;
+  lastName: string;
   email: string;
 }
 
 export interface IRegisterUser {
-  'first name': string;
-  'last name': string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
 }

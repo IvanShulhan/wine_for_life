@@ -6,14 +6,20 @@ import './registration.scss';
 import { registrtionSchema } from '../../schemas';
 import { ButtonComponent } from '../../components/button';
 import { ButtonTypes } from '../../common/types/button-types.enum';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ROUTER_KEYS } from '../../common/consts';
+import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
+import { registerUser, selectAuthStatus } from '../../store/slices/auth/auth.slice';
 
 export const RegistrationPage = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const authStatus = useAppSelector(selectAuthStatus);
+
   const formik = useFormik({
     initialValues: {
-      'first name': '',
-      'last name': '',
+      firstName: '',
+      lastName: '',
       email: '',
       password: ''
     },
@@ -21,10 +27,13 @@ export const RegistrationPage = () => {
     validateOnChange: true,
     validateOnMount: true,
     onSubmit: (values) => {
-      console.log(values);
-      alert(JSON.stringify(values));
+      dispatch(registerUser(values));
     }
   });
+
+  if (authStatus === 'idle') {
+    navigate(ROUTER_KEYS.LOGIN);
+  }
 
   return (
     <section className="registration">
@@ -34,33 +43,33 @@ export const RegistrationPage = () => {
           <InputLabelComponent text="First name">
             <InputComponent
               isDark={true}
-              name="first name"
+              name="firstName"
               placeholder="Enter your first name"
-              value={formik.values['first name']}
+              value={formik.values.firstName}
               onChange={formik.handleChange}
               warning={
-                !formik.touched['first name'] &&
-                Boolean(formik.values['first name']) &&
-                Boolean(formik.errors['first name'])
+                !formik.touched.firstName &&
+                Boolean(formik.values.firstName) &&
+                Boolean(formik.errors.firstName)
               }
-              error={formik.touched['first name'] && Boolean(formik.errors['first name'])}
-              helperText={formik.errors['first name']}
+              error={formik.touched.firstName && Boolean(formik.errors.firstName)}
+              helperText={formik.errors.firstName}
             />
           </InputLabelComponent>
           <InputLabelComponent text="Last name">
             <InputComponent
               isDark={true}
-              name="last name"
+              name="lastName"
               placeholder="Enter your last name"
-              value={formik.values['last name']}
+              value={formik.values.lastName}
               onChange={formik.handleChange}
               warning={
-                !formik.touched['last name'] &&
-                Boolean(formik.values['last name']) &&
-                Boolean(formik.errors['last name'])
+                !formik.touched.lastName &&
+                Boolean(formik.values.lastName) &&
+                Boolean(formik.errors.lastName)
               }
-              error={formik.touched['last name'] && Boolean(formik.errors['last name'])}
-              helperText={formik.errors['last name']}
+              error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+              helperText={formik.errors.lastName}
             />
           </InputLabelComponent>
           <InputLabelComponent text="Email">

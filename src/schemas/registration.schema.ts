@@ -1,11 +1,11 @@
 import * as yup from 'yup';
 
 export const registrtionSchema = yup.object({
-  'first name': yup
+  firstName: yup
     .string()
     .min(3, 'Must be at least 3 characters long')
     .required('First name is required'),
-  'last name': yup
+  lastName: yup
     .string()
     .min(3, 'Must be at least 3 characters long')
     .required('Last name is required'),

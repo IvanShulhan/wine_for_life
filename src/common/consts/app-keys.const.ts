@@ -20,5 +20,6 @@ export const ROUTER_KEYS = {
   DETAILS: '/details',
   REGISTRATION: '/registration',
   LOGIN: '/login',
+  PROFILE: '/profile',
   RESTORE: '/restore-password'
 };

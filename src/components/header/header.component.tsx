@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../store/app/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
 import { selectBagItems } from '../../store/slices/bag/bag.slice';
 import { SearchComponent } from './search';
 import { BagComponent } from '../bag';
@@ -9,6 +9,7 @@ import { ReactComponent as User } from '../../assets/icons/user.svg';
 import { ReactComponent as Bag } from '../../assets/icons/bag.svg';
 import classNames from 'classnames';
 import './header.scss';
+import { logout, selectUser } from '../../store/slices/auth/auth.slice';
 
 interface IProps {
   hasSearch?: boolean;
@@ -20,6 +21,8 @@ export const HeaderComponent: React.FC<IProps> = React.memo(
     const navigate = useNavigate();
     const bagItems = useAppSelector(selectBagItems);
     const [isOpenBag, setIsOpenBag] = useState(false);
+    const user = useAppSelector(selectUser);
+    const dispatch = useAppDispatch();
 
     const closeBag = useCallback(() => {
       setIsOpenBag(false);
@@ -30,6 +33,12 @@ export const HeaderComponent: React.FC<IProps> = React.memo(
         ? document.body.classList.add('is-open-bag')
         : document.body.classList.remove('is-open-bag');
     }, [isOpenBag]);
+
+    const buttonActions = () => {
+      user ? dispatch(logout()) : navigate('/login');
+    };
+
+    console.log(user);
 
     return (
       <header className="header">
@@ -52,9 +61,11 @@ export const HeaderComponent: React.FC<IProps> = React.memo(
             <div className="header__content">
               {hasSearch && <SearchComponent />}
               <nav className="navbar header__navbar">
-                <Link to="/profile" className="navbar__link">
-                  <User className="navbar__icon" />
-                </Link>
+                {user && (
+                  <Link to="/profile" className="navbar__link">
+                    <User className="navbar__icon" />
+                  </Link>
+                )}
                 {hasBag && (
                   <button className="navbar__button" onClick={() => setIsOpenBag(!isOpenBag)}>
                     <Bag className="navbar__icon" />
@@ -63,8 +74,8 @@ export const HeaderComponent: React.FC<IProps> = React.memo(
                     )}
                   </button>
                 )}
-                <button onClick={() => navigate('/login')} className="navbar__button">
-                  Log in
+                <button onClick={buttonActions} className="navbar__button">
+                  {!user ? 'Log in' : 'Log out'}
                 </button>
               </nav>
             </div>

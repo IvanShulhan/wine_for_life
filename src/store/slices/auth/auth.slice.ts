@@ -12,14 +12,12 @@ export interface authState {
 }
 
 const initialState: authState = {
-  user: JSON.parse(localStorage.getItem(STORAGE_KEYS.TOKEN) || '[]'),
-  status: 'idle'
+  user: JSON.parse(localStorage.getItem(STORAGE_KEYS.TOKEN) || 'null'),
+  status: 'loading'
 };
 
 export const registerUser = createAsyncThunk('auth/registerUser', async (body: IRegisterUser) => {
-  const answer = await authSerivce.registerUser(body);
-
-  return answer;
+  await authSerivce.registerUser(body);
 });
 
 export const loginUser = createAsyncThunk('auth/loginUser', async (body: ILoginUser) => {
@@ -35,6 +33,9 @@ export const authSlice = createSlice({
     logout: (state) => {
       localStorage.removeItem(STORAGE_KEYS.TOKEN);
       state.user = null;
+    },
+    resetAuthStatus: (state) => {
+      state.status = 'loading';
     }
   },
   extraReducers: (builder) => {
@@ -52,13 +53,16 @@ export const authSlice = createSlice({
       .addCase(registerUser.pending, (state) => {
         state.status = 'loading';
       })
+      .addCase(registerUser.fulfilled, (state) => {
+        state.status = 'idle';
+      })
       .addCase(registerUser.rejected, (state) => {
         state.status = 'failed';
       });
   }
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, resetAuthStatus } = authSlice.actions;
 export const selectUser = (state: RootState) => state.auth.user;
 export const selectAuthStatus = (state: RootState) => state.auth.status;
 export default authSlice.reducer;

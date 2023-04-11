@@ -3,13 +3,17 @@
 $gap: 20px;
 
 .details {
-  height: 100%;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   @include toRem(16);
 
   &__navigation-wrapper {
     margin-bottom: toEm(40);
+  }
+
+  &__wrapper {
+    flex-grow: 1;
   }
 
   &__inner {

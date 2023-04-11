@@ -86,7 +86,7 @@
     background-color: transparent;
     transition: transition(color),  transition(transform);
 
-    &:hover, &:focus {
+    &:hover {
       color: $color_warning;
     }
   }

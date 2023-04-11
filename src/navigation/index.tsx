@@ -6,6 +6,7 @@ import { HomePage } from '../pages/home';
 import { OrderPage } from '../pages/order';
 import { LoginPage } from '../pages/login';
 import { RegistrationPage } from '../pages/register';
+import { ProfilePage } from '../pages/profile';
 
 export const MainRouter = () => {
   return (
@@ -24,6 +25,7 @@ export const MainRouter = () => {
         />
         <Route path={ROUTER_KEYS.REGISTRATION} element={<RegistrationPage />} />
         <Route path={ROUTER_KEYS.LOGIN} element={<LoginPage />} />
+        <Route path={ROUTER_KEYS.PROFILE} element={<ProfilePage />} />
         <Route path={ROUTER_KEYS.ANOTHER} element={<Navigate to={ROUTER_KEYS.CATALOG} />} />
       </Routes>
     </HashRouter>

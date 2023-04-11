@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { orderFormSchema, loginSchema } from '../../schemas';
-import { useAppSelector } from '../../store/app/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
 import { selectBagItems } from '../../store/slices/bag/bag.slice';
 import { ButtonTypes } from '../../common/types/button-types.enum';
 import helperFuncs from '../../common/utils/helper.funcs';
@@ -30,8 +30,9 @@ export const OrderPage = () => {
   const [isRegisterAfterOrder, setIsRegisterAfterOrder] = useState(false);
   const BagItems = useAppSelector(selectBagItems);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const formik = useFormik({
+  const orderFormik = useFormik({
     initialValues: {
       'first name': '',
       'last name': '',
@@ -54,7 +55,7 @@ export const OrderPage = () => {
           goods: BagItems.map((it) => ({ ...it, product: it.product.id }))
         })
       );
-      formik.resetForm();
+      orderFormik.resetForm();
     }
   });
 
@@ -80,14 +81,14 @@ export const OrderPage = () => {
 
       return `№${i + 1} ${randomStreet}, ${randomNum}`;
     });
-  }, [formik.values.city]);
+  }, [orderFormik.values.city]);
 
   const handleWithGift = () => {
-    formik.setValues((val) => ({ ...val, withGift: !val.withGift }));
+    orderFormik.setValues((val) => ({ ...val, withGift: !val.withGift }));
   };
 
   const setFormicValue = async (key: string, value: string) => {
-    await formik.setValues((values) => ({ ...values, [key]: value }));
+    await orderFormik.setValues((values) => ({ ...values, [key]: value }));
   };
 
   const totalPrice = useMemo(() => {
@@ -96,7 +97,7 @@ export const OrderPage = () => {
 
   useEffect(() => {
     setFormicValue('warehause', '');
-  }, [formik.values.city]);
+  }, [orderFormik.values.city]);
 
   useEffect(() => {
     if (totalPrice === 0) {
@@ -108,7 +109,7 @@ export const OrderPage = () => {
     loginFormik.setValues({ password: '', email: '' });
   }, [isNewCustomer]);
 
-  const getIsChacked = (val: string) => formik.values.payment === val;
+  const getIsChacked = (val: string) => orderFormik.values.payment === val;
 
   return (
     <section className="order">
@@ -134,7 +135,7 @@ export const OrderPage = () => {
             </div>
             <div className="order__content">
               <form
-                onSubmit={isNewCustomer ? formik.handleSubmit : loginFormik.handleSubmit}
+                onSubmit={isNewCustomer ? orderFormik.handleSubmit : loginFormik.handleSubmit}
                 className={classNames('order__blocks', {
                   'order__blocks--without-gap': !isNewCustomer
                 })}>
@@ -143,12 +144,12 @@ export const OrderPage = () => {
                     <OrderBlockComponent
                       step={1}
                       maxStep={4}
-                      name="Billing information"
+                      name="Billing details"
                       isFinished={
-                        !formik.errors['first name'] &&
-                        !formik.errors['last name'] &&
-                        !formik.errors.phone &&
-                        !formik.errors.email
+                        !orderFormik.errors['first name'] &&
+                        !orderFormik.errors['last name'] &&
+                        !orderFormik.errors.phone &&
+                        !orderFormik.errors.email
                       }>
                       <div className="order__blocks-inputs">
                         <InputLabelComponent text="First name">
@@ -156,17 +157,18 @@ export const OrderPage = () => {
                             isDark={true}
                             name="first name"
                             placeholder="Enter your first name"
-                            value={formik.values['first name']}
-                            onChange={formik.handleChange}
+                            value={orderFormik.values['first name']}
+                            onChange={orderFormik.handleChange}
                             warning={
-                              !formik.touched['first name'] &&
-                              Boolean(formik.values['first name']) &&
-                              Boolean(formik.errors['first name'])
+                              !orderFormik.touched['first name'] &&
+                              Boolean(orderFormik.values['first name']) &&
+                              Boolean(orderFormik.errors['first name'])
                             }
                             error={
-                              formik.touched['first name'] && Boolean(formik.errors['first name'])
+                              orderFormik.touched['first name'] &&
+                              Boolean(orderFormik.errors['first name'])
                             }
-                            helperText={formik.errors['first name']}
+                            helperText={orderFormik.errors['first name']}
                           />
                         </InputLabelComponent>
                         <InputLabelComponent text="Last name">
@@ -174,17 +176,18 @@ export const OrderPage = () => {
                             isDark={true}
                             name="last name"
                             placeholder="Enter your last name"
-                            value={formik.values['last name']}
-                            onChange={formik.handleChange}
+                            value={orderFormik.values['last name']}
+                            onChange={orderFormik.handleChange}
                             warning={
-                              !formik.touched['last name'] &&
-                              Boolean(formik.values['last name']) &&
-                              Boolean(formik.errors['last name'])
+                              !orderFormik.touched['last name'] &&
+                              Boolean(orderFormik.values['last name']) &&
+                              Boolean(orderFormik.errors['last name'])
                             }
                             error={
-                              formik.touched['last name'] && Boolean(formik.errors['last name'])
+                              orderFormik.touched['last name'] &&
+                              Boolean(orderFormik.errors['last name'])
                             }
-                            helperText={formik.errors['last name']}
+                            helperText={orderFormik.errors['last name']}
                           />
                         </InputLabelComponent>
                         <InputLabelComponent text="Email">
@@ -192,15 +195,15 @@ export const OrderPage = () => {
                             isDark={true}
                             name="email"
                             placeholder="Enter your email"
-                            value={formik.values.email}
-                            onChange={formik.handleChange}
+                            value={orderFormik.values.email}
+                            onChange={orderFormik.handleChange}
                             warning={
-                              !formik.touched.email &&
-                              Boolean(formik.values.email) &&
-                              Boolean(formik.errors.email)
+                              !orderFormik.touched.email &&
+                              Boolean(orderFormik.values.email) &&
+                              Boolean(orderFormik.errors.email)
                             }
-                            error={formik.touched.email && Boolean(formik.errors.email)}
-                            helperText={formik.errors.email}
+                            error={orderFormik.touched.email && Boolean(orderFormik.errors.email)}
+                            helperText={orderFormik.errors.email}
                           />
                         </InputLabelComponent>
                         <InputLabelComponent text="Phone">
@@ -209,15 +212,15 @@ export const OrderPage = () => {
                             isDark={true}
                             name="phone"
                             placeholder="Enter your phone"
-                            value={formik.values.phone}
-                            onChange={formik.handleChange}
+                            value={orderFormik.values.phone}
+                            onChange={orderFormik.handleChange}
                             warning={
-                              !formik.touched.phone &&
-                              Boolean(formik.values.phone) &&
-                              Boolean(formik.errors.phone)
+                              !orderFormik.touched.phone &&
+                              Boolean(orderFormik.values.phone) &&
+                              Boolean(orderFormik.errors.phone)
                             }
-                            error={formik.touched.phone && Boolean(formik.errors.phone)}
-                            helperText={formik.errors.phone}
+                            error={orderFormik.touched.phone && Boolean(orderFormik.errors.phone)}
+                            helperText={orderFormik.errors.phone}
                           />
                         </InputLabelComponent>
                         <CheckboxComponent
@@ -232,19 +235,21 @@ export const OrderPage = () => {
                       step={2}
                       maxStep={4}
                       name="Shipping details"
-                      isFinished={!formik.errors.city && !formik.errors.warehause}>
+                      isFinished={!orderFormik.errors.city && !orderFormik.errors.warehause}>
                       <div className="order__blocks-inputs">
                         <InputLabelComponent text="Region">
                           <SelectComponent name="Ukraine" isDisabled={true} isFull={true} />
                         </InputLabelComponent>
                         <InputLabelComponent
                           text="City"
-                          error={formik.touched.warehause && Boolean(formik.errors.warehause)}
-                          errorMsg={formik.errors.city}>
+                          error={
+                            orderFormik.touched.warehause && Boolean(orderFormik.errors.warehause)
+                          }
+                          errorMsg={orderFormik.errors.city}>
                           <SelectComponent
                             name="choose your city"
                             values={adreses.cities}
-                            currentVal={formik.values.city}
+                            currentVal={orderFormik.values.city}
                             property="city"
                             onChangeFun={setFormicValue}
                             withParams={false}
@@ -256,13 +261,15 @@ export const OrderPage = () => {
                         </InputLabelComponent>
                         <InputLabelComponent
                           text="Warehouse"
-                          error={formik.touched.warehause && Boolean(formik.errors.warehause)}
-                          errorMsg={formik.errors.warehause}>
+                          error={
+                            orderFormik.touched.warehause && Boolean(orderFormik.errors.warehause)
+                          }
+                          errorMsg={orderFormik.errors.warehause}>
                           <SelectComponent
-                            isDisabled={!formik.values.city}
+                            isDisabled={!orderFormik.values.city}
                             name="choose your warehouse"
                             values={warehouses}
-                            currentVal={formik.values.warehause}
+                            currentVal={orderFormik.values.warehause}
                             property="warehause"
                             onChangeFun={setFormicValue}
                             withParams={false}
@@ -275,13 +282,13 @@ export const OrderPage = () => {
                       step={3}
                       maxStep={4}
                       name="Payment method"
-                      isFinished={Boolean(formik.values.payment.length)}>
+                      isFinished={Boolean(orderFormik.values.payment.length)}>
                       <div className="order__radio-inputs">
                         <RadioComponent
                           name="payment"
                           value="credit card"
                           isChacked={getIsChacked('credit card')}
-                          onChange={formik.handleChange}>
+                          onChange={orderFormik.handleChange}>
                           <div
                             className={classNames('order__card-images', {
                               'order__card-images--is-visible': getIsChacked('credit card')
@@ -294,7 +301,7 @@ export const OrderPage = () => {
                           name="payment"
                           value="google pay"
                           isChacked={getIsChacked('google pay')}
-                          onChange={formik.handleChange}>
+                          onChange={orderFormik.handleChange}>
                           <div
                             className={classNames('order__card-images', {
                               'order__card-images--is-visible': getIsChacked('google pay')
@@ -302,8 +309,8 @@ export const OrderPage = () => {
                             <img className="order__card-image" src={googlePay} alt="card" />
                           </div>
                         </RadioComponent>
-                        {formik.touched.payment && Boolean(formik.errors.payment) && (
-                          <span className="order__radio-error">{formik.errors.payment}</span>
+                        {orderFormik.touched.payment && Boolean(orderFormik.errors.payment) && (
+                          <span className="order__radio-error">{orderFormik.errors.payment}</span>
                         )}
                       </div>
                     </OrderBlockComponent>
@@ -311,14 +318,14 @@ export const OrderPage = () => {
                       step={4}
                       maxStep={4}
                       name="Review"
-                      isFinished={!Object.keys(formik.errors).length}>
+                      isFinished={!Object.keys(orderFormik.errors).length}>
                       <span className="order__blocks-check">Please, check your order.</span>
                     </OrderBlockComponent>
                     <CheckboxComponent
                       name="withGift"
                       onChange={handleWithGift}
                       text="This Order is for Gift, make it beautiful!"
-                      isChecked={formik.values.withGift}
+                      isChecked={orderFormik.values.withGift}
                     />
                     <ButtonComponent text="Buy" type={ButtonTypes.submit} />
                   </>
@@ -339,7 +346,7 @@ export const OrderPage = () => {
                             value={loginFormik.values.email}
                             onChange={loginFormik.handleChange}
                             warning={
-                              !formik.touched.email &&
+                              !orderFormik.touched.email &&
                               Boolean(loginFormik.values.email) &&
                               Boolean(loginFormik.errors.email)
                             }
