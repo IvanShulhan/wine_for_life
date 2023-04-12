@@ -2,7 +2,13 @@
 
 .login {
   flex-grow: 1;
-  @include flex;
+  display: flex;
+  flex-direction: column;
+
+  &__content-wrapper {
+    flex-grow: 1;
+    @include flex;
+  }
 
   & .title {
     margin-bottom: 40px;

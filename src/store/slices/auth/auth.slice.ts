@@ -1,6 +1,7 @@
 /* eslint-disable no-empty-pattern */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import jwt_decode from 'jwt-decode';
 import { RootState } from '../../app/store';
 import { ILoginUser, IRegisterUser, IUser } from '../../../common/types/user.type';
 import authSerivce from '../../../services/auth.service';
@@ -11,8 +12,12 @@ export interface authState {
   status: 'idle' | 'loading' | 'failed';
 }
 
+const getUserFromToken = (srt: string): IUser | null => {
+  return srt.length ? jwt_decode(srt) : null;
+};
+
 const initialState: authState = {
-  user: JSON.parse(localStorage.getItem(STORAGE_KEYS.TOKEN) || 'null'),
+  user: getUserFromToken(localStorage.getItem(STORAGE_KEYS.TOKEN) || ''),
   status: 'loading'
 };
 
@@ -22,8 +27,9 @@ export const registerUser = createAsyncThunk('auth/registerUser', async (body: I
 
 export const loginUser = createAsyncThunk('auth/loginUser', async (body: ILoginUser) => {
   const { data } = await authSerivce.loginUser(body);
+  localStorage.setItem(STORAGE_KEYS.TOKEN, JSON.stringify(data.token));
 
-  return data;
+  return getUserFromToken(data.token);
 });
 
 export const authSlice = createSlice({

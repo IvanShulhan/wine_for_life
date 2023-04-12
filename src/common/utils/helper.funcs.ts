@@ -20,6 +20,15 @@ class HelperFuncs {
   randomIntFromInterval(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
+
+  generateRandomAdress(list: string[]) {
+    return [...Array(3)].map((_, i) => {
+      const randomStreet = list[helperFuncs.randomIntFromInterval(0, list.length - 1)];
+      const randomNum = helperFuncs.randomIntFromInterval(1, 59);
+
+      return `№${i + 1} ${randomStreet}, ${randomNum}`;
+    });
+  }
 }
 
 const helperFuncs = new HelperFuncs();

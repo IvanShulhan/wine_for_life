@@ -1,7 +1,18 @@
+export interface IShipping {
+  region: string;
+  city: string;
+  deliveryService: string;
+  warehouse: string;
+}
+
 export interface IUser {
+  id: number;
   firstName: string;
   lastName: string;
   email: string;
+  phone: string;
+  birthDate: string;
+  shippingDetails: IShipping;
 }
 
 export interface IRegisterUser {
@@ -14,4 +25,8 @@ export interface IRegisterUser {
 export interface ILoginUser {
   email: string;
   password: string;
+}
+
+export interface IToken {
+  token: string;
 }

@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import HttpSerivce from './http.service';
-import { ILoginUser, IRegisterUser, IUser } from '../common/types/user.type';
+import { ILoginUser, IRegisterUser, IToken } from '../common/types/user.type';
 import { BACKEND_KEYS } from '../common/consts';
 
 class AuthService extends HttpSerivce {
@@ -13,7 +13,7 @@ class AuthService extends HttpSerivce {
   }
 
   async loginUser(body: ILoginUser) {
-    const res = await this.post<ILoginUser, AxiosResponse<IUser>>(
+    const res = await this.post<ILoginUser, AxiosResponse<IToken>>(
       { url: BACKEND_KEYS.LOG_IN, data: body },
       false
     );

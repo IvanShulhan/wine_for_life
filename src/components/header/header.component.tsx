@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
 import { selectBagItems } from '../../store/slices/bag/bag.slice';
 import { SearchComponent } from './search';
@@ -10,6 +10,7 @@ import { ReactComponent as Bag } from '../../assets/icons/bag.svg';
 import classNames from 'classnames';
 import './header.scss';
 import { logout, selectUser } from '../../store/slices/auth/auth.slice';
+import { ROUTER_KEYS } from '../../common/consts';
 
 interface IProps {
   hasSearch?: boolean;
@@ -19,10 +20,18 @@ interface IProps {
 export const HeaderComponent: React.FC<IProps> = React.memo(
   ({ hasSearch = false, hasBag = true }) => {
     const navigate = useNavigate();
+    const { pathname } = useLocation();
     const bagItems = useAppSelector(selectBagItems);
     const [isOpenBag, setIsOpenBag] = useState(false);
     const user = useAppSelector(selectUser);
     const dispatch = useAppDispatch();
+
+    const isHiddenButton = useMemo(
+      () => pathname.includes(ROUTER_KEYS.LOGIN) || pathname.includes(ROUTER_KEYS.REGISTRATION),
+      [pathname]
+    );
+
+    console.log(pathname.includes(ROUTER_KEYS.LOGIN));
 
     const closeBag = useCallback(() => {
       setIsOpenBag(false);
@@ -35,7 +44,7 @@ export const HeaderComponent: React.FC<IProps> = React.memo(
     }, [isOpenBag]);
 
     const buttonActions = () => {
-      user ? dispatch(logout()) : navigate('/login');
+      user ? dispatch(logout()) : navigate(ROUTER_KEYS.LOGIN);
     };
 
     console.log(user);
@@ -74,9 +83,11 @@ export const HeaderComponent: React.FC<IProps> = React.memo(
                     )}
                   </button>
                 )}
-                <button onClick={buttonActions} className="navbar__button">
-                  {!user ? 'Log in' : 'Log out'}
-                </button>
+                {!isHiddenButton && (
+                  <button onClick={buttonActions} className="navbar__button">
+                    {!user ? 'Log in' : 'Log out'}
+                  </button>
+                )}
               </nav>
             </div>
           </div>

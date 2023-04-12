@@ -18,4 +18,8 @@
     color: $color_text_gray;
     border-color: $color_secondary_text;
   }
+
+  &--is-disabled {
+    cursor: default;
+  }
 }

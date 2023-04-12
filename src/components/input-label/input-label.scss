@@ -12,6 +12,14 @@
     width: 100%;
   }
 
+  &__aditional-text {
+    font-weight: 600;
+    @include toRem(14);
+    line-height: 1.5;
+    color: $color_gray_dark;
+    margin: 12px 0;
+  }
+
   &__text {
     font-weight: 600;
     @include toRem(14);

@@ -1,7 +1,8 @@
 export const STORAGE_KEYS = {
   BAG: 'BAG',
   FAVOURITE: 'FAVOURITE',
-  TOKEN: 'TOKEN'
+  TOKEN: 'TOKEN',
+  REMEMBER_DATA: 'REMEMBER'
 };
 
 export const BACKEND_KEYS = {
@@ -9,7 +10,8 @@ export const BACKEND_KEYS = {
   API_VERSION: 'wine-shop',
   PRODUCTS: 'products',
   SIGN_UP: 'sign-up',
-  LOG_IN: 'log-in'
+  LOG_IN: 'log-in',
+  ORDER: 'orders/complete-new-user'
 };
 
 export const ROUTER_KEYS = {

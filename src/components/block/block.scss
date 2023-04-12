@@ -1,7 +1,7 @@
 @import '../../styles/colors';
 @import '../../styles/mixins';
 
-.order-block {
+.block {
   @include toRem(16);
   padding-bottom: toEm(40);
   border-bottom: 1px solid $color_pale_bage;

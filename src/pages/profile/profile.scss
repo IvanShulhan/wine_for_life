@@ -1,0 +1,77 @@
+@import '../../styles/colors';
+@import '../../styles/mixins';
+$gap: 20px;
+
+.profile {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  @include toRem();
+
+  &__wrapper {
+    flex-grow: 1;
+  }
+
+  &__inner {
+    padding: toEm(20) 0 toEm(40);
+  }
+
+  &__content-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__content {
+    width: 100%;
+    max-width: 794px;
+    display: flex;
+    gap: $gap;
+  }
+
+  &__blocks {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    &--without-gap {
+      gap: 0;
+    }
+  }
+
+  &__blocks-inputs {
+    display: flex;
+    gap: $gap;
+    flex-wrap: wrap;
+  }
+
+  &__list-box {
+    height: 552px;
+    width: 40.5%;
+    @include border(1, $color_text_gray);
+    padding: toEm(20);
+    display: flex;
+    flex-direction: column;
+    gap: $gap;
+  }
+
+  &__card-images {
+    display: flex;
+    gap: 17px;
+    opacity: 0;
+    transform: translateY(50%);
+    transition: transition(transform, 0.2), transition(opacity);
+
+    &--is-visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  &__card-image {
+    width: 120px;
+    height: 48px;
+    object-fit: cover;
+  }
+}

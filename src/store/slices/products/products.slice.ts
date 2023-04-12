@@ -4,6 +4,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { IProduct } from '../../../common/types/product.type';
 import productsService from '../../../services/products.service';
+import products from '../../../data/data.json';
 
 export interface productsState {
   products: IProduct[];
@@ -39,6 +40,7 @@ export const productsSlice = createSlice({
       })
       .addCase(getProducts.rejected, (state) => {
         state.status = 'failed';
+        state.products = products;
       });
   }
 });

@@ -10,7 +10,7 @@ import classNames from 'classnames';
 import { HeaderComponent } from '../../components/header';
 import { NavigationComponent } from '../../components/navigation';
 import { TitleComponent } from '../../components/title';
-import { OrderBlockComponent } from '../../components/order-block';
+import { BlockComponent } from '../../components/block';
 import { NakedButtonComponent } from '../../components/naked-button';
 import { ButtonComponent } from '../../components/button';
 import { InputComponent } from '../../components/input';
@@ -23,7 +23,9 @@ import masterCard from '../../assets/icons/mastercard.png';
 import visa from '../../assets/icons/visa.png';
 import googlePay from '../../assets/icons/googlepay.png';
 import adreses from '../../data/warehouses.json';
+import { loginUser, selectUser } from '../../store/slices/auth/auth.slice';
 import './order.scss';
+import { FooterComponent } from '../../components/footer';
 
 export const OrderPage = () => {
   const [isNewCustomer, setIsNewCustomer] = useState(true);
@@ -32,17 +34,19 @@ export const OrderPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
+  const user = useAppSelector(selectUser);
+
   const orderFormik = useFormik({
     initialValues: {
-      'first name': '',
-      'last name': '',
-      email: '',
-      phone: '',
+      firstName: user?.firstName || '',
+      lastName: user?.lastName || '',
+      email: user?.email || '',
+      phone: user?.phone || '',
       payment: '',
       region: 'Ukraine',
-      city: '',
-      'delivery-service': 'Nova Poshta',
-      warehause: '',
+      city: user?.shippingDetails?.city || '',
+      deliveryService: 'Nova Poshta',
+      warehause: user?.shippingDetails?.warehouse || '',
       withGift: false
     },
     validationSchema: orderFormSchema,
@@ -68,19 +72,13 @@ export const OrderPage = () => {
     validateOnChange: true,
     validateOnMount: true,
     onSubmit: (values) => {
-      console.log(values);
-      alert(JSON.stringify(values));
+      dispatch(loginUser(values));
+      setIsNewCustomer(true);
     }
   });
 
   const warehouses = useMemo(() => {
-    return [...Array(3)].map((_, i) => {
-      const randomStreet =
-        adreses.streets[helperFuncs.randomIntFromInterval(0, adreses.streets.length - 1)];
-      const randomNum = helperFuncs.randomIntFromInterval(1, 59);
-
-      return `№${i + 1} ${randomStreet}, ${randomNum}`;
-    });
+    return helperFuncs.generateRandomAdress(adreses.streets);
   }, [orderFormik.values.city]);
 
   const handleWithGift = () => {
@@ -114,294 +112,302 @@ export const OrderPage = () => {
   return (
     <section className="order">
       <HeaderComponent hasBag={false} />
-      <div className="container">
-        <div className="order__inner">
-          <div className="order__header">
-            <NavigationComponent currentPage="Order" />
-            <TitleComponent title="Order" isLarge={true} />
-          </div>
-          <div className="order__content-wrapper">
-            <div className="order__buttons">
-              <NakedButtonComponent
-                text="New customer"
-                condition={isNewCustomer}
-                onClick={() => setIsNewCustomer(true)}
-              />
-              <NakedButtonComponent
-                text="Have an account"
-                condition={!isNewCustomer}
-                onClick={() => setIsNewCustomer(false)}
-              />
+      <div className="order__wrapper">
+        <div className="container">
+          <div className="order__inner">
+            <div className="order__header">
+              <NavigationComponent currentPage="Order" />
+              <TitleComponent title="Order" isLarge={true} />
             </div>
-            <div className="order__content">
-              <form
-                onSubmit={isNewCustomer ? orderFormik.handleSubmit : loginFormik.handleSubmit}
-                className={classNames('order__blocks', {
-                  'order__blocks--without-gap': !isNewCustomer
-                })}>
-                {isNewCustomer ? (
-                  <>
-                    <OrderBlockComponent
-                      step={1}
-                      maxStep={4}
-                      name="Billing details"
-                      isFinished={
-                        !orderFormik.errors['first name'] &&
-                        !orderFormik.errors['last name'] &&
-                        !orderFormik.errors.phone &&
-                        !orderFormik.errors.email
-                      }>
-                      <div className="order__blocks-inputs">
-                        <InputLabelComponent text="First name">
-                          <InputComponent
-                            isDark={true}
-                            name="first name"
-                            placeholder="Enter your first name"
-                            value={orderFormik.values['first name']}
-                            onChange={orderFormik.handleChange}
-                            warning={
-                              !orderFormik.touched['first name'] &&
-                              Boolean(orderFormik.values['first name']) &&
-                              Boolean(orderFormik.errors['first name'])
-                            }
+            <div className="order__content-wrapper">
+              {!user ? (
+                <div className="order__buttons">
+                  <NakedButtonComponent
+                    text="New customer"
+                    condition={isNewCustomer}
+                    onClick={() => setIsNewCustomer(true)}
+                  />
+                  <NakedButtonComponent
+                    text="Have an account"
+                    condition={!isNewCustomer}
+                    onClick={() => setIsNewCustomer(false)}
+                  />
+                </div>
+              ) : (
+                <div className="order__buttons">
+                  <NakedButtonComponent text="Have an account" condition={true} />
+                </div>
+              )}
+              <div className="order__content">
+                <form
+                  onSubmit={isNewCustomer ? orderFormik.handleSubmit : loginFormik.handleSubmit}
+                  className="order__blocks">
+                  {isNewCustomer || user ? (
+                    <>
+                      <BlockComponent
+                        step={1}
+                        maxStep={4}
+                        name="Billing details"
+                        isFinished={
+                          !orderFormik.errors.firstName &&
+                          !orderFormik.errors.lastName &&
+                          !orderFormik.errors.phone &&
+                          !orderFormik.errors.email
+                        }>
+                        <div className="order__blocks-inputs">
+                          <InputLabelComponent text="First name">
+                            <InputComponent
+                              isDark={true}
+                              name="first name"
+                              placeholder="Enter your first name"
+                              value={orderFormik.values.firstName}
+                              onChange={orderFormik.handleChange}
+                              warning={
+                                !orderFormik.touched.firstName &&
+                                Boolean(orderFormik.values.firstName) &&
+                                Boolean(orderFormik.errors.firstName)
+                              }
+                              error={
+                                orderFormik.touched.firstName &&
+                                Boolean(orderFormik.errors.firstName)
+                              }
+                              helperText={orderFormik.errors.firstName}
+                            />
+                          </InputLabelComponent>
+                          <InputLabelComponent text="Last name">
+                            <InputComponent
+                              isDark={true}
+                              name="last name"
+                              placeholder="Enter your last name"
+                              value={orderFormik.values.lastName}
+                              onChange={orderFormik.handleChange}
+                              warning={
+                                !orderFormik.touched.lastName &&
+                                Boolean(orderFormik.values.lastName) &&
+                                Boolean(orderFormik.errors.lastName)
+                              }
+                              error={
+                                orderFormik.touched.lastName && Boolean(orderFormik.errors.lastName)
+                              }
+                              helperText={orderFormik.errors.lastName}
+                            />
+                          </InputLabelComponent>
+                          <InputLabelComponent text="Email">
+                            <InputComponent
+                              isDark={true}
+                              name="email"
+                              placeholder="Enter your email"
+                              value={orderFormik.values.email}
+                              onChange={orderFormik.handleChange}
+                              warning={
+                                !orderFormik.touched.email &&
+                                Boolean(orderFormik.values.email) &&
+                                Boolean(orderFormik.errors.email)
+                              }
+                              error={orderFormik.touched.email && Boolean(orderFormik.errors.email)}
+                              helperText={orderFormik.errors.email}
+                            />
+                          </InputLabelComponent>
+                          <InputLabelComponent text="Phone">
+                            <InputComponent
+                              isPhoneInput={true}
+                              isDark={true}
+                              name="phone"
+                              placeholder="Enter your phone"
+                              value={orderFormik.values.phone}
+                              onChange={orderFormik.handleChange}
+                              warning={
+                                !orderFormik.touched.phone &&
+                                Boolean(orderFormik.values.phone) &&
+                                Boolean(orderFormik.errors.phone)
+                              }
+                              error={orderFormik.touched.phone && Boolean(orderFormik.errors.phone)}
+                              helperText={orderFormik.errors.phone}
+                            />
+                          </InputLabelComponent>
+                          {!user && (
+                            <CheckboxComponent
+                              name="create account"
+                              onChange={() => setIsRegisterAfterOrder(!isRegisterAfterOrder)}
+                              text="Create account?"
+                              isChecked={isRegisterAfterOrder}
+                            />
+                          )}
+                        </div>
+                      </BlockComponent>
+                      <BlockComponent
+                        step={2}
+                        maxStep={4}
+                        name="Shipping details"
+                        isFinished={!orderFormik.errors.city && !orderFormik.errors.warehause}>
+                        <div className="order__blocks-inputs">
+                          <InputLabelComponent text="Region">
+                            <SelectComponent name="Ukraine" isDisabled={true} isFull={true} />
+                          </InputLabelComponent>
+                          <InputLabelComponent
+                            text="City"
                             error={
-                              orderFormik.touched['first name'] &&
-                              Boolean(orderFormik.errors['first name'])
+                              orderFormik.touched.warehause && Boolean(orderFormik.errors.warehause)
                             }
-                            helperText={orderFormik.errors['first name']}
-                          />
-                        </InputLabelComponent>
-                        <InputLabelComponent text="Last name">
-                          <InputComponent
-                            isDark={true}
-                            name="last name"
-                            placeholder="Enter your last name"
-                            value={orderFormik.values['last name']}
-                            onChange={orderFormik.handleChange}
-                            warning={
-                              !orderFormik.touched['last name'] &&
-                              Boolean(orderFormik.values['last name']) &&
-                              Boolean(orderFormik.errors['last name'])
-                            }
+                            errorMsg={orderFormik.errors.city}>
+                            <SelectComponent
+                              name="choose your city"
+                              values={adreses.cities}
+                              currentVal={orderFormik.values.city}
+                              property="city"
+                              onChangeFun={setFormicValue}
+                              withParams={false}
+                              isFull={true}
+                            />
+                          </InputLabelComponent>
+                          <InputLabelComponent text="Delivery service">
+                            <SelectComponent name="Nova Poshta" isDisabled={true} isFull={true} />
+                          </InputLabelComponent>
+                          <InputLabelComponent
+                            text="Warehouse"
                             error={
-                              orderFormik.touched['last name'] &&
-                              Boolean(orderFormik.errors['last name'])
+                              orderFormik.touched.warehause && Boolean(orderFormik.errors.warehause)
                             }
-                            helperText={orderFormik.errors['last name']}
-                          />
-                        </InputLabelComponent>
-                        <InputLabelComponent text="Email">
-                          <InputComponent
-                            isDark={true}
-                            name="email"
-                            placeholder="Enter your email"
-                            value={orderFormik.values.email}
-                            onChange={orderFormik.handleChange}
-                            warning={
-                              !orderFormik.touched.email &&
-                              Boolean(orderFormik.values.email) &&
-                              Boolean(orderFormik.errors.email)
-                            }
-                            error={orderFormik.touched.email && Boolean(orderFormik.errors.email)}
-                            helperText={orderFormik.errors.email}
-                          />
-                        </InputLabelComponent>
-                        <InputLabelComponent text="Phone">
-                          <InputComponent
-                            isPhoneInput={true}
-                            isDark={true}
-                            name="phone"
-                            placeholder="Enter your phone"
-                            value={orderFormik.values.phone}
-                            onChange={orderFormik.handleChange}
-                            warning={
-                              !orderFormik.touched.phone &&
-                              Boolean(orderFormik.values.phone) &&
-                              Boolean(orderFormik.errors.phone)
-                            }
-                            error={orderFormik.touched.phone && Boolean(orderFormik.errors.phone)}
-                            helperText={orderFormik.errors.phone}
-                          />
-                        </InputLabelComponent>
-                        <CheckboxComponent
-                          name="create account"
-                          onChange={() => setIsRegisterAfterOrder(!isRegisterAfterOrder)}
-                          text="Create account?"
-                          isChecked={isRegisterAfterOrder}
-                        />
+                            errorMsg={orderFormik.errors.warehause}>
+                            <SelectComponent
+                              isDisabled={!orderFormik.values.city}
+                              name="choose your warehouse"
+                              values={warehouses}
+                              currentVal={orderFormik.values.warehause}
+                              property="warehause"
+                              onChangeFun={setFormicValue}
+                              withParams={false}
+                              isFull={true}
+                            />
+                          </InputLabelComponent>
+                        </div>
+                      </BlockComponent>
+                      <BlockComponent
+                        step={3}
+                        maxStep={4}
+                        name="Payment method"
+                        isFinished={Boolean(orderFormik.values.payment.length)}>
+                        <div className="order__radio-inputs">
+                          <RadioComponent
+                            name="payment"
+                            value="credit card"
+                            isChacked={getIsChacked('credit card')}
+                            onChange={orderFormik.handleChange}>
+                            <div
+                              className={classNames('order__card-images', {
+                                'order__card-images--is-visible': getIsChacked('credit card')
+                              })}>
+                              <img className="order__card-image" src={masterCard} alt="card" />
+                              <img className="order__card-image" src={visa} alt="card" />
+                            </div>
+                          </RadioComponent>
+                          <RadioComponent
+                            name="payment"
+                            value="google pay"
+                            isChacked={getIsChacked('google pay')}
+                            onChange={orderFormik.handleChange}>
+                            <div
+                              className={classNames('order__card-images', {
+                                'order__card-images--is-visible': getIsChacked('google pay')
+                              })}>
+                              <img className="order__card-image" src={googlePay} alt="card" />
+                            </div>
+                          </RadioComponent>
+                          {orderFormik.touched.payment && Boolean(orderFormik.errors.payment) && (
+                            <span className="order__radio-error">{orderFormik.errors.payment}</span>
+                          )}
+                        </div>
+                      </BlockComponent>
+                      <BlockComponent
+                        step={4}
+                        maxStep={4}
+                        name="Review"
+                        isFinished={!Object.keys(orderFormik.errors).length}>
+                        <span className="order__blocks-check">Please, check your order.</span>
+                      </BlockComponent>
+                      <CheckboxComponent
+                        name="withGift"
+                        onChange={handleWithGift}
+                        text="This Order is for Gift, make it beautiful!"
+                        isChecked={orderFormik.values.withGift}
+                      />
+                      <ButtonComponent text="Buy" type={ButtonTypes.submit} />
+                    </>
+                  ) : (
+                    <div>
+                      <BlockComponent
+                        step={1}
+                        maxStep={4}
+                        name="Log In"
+                        withDivider={false}
+                        isFinished={!loginFormik.errors.email && !loginFormik.errors.password}>
+                        <div className="order__blocks-inputs">
+                          <InputLabelComponent text="Email">
+                            <InputComponent
+                              isDark={true}
+                              name="email"
+                              placeholder="Enter your email"
+                              value={loginFormik.values.email}
+                              onChange={loginFormik.handleChange}
+                              warning={
+                                !orderFormik.touched.email &&
+                                Boolean(loginFormik.values.email) &&
+                                Boolean(loginFormik.errors.email)
+                              }
+                              error={loginFormik.touched.email && Boolean(loginFormik.errors.email)}
+                              helperText={loginFormik.errors.email}
+                            />
+                          </InputLabelComponent>
+                          <InputLabelComponent text="Password">
+                            <InputComponent
+                              isDark={true}
+                              type="password"
+                              name="password"
+                              placeholder="Enter your password"
+                              value={loginFormik.values.password}
+                              onChange={loginFormik.handleChange}
+                              warning={
+                                !loginFormik.touched.password &&
+                                Boolean(loginFormik.values.password) &&
+                                Boolean(loginFormik.errors.password)
+                              }
+                              error={
+                                loginFormik.touched.password && Boolean(loginFormik.errors.password)
+                              }
+                              helperText={loginFormik.errors.password}
+                            />
+                          </InputLabelComponent>
+                          <Link className="link order__link" to="/restore-password">
+                            Forgot password?
+                          </Link>
+                        </div>
+                      </BlockComponent>
+                      <div className="order__button-wrapper">
+                        <ButtonComponent text="Login" type={ButtonTypes.submit} />
                       </div>
-                    </OrderBlockComponent>
-                    <OrderBlockComponent
-                      step={2}
-                      maxStep={4}
-                      name="Shipping details"
-                      isFinished={!orderFormik.errors.city && !orderFormik.errors.warehause}>
-                      <div className="order__blocks-inputs">
-                        <InputLabelComponent text="Region">
-                          <SelectComponent name="Ukraine" isDisabled={true} isFull={true} />
-                        </InputLabelComponent>
-                        <InputLabelComponent
-                          text="City"
-                          error={
-                            orderFormik.touched.warehause && Boolean(orderFormik.errors.warehause)
-                          }
-                          errorMsg={orderFormik.errors.city}>
-                          <SelectComponent
-                            name="choose your city"
-                            values={adreses.cities}
-                            currentVal={orderFormik.values.city}
-                            property="city"
-                            onChangeFun={setFormicValue}
-                            withParams={false}
-                            isFull={true}
-                          />
-                        </InputLabelComponent>
-                        <InputLabelComponent text="Delivery service">
-                          <SelectComponent name="Nova Poshta" isDisabled={true} isFull={true} />
-                        </InputLabelComponent>
-                        <InputLabelComponent
-                          text="Warehouse"
-                          error={
-                            orderFormik.touched.warehause && Boolean(orderFormik.errors.warehause)
-                          }
-                          errorMsg={orderFormik.errors.warehause}>
-                          <SelectComponent
-                            isDisabled={!orderFormik.values.city}
-                            name="choose your warehouse"
-                            values={warehouses}
-                            currentVal={orderFormik.values.warehause}
-                            property="warehause"
-                            onChangeFun={setFormicValue}
-                            withParams={false}
-                            isFull={true}
-                          />
-                        </InputLabelComponent>
-                      </div>
-                    </OrderBlockComponent>
-                    <OrderBlockComponent
-                      step={3}
-                      maxStep={4}
-                      name="Payment method"
-                      isFinished={Boolean(orderFormik.values.payment.length)}>
-                      <div className="order__radio-inputs">
-                        <RadioComponent
-                          name="payment"
-                          value="credit card"
-                          isChacked={getIsChacked('credit card')}
-                          onChange={orderFormik.handleChange}>
-                          <div
-                            className={classNames('order__card-images', {
-                              'order__card-images--is-visible': getIsChacked('credit card')
-                            })}>
-                            <img className="order__card-image" src={masterCard} alt="card" />
-                            <img className="order__card-image" src={visa} alt="card" />
-                          </div>
-                        </RadioComponent>
-                        <RadioComponent
-                          name="payment"
-                          value="google pay"
-                          isChacked={getIsChacked('google pay')}
-                          onChange={orderFormik.handleChange}>
-                          <div
-                            className={classNames('order__card-images', {
-                              'order__card-images--is-visible': getIsChacked('google pay')
-                            })}>
-                            <img className="order__card-image" src={googlePay} alt="card" />
-                          </div>
-                        </RadioComponent>
-                        {orderFormik.touched.payment && Boolean(orderFormik.errors.payment) && (
-                          <span className="order__radio-error">{orderFormik.errors.payment}</span>
-                        )}
-                      </div>
-                    </OrderBlockComponent>
-                    <OrderBlockComponent
-                      step={4}
-                      maxStep={4}
-                      name="Review"
-                      isFinished={!Object.keys(orderFormik.errors).length}>
-                      <span className="order__blocks-check">Please, check your order.</span>
-                    </OrderBlockComponent>
-                    <CheckboxComponent
-                      name="withGift"
-                      onChange={handleWithGift}
-                      text="This Order is for Gift, make it beautiful!"
-                      isChecked={orderFormik.values.withGift}
-                    />
-                    <ButtonComponent text="Buy" type={ButtonTypes.submit} />
-                  </>
-                ) : (
-                  <>
-                    <OrderBlockComponent
-                      step={1}
-                      maxStep={4}
-                      name="Log In"
-                      withDivider={false}
-                      isFinished={!loginFormik.errors.email && !loginFormik.errors.password}>
-                      <div className="order__blocks-inputs">
-                        <InputLabelComponent text="Email">
-                          <InputComponent
-                            isDark={true}
-                            name="email"
-                            placeholder="Enter your email"
-                            value={loginFormik.values.email}
-                            onChange={loginFormik.handleChange}
-                            warning={
-                              !orderFormik.touched.email &&
-                              Boolean(loginFormik.values.email) &&
-                              Boolean(loginFormik.errors.email)
-                            }
-                            error={loginFormik.touched.email && Boolean(loginFormik.errors.email)}
-                            helperText={loginFormik.errors.email}
-                          />
-                        </InputLabelComponent>
-                        <InputLabelComponent text="Password">
-                          <InputComponent
-                            isDark={true}
-                            type="password"
-                            name="password"
-                            placeholder="Enter your password"
-                            value={loginFormik.values.password}
-                            onChange={loginFormik.handleChange}
-                            warning={
-                              !loginFormik.touched.password &&
-                              Boolean(loginFormik.values.password) &&
-                              Boolean(loginFormik.errors.password)
-                            }
-                            error={
-                              loginFormik.touched.password && Boolean(loginFormik.errors.password)
-                            }
-                            helperText={loginFormik.errors.password}
-                          />
-                        </InputLabelComponent>
-                        <Link className="link order__link" to="/restore-password">
-                          Forgot password?
-                        </Link>
-                      </div>
-                    </OrderBlockComponent>
-                    <div className="order__button-wrapper">
-                      <ButtonComponent text="Login" type={ButtonTypes.submit} />
                     </div>
-                  </>
-                )}
-              </form>
-              <div className="order__list-box">
-                <h4 className="order__list-title">Your order</h4>
-                <ul className="order__list">
-                  {BagItems.map((item) => (
-                    <li key={item.product.id}>
-                      <OrderItemComponent item={item} />
-                    </li>
-                  ))}
-                </ul>
-                <div className="order__total">
-                  <span className="order__total-text">Total</span>
-                  <span className="order__total-price">${totalPrice.toFixed(2)}</span>
+                  )}
+                </form>
+                <div className="order__list-box">
+                  <h4 className="order__list-title">Your order</h4>
+                  <ul className="order__list">
+                    {BagItems.map((item) => (
+                      <li key={item.product.id}>
+                        <OrderItemComponent item={item} />
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="order__total">
+                    <span className="order__total-text">Total</span>
+                    <span className="order__total-price">${totalPrice.toFixed(2)}</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <FooterComponent />
     </section>
   );
 };
