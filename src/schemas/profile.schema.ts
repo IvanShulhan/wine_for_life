@@ -18,15 +18,15 @@ export const profileSchema = yup.object({
       const onlyDigits = val?.split('').filter((ch) => COMMON_CONST.DIGIT_REGEX.test(ch));
       return onlyDigits?.length === 12;
     })
-    .required('Phone number is required'),
-  region: yup.string().required('Region is required'),
-  city: yup.string().required('Chose your city'),
-  deliveryService: yup.string().required('Chose your delivery service'),
-  warehause: yup.string().required('Choose adress of warehouse'),
+    .optional(),
+  region: yup.string(),
+  city: yup.string(),
+  deliveryService: yup.string(),
+  warehause: yup.string(),
   oldPassword: yup.string(),
   password: yup
     .string()
     .matches(/(?=.*?[0-9]).*/, 'At least 1 number (0-9)')
     .test('len', 'At least 8 characters', (val) => (val ? val.length >= 8 : false))
-    .required('Password is required')
+    .optional()
 });

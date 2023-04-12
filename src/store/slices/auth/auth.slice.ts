@@ -1,23 +1,19 @@
 /* eslint-disable no-empty-pattern */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import jwt_decode from 'jwt-decode';
 import { RootState } from '../../app/store';
-import { ILoginUser, IRegisterUser, IUser } from '../../../common/types/user.type';
+import { ILoginUser, IRegisterUser } from '../../../common/types/user.type';
 import authSerivce from '../../../services/auth.service';
 import { STORAGE_KEYS } from '../../../common/consts';
+import helperFuncs from '../../../common/utils/helper.funcs';
 
 export interface authState {
-  user: IUser | null;
+  userToken: string | null;
   status: 'idle' | 'loading' | 'failed';
 }
 
-const getUserFromToken = (srt: string): IUser | null => {
-  return srt.length ? jwt_decode(srt) : null;
-};
-
 const initialState: authState = {
-  user: getUserFromToken(localStorage.getItem(STORAGE_KEYS.TOKEN) || ''),
+  userToken: localStorage.getItem(STORAGE_KEYS.TOKEN),
   status: 'loading'
 };
 
@@ -29,7 +25,7 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (body: ILoginU
   const { data } = await authSerivce.loginUser(body);
   localStorage.setItem(STORAGE_KEYS.TOKEN, JSON.stringify(data.token));
 
-  return getUserFromToken(data.token);
+  return data;
 });
 
 export const authSlice = createSlice({
@@ -38,7 +34,7 @@ export const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       localStorage.removeItem(STORAGE_KEYS.TOKEN);
-      state.user = null;
+      state.userToken = null;
     },
     resetAuthStatus: (state) => {
       state.status = 'loading';
@@ -51,7 +47,7 @@ export const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.user = action.payload;
+        state.userToken = action.payload.token;
       })
       .addCase(loginUser.rejected, (state) => {
         state.status = 'failed';
@@ -69,6 +65,15 @@ export const authSlice = createSlice({
 });
 
 export const { logout, resetAuthStatus } = authSlice.actions;
-export const selectUser = (state: RootState) => state.auth.user;
+export const selectUserToken = (state: RootState) => state.auth.userToken;
+export const selectUserId = (state: RootState) => {
+  if (state.auth.userToken) {
+    const user = helperFuncs.getUserFromToken(state.auth.userToken);
+
+    return user.id;
+  }
+
+  return null;
+};
 export const selectAuthStatus = (state: RootState) => state.auth.status;
 export default authSlice.reducer;

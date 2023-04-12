@@ -30,3 +30,17 @@ export interface ILoginUser {
 export interface IToken {
   token: string;
 }
+
+export interface IUpdateUser {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string;
+  region?: string;
+  city?: string;
+  birthDate?: string;
+  deliveryService?: string;
+  warehause?: string;
+  password?: string;
+  oldPassword?: string;
+}

@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
+import { ROUTER_KEYS } from '../../common/consts';
 import { selectBagItems } from '../../store/slices/bag/bag.slice';
 import { SearchComponent } from './search';
 import { BagComponent } from '../bag';
 import { ReactComponent as Logo } from '../../assets/icons/logo.svg';
 import { ReactComponent as User } from '../../assets/icons/user.svg';
 import { ReactComponent as Bag } from '../../assets/icons/bag.svg';
+import { logout, selectUserToken } from '../../store/slices/auth/auth.slice';
 import classNames from 'classnames';
 import './header.scss';
-import { logout, selectUser } from '../../store/slices/auth/auth.slice';
-import { ROUTER_KEYS } from '../../common/consts';
 
 interface IProps {
   hasSearch?: boolean;
@@ -23,15 +23,13 @@ export const HeaderComponent: React.FC<IProps> = React.memo(
     const { pathname } = useLocation();
     const bagItems = useAppSelector(selectBagItems);
     const [isOpenBag, setIsOpenBag] = useState(false);
-    const user = useAppSelector(selectUser);
+    const userToken = useAppSelector(selectUserToken);
     const dispatch = useAppDispatch();
 
     const isHiddenButton = useMemo(
       () => pathname.includes(ROUTER_KEYS.LOGIN) || pathname.includes(ROUTER_KEYS.REGISTRATION),
       [pathname]
     );
-
-    console.log(pathname.includes(ROUTER_KEYS.LOGIN));
 
     const closeBag = useCallback(() => {
       setIsOpenBag(false);
@@ -44,10 +42,8 @@ export const HeaderComponent: React.FC<IProps> = React.memo(
     }, [isOpenBag]);
 
     const buttonActions = () => {
-      user ? dispatch(logout()) : navigate(ROUTER_KEYS.LOGIN);
+      userToken ? dispatch(logout()) : navigate(ROUTER_KEYS.LOGIN);
     };
-
-    console.log(user);
 
     return (
       <header className="header">
@@ -70,7 +66,7 @@ export const HeaderComponent: React.FC<IProps> = React.memo(
             <div className="header__content">
               {hasSearch && <SearchComponent />}
               <nav className="navbar header__navbar">
-                {user && (
+                {userToken && (
                   <Link to="/profile" className="navbar__link">
                     <User className="navbar__icon" />
                   </Link>
@@ -85,7 +81,7 @@ export const HeaderComponent: React.FC<IProps> = React.memo(
                 )}
                 {!isHiddenButton && (
                   <button onClick={buttonActions} className="navbar__button">
-                    {!user ? 'Log in' : 'Log out'}
+                    {!userToken ? 'Log in' : 'Log out'}
                   </button>
                 )}
               </nav>

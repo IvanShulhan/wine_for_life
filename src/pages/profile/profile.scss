@@ -8,6 +8,10 @@ $gap: 20px;
   flex-direction: column;
   @include toRem();
 
+  &__header {
+    @include flex;
+  }
+
   &__wrapper {
     flex-grow: 1;
   }
@@ -56,22 +60,9 @@ $gap: 20px;
     gap: $gap;
   }
 
-  &__card-images {
+  &__buttons {
     display: flex;
-    gap: 17px;
-    opacity: 0;
-    transform: translateY(50%);
-    transition: transition(transform, 0.2), transition(opacity);
-
-    &--is-visible {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
-  &__card-image {
-    width: 120px;
-    height: 48px;
-    object-fit: cover;
+    align-items: center;
+    gap: $gap;
   }
 }

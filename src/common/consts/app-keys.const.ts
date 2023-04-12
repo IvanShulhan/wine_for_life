@@ -7,6 +7,7 @@ export const STORAGE_KEYS = {
 
 export const BACKEND_KEYS = {
   BASE_URL: process.env.REACT_APP_SERVER_URL,
+  USERS: 'users',
   API_VERSION: 'wine-shop',
   PRODUCTS: 'products',
   SIGN_UP: 'sign-up',

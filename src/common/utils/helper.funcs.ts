@@ -1,4 +1,6 @@
 import { IBagItem } from '../../store/slices/bag/bag.slice';
+import jwt_decode from 'jwt-decode';
+import { IUser } from '../types/user.type';
 
 class HelperFuncs {
   modifyFirstChar(str: string): string {
@@ -28,6 +30,10 @@ class HelperFuncs {
 
       return `№${i + 1} ${randomStreet}, ${randomNum}`;
     });
+  }
+
+  getUserFromToken(srt: string): IUser {
+    return jwt_decode(srt);
   }
 }
 

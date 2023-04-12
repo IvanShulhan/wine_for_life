@@ -1,9 +1,11 @@
-import './profile.scss';
 import { useMemo, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { profileSchema } from '../../schemas';
 import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
-import { selectBagItems } from '../../store/slices/bag/bag.slice';
+import { logout, selectUserId } from '../../store/slices/auth/auth.slice';
+import { removeUser, selectUser, updateUser } from '../../store/slices/user/user.slice';
+import { useNavigate } from 'react-router-dom';
+import { ROUTER_KEYS } from '../../common/consts';
 import { ButtonTypes } from '../../common/types/button-types.enum';
 import helperFuncs from '../../common/utils/helper.funcs';
 import { HeaderComponent } from '../../components/header';
@@ -16,11 +18,12 @@ import { SelectComponent } from '../../components/select';
 import adreses from '../../data/warehouses.json';
 import { FooterComponent } from '../../components/footer';
 import './profile.scss';
-import { selectUser } from '../../store/slices/auth/auth.slice';
 
 export const ProfilePage = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
+  const userId = useAppSelector(selectUserId);
+  const navigate = useNavigate();
 
   const profileFormik = useFormik({
     initialValues: {
@@ -40,14 +43,14 @@ export const ProfilePage = () => {
     validateOnChange: true,
     validateOnMount: true,
     onSubmit: (values) => {
-      alert(
-        JSON.stringify({
-          values
-        })
-      );
-      profileFormik.resetForm();
+      if (userId) {
+        const params = { id: userId, body: values };
+        dispatch(updateUser(params));
+      }
     }
   });
+
+  console.log(profileFormik.errors);
 
   const warehouses = useMemo(() => {
     return helperFuncs.generateRandomAdress(adreses.streets);
@@ -57,13 +60,21 @@ export const ProfilePage = () => {
     await profileFormik.setValues((values) => ({ ...values, [key]: value }));
   };
 
+  const deleteAccount = () => {
+    if (userId) {
+      dispatch(removeUser(userId));
+      dispatch(logout());
+      navigate(ROUTER_KEYS.CATALOG);
+    }
+  };
+
   useEffect(() => {
     setFormicValue('warehause', '');
   }, [profileFormik.values.city]);
 
   return (
     <section className="profile">
-      <HeaderComponent hasBag={false} />
+      <HeaderComponent />
       <div className="profile__wrapper">
         <div className="container">
           <div className="profile__inner">
@@ -74,14 +85,7 @@ export const ProfilePage = () => {
               <div className="profile__content">
                 <form onSubmit={profileFormik.handleSubmit} className="profile__blocks">
                   <>
-                    <BlockComponent
-                      name="Billing details"
-                      isFinished={
-                        !profileFormik.errors.firstName &&
-                        !profileFormik.errors.lastName &&
-                        !profileFormik.errors.phone &&
-                        !profileFormik.errors.email
-                      }>
+                    <BlockComponent name="Billing details" isFinished={false}>
                       <div className="profile__blocks-inputs">
                         <InputLabelComponent text="First name">
                           <InputComponent
@@ -152,20 +156,12 @@ export const ProfilePage = () => {
                               Boolean(profileFormik.values.phone) &&
                               Boolean(profileFormik.errors.phone)
                             }
-                            error={
-                              profileFormik.touched.phone && Boolean(profileFormik.errors.phone)
-                            }
                             helperText={profileFormik.errors.phone}
                           />
                         </InputLabelComponent>
                       </div>
                     </BlockComponent>
-                    <BlockComponent
-                      name="Personal data"
-                      isFinished={
-                        !profileFormik.errors.birthDate &&
-                        Boolean(profileFormik.values.birthDate.length)
-                      }>
+                    <BlockComponent name="Personal data" isFinished={false}>
                       <div className="profile__blocks-inputs">
                         <InputLabelComponent
                           text="Date of birth"
@@ -181,18 +177,12 @@ export const ProfilePage = () => {
                               Boolean(profileFormik.values.birthDate) &&
                               Boolean(profileFormik.errors.birthDate)
                             }
-                            error={
-                              profileFormik.touched.birthDate &&
-                              Boolean(profileFormik.errors.birthDate)
-                            }
                             helperText={profileFormik.errors.birthDate}
                           />
                         </InputLabelComponent>
                       </div>
                     </BlockComponent>
-                    <BlockComponent
-                      name="Shipping details"
-                      isFinished={!profileFormik.errors.city && !profileFormik.errors.warehause}>
+                    <BlockComponent name="Shipping details" isFinished={false}>
                       <div className="profile__blocks-inputs">
                         <InputLabelComponent text="Region">
                           <SelectComponent name="Ukraine" isDisabled={true} isFull={true} />
@@ -219,10 +209,6 @@ export const ProfilePage = () => {
                         </InputLabelComponent>
                         <InputLabelComponent
                           text="Warehouse"
-                          error={
-                            profileFormik.touched.warehause &&
-                            Boolean(profileFormik.errors.warehause)
-                          }
                           errorMsg={profileFormik.errors.warehause}>
                           <SelectComponent
                             isDisabled={!profileFormik.values.city}
@@ -238,11 +224,7 @@ export const ProfilePage = () => {
                       </div>
                     </BlockComponent>
 
-                    <BlockComponent
-                      name="Security"
-                      isFinished={
-                        !profileFormik.errors.password && !profileFormik.errors.oldPassword
-                      }>
+                    <BlockComponent name="Security" withDivider={false} isFinished={false}>
                       <div className="profile__blocks-inputs">
                         <InputLabelComponent text="Old password">
                           <InputComponent
@@ -255,10 +237,6 @@ export const ProfilePage = () => {
                               !profileFormik.touched.oldPassword &&
                               Boolean(profileFormik.values.oldPassword) &&
                               Boolean(profileFormik.errors.oldPassword)
-                            }
-                            error={
-                              profileFormik.touched.oldPassword &&
-                              Boolean(profileFormik.errors.firstName)
                             }
                             helperText={profileFormik.errors.oldPassword}
                           />
@@ -275,17 +253,24 @@ export const ProfilePage = () => {
                               Boolean(profileFormik.values.password) &&
                               Boolean(profileFormik.errors.password)
                             }
-                            error={
-                              profileFormik.touched.password &&
-                              Boolean(profileFormik.errors.password)
-                            }
                             helperText={profileFormik.errors.password}
                           />
                         </InputLabelComponent>
                       </div>
                     </BlockComponent>
-                    <></>
-                    <ButtonComponent text="Buy" type={ButtonTypes.submit} />
+                    <div className="profile__buttons">
+                      <ButtonComponent
+                        onClick={() => profileFormik.handleSubmit()}
+                        text="Update"
+                        type={ButtonTypes.submit}
+                      />
+                      <ButtonComponent
+                        onClick={deleteAccount}
+                        text="Delete account"
+                        outlined
+                        type={ButtonTypes.submit}
+                      />
+                    </div>
                   </>
                 </form>
               </div>

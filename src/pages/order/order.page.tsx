@@ -23,9 +23,10 @@ import masterCard from '../../assets/icons/mastercard.png';
 import visa from '../../assets/icons/visa.png';
 import googlePay from '../../assets/icons/googlepay.png';
 import adreses from '../../data/warehouses.json';
-import { loginUser, selectUser } from '../../store/slices/auth/auth.slice';
+import { loginUser } from '../../store/slices/auth/auth.slice';
 import './order.scss';
 import { FooterComponent } from '../../components/footer';
+import { selectUser } from '../../store/slices/user/user.slice';
 
 export const OrderPage = () => {
   const [isNewCustomer, setIsNewCustomer] = useState(true);

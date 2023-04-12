@@ -1,17 +1,29 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { MainRouter } from './navigation';
-import { store } from './store/app/store';
-import { Provider } from 'react-redux';
-import './index.scss';
+import { useAppDispatch, useAppSelector } from './store/app/hooks';
+import { selectUserToken } from './store/slices/auth/auth.slice';
+import { getUser } from './store/slices/user/user.slice';
+import helperFuncs from './common/utils/helper.funcs';
 
-const App = () => (
-  <Provider store={store}>
+const App = () => {
+  const dispatch = useAppDispatch();
+  const userToken = useAppSelector(selectUserToken);
+
+  useEffect(() => {
+    if (userToken) {
+      const user = helperFuncs.getUserFromToken(userToken);
+
+      dispatch(getUser(user.id));
+    }
+  }, [userToken]);
+
+  return (
     <div className="wrapper">
       <div className="wrapper__copntent">
         <MainRouter />
       </div>
     </div>
-  </Provider>
-);
+  );
+};
 
 export default App;
