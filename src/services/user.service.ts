@@ -15,7 +15,7 @@ class UserService extends HttpSerivce {
   }
 
   async updateUser(id: number, body: IUpdateUser) {
-    const res = await this.put<IUpdateUser, AxiosResponse<IUser>>(
+    const res = await this.patch<IUpdateUser, AxiosResponse<IUser>>(
       { url: `${BACKEND_KEYS.USERS}/${id}`, data: body },
       false
     );

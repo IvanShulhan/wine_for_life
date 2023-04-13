@@ -72,6 +72,16 @@ class HttpSerivce {
     );
   }
 
+  patch<M, R>(config: IHttpConfig, withAuth = true) {
+    this.setConfigHeaderWithAuth(config, withAuth);
+
+    return this.fetchingService.put<M, R>(
+      this.getFullApiUrl(config.url),
+      config.data,
+      this.extractUrlAndDataFromConfig(config)
+    );
+  }
+
   delete(config: IHttpConfig, withAuth = true) {
     this.setConfigHeaderWithAuth(config, withAuth);
 

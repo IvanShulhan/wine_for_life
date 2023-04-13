@@ -12,7 +12,7 @@ export const BACKEND_KEYS = {
   PRODUCTS: 'products',
   SIGN_UP: 'sign-up',
   LOG_IN: 'log-in',
-  ORDER: 'orders/complete-new-user'
+  ORDER: 'orders/complete'
 };
 
 export const ROUTER_KEYS = {

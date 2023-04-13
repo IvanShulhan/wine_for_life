@@ -27,6 +27,10 @@ export const ProductListComponent = () => {
 
   const products = useAppSelector(selectProducts);
 
+  useEffect(() => {
+    dispatch(getProducts(search));
+  }, []);
+
   return (
     <div className="product-list">
       <div className="product-list__header">

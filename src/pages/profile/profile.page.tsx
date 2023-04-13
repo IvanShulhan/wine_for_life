@@ -40,12 +40,12 @@ export const ProfilePage = () => {
       firstName: user?.firstName || '',
       lastName: user?.lastName || '',
       email: user?.email || '',
-      phone: user?.phone || '',
+      phoneNumber: user?.phone || '',
       region: 'Ukraine',
       city: user?.shippingDetails?.city || '',
       birthDate: user?.birthDate || '',
       deliveryService: 'Nova Poshta',
-      warehause: user?.shippingDetails?.warehouse || '',
+      wareHouse: user?.shippingDetails?.warehouse || '',
       password: '',
       oldPassword: ''
     },
@@ -54,12 +54,13 @@ export const ProfilePage = () => {
     validateOnBlur: true,
     validateOnMount: true,
     enableReinitialize: true,
-    onSubmit: (values) => {
-      console.log('aaa');
+    onSubmit: (values, { setSubmitting }) => {
+      console.log(values);
       if (userId) {
         const params = { id: userId, body: values };
         dispatch(updateUser(params));
       }
+      setSubmitting(false);
     }
   });
 
@@ -141,6 +142,7 @@ export const ProfilePage = () => {
                         <InputLabelComponent text="Email">
                           <InputComponent
                             isDark={true}
+                            isDisabled={true}
                             name="email"
                             placeholder="Enter your email"
                             value={profileFormik.values.email}
@@ -160,16 +162,21 @@ export const ProfilePage = () => {
                           <InputComponent
                             isPhoneInput={true}
                             isDark={true}
-                            name="phone"
+                            name="phoneNumber"
                             placeholder="Enter your phone"
-                            value={profileFormik.values.phone}
+                            value={profileFormik.values.phoneNumber}
                             onChange={profileFormik.handleChange}
                             warning={
-                              !profileFormik.touched.phone &&
-                              Boolean(profileFormik.values.phone) &&
-                              Boolean(profileFormik.errors.phone)
+                              !profileFormik.touched.phoneNumber &&
+                              Boolean(profileFormik.values.phoneNumber) &&
+                              Boolean(profileFormik.errors.phoneNumber)
                             }
-                            helperText={profileFormik.errors.phone}
+                            error={
+                              profileFormik.touched.phoneNumber &&
+                              Boolean(profileFormik.values.phoneNumber) &&
+                              Boolean(profileFormik.errors.phoneNumber)
+                            }
+                            helperText={profileFormik.errors.phoneNumber}
                           />
                         </InputLabelComponent>
                       </div>
@@ -190,6 +197,11 @@ export const ProfilePage = () => {
                               Boolean(profileFormik.values.birthDate) &&
                               Boolean(profileFormik.errors.birthDate)
                             }
+                            error={
+                              profileFormik.touched.birthDate &&
+                              Boolean(profileFormik.values.birthDate) &&
+                              Boolean(profileFormik.errors.birthDate)
+                            }
                             helperText={profileFormik.errors.birthDate}
                           />
                         </InputLabelComponent>
@@ -203,8 +215,8 @@ export const ProfilePage = () => {
                         <InputLabelComponent
                           text="City"
                           error={
-                            profileFormik.touched.warehause &&
-                            Boolean(profileFormik.errors.warehause)
+                            profileFormik.touched.wareHouse &&
+                            Boolean(profileFormik.errors.wareHouse)
                           }
                           errorMsg={profileFormik.errors.city}>
                           <SelectComponent
@@ -222,12 +234,12 @@ export const ProfilePage = () => {
                         </InputLabelComponent>
                         <InputLabelComponent
                           text="Warehouse"
-                          errorMsg={profileFormik.errors.warehause}>
+                          errorMsg={profileFormik.errors.wareHouse}>
                           <SelectComponent
                             isDisabled={!profileFormik.values.city}
                             name="choose your warehouse"
                             values={warehouses}
-                            currentVal={profileFormik.values.warehause}
+                            currentVal={profileFormik.values.wareHouse}
                             property="warehause"
                             onChangeFun={setFormicValue}
                             withParams={false}
@@ -266,33 +278,18 @@ export const ProfilePage = () => {
                               Boolean(profileFormik.values.password) &&
                               Boolean(profileFormik.errors.password)
                             }
+                            error={
+                              profileFormik.touched.password &&
+                              Boolean(profileFormik.values.password) &&
+                              Boolean(profileFormik.errors.password)
+                            }
                             helperText={profileFormik.errors.password}
                           />
                         </InputLabelComponent>
                       </div>
                     </BlockComponent>
                     <div className="profile__buttons">
-                      <ButtonComponent
-                        // onClick={async () => {
-                        //   if (
-                        //     !profileFormik.values.password.length &&
-                        //     !profileFormik.values.password.length
-                        //   ) {
-                        //     profileFormik.handleSubmit();
-                        //   }
-
-                        //   if (!profileFormik.values.phone.length) {
-                        //     profileFormik.setFieldError('phone', '');
-                        //     await profileFormik.setFieldTouched('phone', false, false);
-                        //   }
-
-                        //   console.log(profileFormik.errors);
-
-                        //   profileFormik.handleSubmit();
-                        // }}
-                        text="Update"
-                        type={ButtonTypes.submit}
-                      />
+                      <ButtonComponent text="Update" type={ButtonTypes.submit} />
                       <ButtonComponent
                         onClick={deleteAccount}
                         text="Delete account"

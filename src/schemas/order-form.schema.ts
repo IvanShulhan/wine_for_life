@@ -13,7 +13,7 @@ export const orderFormSchema = yup.object({
     .min(3, 'Must be at least 3 characters long')
     .required('Last name is required'),
   email: yup.string().email('Invalid email format').required('Email is required'),
-  phone: yup
+  phoneNumber: yup
     .string()
     .test('len', 'Phone length equal 12 numbers', (val) => {
       const onlyDigits = val?.split('').filter((ch) => COMMON_CONST.DIGIT_REGEX.test(ch));
@@ -24,5 +24,5 @@ export const orderFormSchema = yup.object({
   region: yup.string().required('Region is required'),
   city: yup.string().required('Chose your city'),
   deliveryService: yup.string().required('Chose your delivery service'),
-  warehause: yup.string().required('Choose adress of warehouse')
+  wareHouse: yup.string().required('Choose adress of warehouse')
 });

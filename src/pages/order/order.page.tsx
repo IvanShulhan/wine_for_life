@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { orderFormSchema, loginSchema } from '../../schemas';
 import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
 import { selectBagItems } from '../../store/slices/bag/bag.slice';
-import { loginUser, selectUserToken } from '../../store/slices/auth/auth.slice';
+import { loginUser, registerUser, selectUserToken } from '../../store/slices/auth/auth.slice';
 import { getUser, selectUser } from '../../store/slices/user/user.slice';
 import { ButtonTypes } from '../../common/types/button-types.enum';
 import helperFuncs from '../../common/utils/helper.funcs';
@@ -27,6 +27,7 @@ import adreses from '../../data/warehouses.json';
 import { FooterComponent } from '../../components/footer';
 import classNames from 'classnames';
 import './order.scss';
+import orderService from '../../services/order.service';
 
 export const OrderPage = () => {
   const [isNewCustomer, setIsNewCustomer] = useState(true);
@@ -44,6 +45,10 @@ export const OrderPage = () => {
     }
   }, []);
 
+  interface IObj {
+    [key: string]: number;
+  }
+
   const user = useAppSelector(selectUser);
 
   const orderFormik = useFormik({
@@ -51,26 +56,36 @@ export const OrderPage = () => {
       firstName: user?.firstName || '',
       lastName: user?.lastName || '',
       email: user?.email || '',
-      phone: user?.phone || '',
+      phoneNumber: user?.phone || '',
       payment: '',
       region: 'Ukraine',
       city: user?.shippingDetails?.city || '',
       deliveryService: 'Nova Poshta',
-      warehause: user?.shippingDetails?.warehouse || '',
-      withGift: false
+      wareHouse: user?.shippingDetails?.warehouse || '',
+      isGift: false
     },
     validationSchema: orderFormSchema,
     validateOnChange: true,
     validateOnMount: true,
     enableReinitialize: true,
-    onSubmit: (values) => {
-      alert(
-        JSON.stringify({
-          ...values,
-          goods: BagItems.map((it) => ({ ...it, product: it.product.id }))
-        })
-      );
-      orderFormik.resetForm();
+    onSubmit: async (values) => {
+      const products = BagItems.reduce((obj: IObj, el) => {
+        obj[el.product.id.toString()] = el.count;
+
+        return obj;
+      }, {});
+
+      await orderService.makeOrder({
+        ...values,
+        products
+      });
+
+      if (isRegisterAfterOrder && !loginFormik.errors.password) {
+        const { firstName, lastName, email } = values;
+        const { password } = loginFormik.values;
+
+        dispatch(registerUser({ firstName, lastName, email, password }));
+      }
     }
   });
 
@@ -93,7 +108,7 @@ export const OrderPage = () => {
   }, [orderFormik.values.city]);
 
   const handleWithGift = () => {
-    orderFormik.setValues((val) => ({ ...val, withGift: !val.withGift }));
+    orderFormik.setValues((val) => ({ ...val, isGift: !val.isGift }));
   };
 
   const setFormicValue = async (key: string, value: string) => {
@@ -162,7 +177,7 @@ export const OrderPage = () => {
                         isFinished={
                           !orderFormik.errors.firstName &&
                           !orderFormik.errors.lastName &&
-                          !orderFormik.errors.phone &&
+                          !orderFormik.errors.phoneNumber &&
                           !orderFormik.errors.email
                         }>
                         <div className="order__blocks-inputs">
@@ -225,24 +240,51 @@ export const OrderPage = () => {
                               isDark={true}
                               name="phone"
                               placeholder="Enter your phone"
-                              value={orderFormik.values.phone}
+                              value={orderFormik.values.phoneNumber}
                               onChange={orderFormik.handleChange}
                               warning={
-                                !orderFormik.touched.phone &&
-                                Boolean(orderFormik.values.phone) &&
-                                Boolean(orderFormik.errors.phone)
+                                !orderFormik.touched.phoneNumber &&
+                                Boolean(orderFormik.values.phoneNumber) &&
+                                Boolean(orderFormik.errors.phoneNumber)
                               }
-                              error={orderFormik.touched.phone && Boolean(orderFormik.errors.phone)}
-                              helperText={orderFormik.errors.phone}
+                              error={
+                                orderFormik.touched.phoneNumber &&
+                                Boolean(orderFormik.errors.phoneNumber)
+                              }
+                              helperText={orderFormik.errors.phoneNumber}
                             />
                           </InputLabelComponent>
+                          {isRegisterAfterOrder && (
+                            <InputLabelComponent text="Password">
+                              <InputComponent
+                                isPhoneInput={true}
+                                isDark={true}
+                                name="password"
+                                placeholder="Enter your password"
+                                value={loginFormik.values.password}
+                                onChange={loginFormik.handleChange}
+                                warning={
+                                  !loginFormik.touched.password &&
+                                  Boolean(loginFormik.values.password) &&
+                                  Boolean(loginFormik.errors.password)
+                                }
+                                error={
+                                  loginFormik.touched.password &&
+                                  Boolean(loginFormik.errors.password)
+                                }
+                                helperText={loginFormik.errors.password}
+                              />
+                            </InputLabelComponent>
+                          )}
                           {!user && (
-                            <CheckboxComponent
-                              name="create account"
-                              onChange={() => setIsRegisterAfterOrder(!isRegisterAfterOrder)}
-                              text="Create account?"
-                              isChecked={isRegisterAfterOrder}
-                            />
+                            <div className="order__checkbox-wrapper">
+                              <CheckboxComponent
+                                name="create account"
+                                onChange={() => setIsRegisterAfterOrder(!isRegisterAfterOrder)}
+                                text="Create account?"
+                                isChecked={isRegisterAfterOrder}
+                              />
+                            </div>
                           )}
                         </div>
                       </BlockComponent>
@@ -250,7 +292,7 @@ export const OrderPage = () => {
                         step={2}
                         maxStep={4}
                         name="Shipping details"
-                        isFinished={!orderFormik.errors.city && !orderFormik.errors.warehause}>
+                        isFinished={!orderFormik.errors.city && !orderFormik.errors.wareHouse}>
                         <div className="order__blocks-inputs">
                           <InputLabelComponent text="Region">
                             <SelectComponent name="Ukraine" isDisabled={true} isFull={true} />
@@ -258,7 +300,7 @@ export const OrderPage = () => {
                           <InputLabelComponent
                             text="City"
                             error={
-                              orderFormik.touched.warehause && Boolean(orderFormik.errors.warehause)
+                              orderFormik.touched.wareHouse && Boolean(orderFormik.errors.wareHouse)
                             }
                             errorMsg={orderFormik.errors.city}>
                             <SelectComponent
@@ -277,14 +319,14 @@ export const OrderPage = () => {
                           <InputLabelComponent
                             text="Warehouse"
                             error={
-                              orderFormik.touched.warehause && Boolean(orderFormik.errors.warehause)
+                              orderFormik.touched.wareHouse && Boolean(orderFormik.errors.wareHouse)
                             }
-                            errorMsg={orderFormik.errors.warehause}>
+                            errorMsg={orderFormik.errors.wareHouse}>
                             <SelectComponent
                               isDisabled={!orderFormik.values.city}
                               name="choose your warehouse"
                               values={warehouses}
-                              currentVal={orderFormik.values.warehause}
+                              currentVal={orderFormik.values.wareHouse}
                               property="warehause"
                               onChangeFun={setFormicValue}
                               withParams={false}
@@ -340,7 +382,7 @@ export const OrderPage = () => {
                         name="withGift"
                         onChange={handleWithGift}
                         text="This Order is for Gift, make it beautiful!"
-                        isChecked={orderFormik.values.withGift}
+                        isChecked={orderFormik.values.isGift}
                       />
                       <ButtonComponent text="Buy" type={ButtonTypes.submit} />
                     </>

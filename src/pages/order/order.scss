@@ -12,6 +12,10 @@ $gap: 20px;
     flex-grow: 1;
   }
 
+  &__checkbox-wrapper {
+    width: 100%;
+  }
+
   &__button-wrapper {
     width: calc(50% - $gap/2);
   }

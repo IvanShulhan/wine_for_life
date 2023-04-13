@@ -12,6 +12,7 @@ interface IProps {
   type?: string;
   name: string;
   value: string;
+  isDisabled?: boolean;
   onChange: (e: React.ChangeEvent) => void;
   error?: boolean;
   warning?: boolean;
@@ -30,7 +31,8 @@ export const InputComponent: React.FC<IProps> = React.memo(
     error,
     warning,
     helperText,
-    isPhoneInput = false
+    isPhoneInput = false,
+    isDisabled = false
   }) => {
     const [isVisible, setIsVisible] = useState(false);
 
@@ -60,6 +62,7 @@ export const InputComponent: React.FC<IProps> = React.memo(
               type={isVisible ? 'text' : type}
               name={name}
               placeholder={placeholder}
+              disabled={isDisabled}
               value={value}
               onChange={onChange}
             />
