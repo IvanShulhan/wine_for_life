@@ -12,6 +12,11 @@
     @include toRem(48);
   }
 
+  &--is-gigant {
+    font-weight: 300;
+    @include toRem(80);
+  }
+
   &--is-thin {
     font-weight: 400;
   }
