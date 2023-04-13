@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/wine_for_life/static/css/main.7aae5190.css",
-    "main.js": "/wine_for_life/static/js/main.18ba18cc.js",
+    "main.css": "/wine_for_life/static/css/main.6976752a.css",
+    "main.js": "/wine_for_life/static/js/main.e992f29b.js",
     "static/media/tasre.svg": "/wine_for_life/static/media/tasre.06a58c4f02b3a7c9409f4eaba89692f9.svg",
     "static/media/grape.svg": "/wine_for_life/static/media/grape.07a60e2dd7e55ad60a159290656d6b46.svg",
     "static/media/cheese.svg": "/wine_for_life/static/media/cheese.1db703ff10ccefb4c5e9831566c7865c.svg",
@@ -29,11 +29,11 @@
     "static/media/pipe.svg": "/wine_for_life/static/media/pipe.0c2fe262c3f85a42615e76bf31accc07.svg",
     "static/media/checkbox.svg": "/wine_for_life/static/media/checkbox.22a0cf3f17dbe61bf65d3f366d2f4ea2.svg",
     "static/media/radio.svg": "/wine_for_life/static/media/radio.5d2e44badbce44e8911268d15e76f173.svg",
-    "main.7aae5190.css.map": "/wine_for_life/static/css/main.7aae5190.css.map",
-    "main.18ba18cc.js.map": "/wine_for_life/static/js/main.18ba18cc.js.map"
+    "main.6976752a.css.map": "/wine_for_life/static/css/main.6976752a.css.map",
+    "main.e992f29b.js.map": "/wine_for_life/static/js/main.e992f29b.js.map"
   },
   "entrypoints": [
-    "static/css/main.7aae5190.css",
-    "static/js/main.18ba18cc.js"
+    "static/css/main.6976752a.css",
+    "static/js/main.e992f29b.js"
   ]
 }
