@@ -2,8 +2,8 @@ import { useMemo, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { profileSchema } from '../../schemas';
 import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
-import { logout, selectUserId } from '../../store/slices/auth/auth.slice';
-import { removeUser, selectUser, updateUser } from '../../store/slices/user/user.slice';
+import { logout, selectUserId, selectUserToken } from '../../store/slices/auth/auth.slice';
+import { getUser, removeUser, selectUser, updateUser } from '../../store/slices/user/user.slice';
 import { useNavigate } from 'react-router-dom';
 import { ROUTER_KEYS } from '../../common/consts';
 import { ButtonTypes } from '../../common/types/button-types.enum';
@@ -25,6 +25,16 @@ export const ProfilePage = () => {
   const userId = useAppSelector(selectUserId);
   const navigate = useNavigate();
 
+  const userToken = useAppSelector(selectUserToken);
+
+  useEffect(() => {
+    if (userToken) {
+      const user = helperFuncs.getUserFromToken(userToken);
+
+      dispatch(getUser(user.id));
+    }
+  }, []);
+
   const profileFormik = useFormik({
     initialValues: {
       firstName: user?.firstName || '',
@@ -41,8 +51,11 @@ export const ProfilePage = () => {
     },
     validationSchema: profileSchema,
     validateOnChange: true,
+    validateOnBlur: true,
     validateOnMount: true,
+    enableReinitialize: true,
     onSubmit: (values) => {
+      console.log('aaa');
       if (userId) {
         const params = { id: userId, body: values };
         dispatch(updateUser(params));
@@ -260,7 +273,23 @@ export const ProfilePage = () => {
                     </BlockComponent>
                     <div className="profile__buttons">
                       <ButtonComponent
-                        onClick={() => profileFormik.handleSubmit()}
+                        // onClick={async () => {
+                        //   if (
+                        //     !profileFormik.values.password.length &&
+                        //     !profileFormik.values.password.length
+                        //   ) {
+                        //     profileFormik.handleSubmit();
+                        //   }
+
+                        //   if (!profileFormik.values.phone.length) {
+                        //     profileFormik.setFieldError('phone', '');
+                        //     await profileFormik.setFieldTouched('phone', false, false);
+                        //   }
+
+                        //   console.log(profileFormik.errors);
+
+                        //   profileFormik.handleSubmit();
+                        // }}
                         text="Update"
                         type={ButtonTypes.submit}
                       />
@@ -268,7 +297,7 @@ export const ProfilePage = () => {
                         onClick={deleteAccount}
                         text="Delete account"
                         outlined
-                        type={ButtonTypes.submit}
+                        type={ButtonTypes.button}
                       />
                     </div>
                   </>

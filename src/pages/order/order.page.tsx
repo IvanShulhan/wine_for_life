@@ -3,10 +3,11 @@ import { useFormik } from 'formik';
 import { orderFormSchema, loginSchema } from '../../schemas';
 import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
 import { selectBagItems } from '../../store/slices/bag/bag.slice';
+import { loginUser, selectUserToken } from '../../store/slices/auth/auth.slice';
+import { getUser, selectUser } from '../../store/slices/user/user.slice';
 import { ButtonTypes } from '../../common/types/button-types.enum';
 import helperFuncs from '../../common/utils/helper.funcs';
 import { Link, useNavigate } from 'react-router-dom';
-import classNames from 'classnames';
 import { HeaderComponent } from '../../components/header';
 import { NavigationComponent } from '../../components/navigation';
 import { TitleComponent } from '../../components/title';
@@ -23,17 +24,25 @@ import masterCard from '../../assets/icons/mastercard.png';
 import visa from '../../assets/icons/visa.png';
 import googlePay from '../../assets/icons/googlepay.png';
 import adreses from '../../data/warehouses.json';
-import { loginUser } from '../../store/slices/auth/auth.slice';
-import './order.scss';
 import { FooterComponent } from '../../components/footer';
-import { selectUser } from '../../store/slices/user/user.slice';
+import classNames from 'classnames';
+import './order.scss';
 
 export const OrderPage = () => {
   const [isNewCustomer, setIsNewCustomer] = useState(true);
   const [isRegisterAfterOrder, setIsRegisterAfterOrder] = useState(false);
+  const userToken = useAppSelector(selectUserToken);
   const BagItems = useAppSelector(selectBagItems);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (userToken) {
+      const user = helperFuncs.getUserFromToken(userToken);
+
+      dispatch(getUser(user.id));
+    }
+  }, []);
 
   const user = useAppSelector(selectUser);
 
@@ -53,6 +62,7 @@ export const OrderPage = () => {
     validationSchema: orderFormSchema,
     validateOnChange: true,
     validateOnMount: true,
+    enableReinitialize: true,
     onSubmit: (values) => {
       alert(
         JSON.stringify({
@@ -159,7 +169,7 @@ export const OrderPage = () => {
                           <InputLabelComponent text="First name">
                             <InputComponent
                               isDark={true}
-                              name="first name"
+                              name="firstName"
                               placeholder="Enter your first name"
                               value={orderFormik.values.firstName}
                               onChange={orderFormik.handleChange}
@@ -178,7 +188,7 @@ export const OrderPage = () => {
                           <InputLabelComponent text="Last name">
                             <InputComponent
                               isDark={true}
-                              name="last name"
+                              name="lastName"
                               placeholder="Enter your last name"
                               value={orderFormik.values.lastName}
                               onChange={orderFormik.handleChange}

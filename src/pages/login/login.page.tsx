@@ -16,7 +16,7 @@ import './login.scss';
 export const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const user = useAppSelector(selectUserToken);
+  const userToken = useAppSelector(selectUserToken);
 
   interface IValues {
     email: string;
@@ -47,10 +47,10 @@ export const LoginPage = () => {
   });
 
   useEffect(() => {
-    if (user) {
+    if (userToken) {
       navigate(ROUTER_KEYS.CATALOG);
     }
-  }, [user]);
+  }, [userToken]);
 
   return (
     <section className="login">

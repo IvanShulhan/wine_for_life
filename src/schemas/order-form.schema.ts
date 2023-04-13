@@ -2,12 +2,14 @@ import * as yup from 'yup';
 import { COMMON_CONST } from '../common/consts';
 
 export const orderFormSchema = yup.object({
-  'first name': yup
+  firstName: yup
     .string()
+    .matches(COMMON_CONST.ONLY_CHAR_REGEX, 'Only letters')
     .min(3, 'Must be at least 3 characters long')
     .required('First name is required'),
-  'last name': yup
+  lastName: yup
     .string()
+    .matches(COMMON_CONST.ONLY_CHAR_REGEX, 'Only letters')
     .min(3, 'Must be at least 3 characters long')
     .required('Last name is required'),
   email: yup.string().email('Invalid email format').required('Email is required'),
@@ -21,6 +23,6 @@ export const orderFormSchema = yup.object({
   payment: yup.string().required('Paiment method is required'),
   region: yup.string().required('Region is required'),
   city: yup.string().required('Chose your city'),
-  'delivery-service': yup.string().required('Chose your delivery service'),
+  deliveryService: yup.string().required('Chose your delivery service'),
   warehause: yup.string().required('Choose adress of warehouse')
 });

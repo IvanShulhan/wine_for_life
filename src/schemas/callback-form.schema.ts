@@ -2,7 +2,11 @@ import * as yup from 'yup';
 import { COMMON_CONST } from '../common/consts';
 
 export const callbackFormSchema = yup.object({
-  name: yup.string().min(3, 'Must be at least 3 characters long').required('Name is required'),
+  name: yup
+    .string()
+    .matches(COMMON_CONST.ONLY_CHAR_REGEX, 'Only letters')
+    .min(3, 'Must be at least 3 characters long')
+    .required('Name is required'),
   phone: yup
     .string()
     .test('len', 'Phone length equal 12 numbers', (val) => {
