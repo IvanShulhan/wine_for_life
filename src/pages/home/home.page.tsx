@@ -1,7 +1,7 @@
 import { TitleComponent } from '../../components/title';
 import { useNavigate } from 'react-router-dom';
 import { ROUTER_KEYS } from '../../common/consts';
-import bgVideo from '../../assets/video/pexels-dan-cristian-pădureț-3000968-3840x2160-50fps.mp4';
+import bgVideo from '../../assets/video/pexels-dan-cristian-pădureț-3000968-1920x1080-50fps.mp4';
 import logo from '../../assets/icons/logo_white.svg';
 import circle from '../../assets/icons/scroll_for.svg';
 import arrow from '../../assets/icons/thin_arrow.svg';
