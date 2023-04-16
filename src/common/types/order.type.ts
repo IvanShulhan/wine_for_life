@@ -3,14 +3,20 @@ interface IProductItem {
 }
 
 export interface IOrder {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  region: string;
-  city: string;
-  deliveryService: string;
-  wareHouse: string;
+  userRequest: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    password: string;
+    shippingDetailsRequest: {
+      region: string;
+      city: string;
+      deliveryService: string;
+      warehouse: string;
+    };
+  };
+  createAccount: boolean;
   payment: string;
   isGift: boolean;
   products: IProductItem;

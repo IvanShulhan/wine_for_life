@@ -1,11 +1,12 @@
 import React from 'react';
+import { ChangeEvent } from 'react';
 import './checkbox.scss';
 import { ReactComponent as CheckboxIcon } from '../../assets/icons/checkbox.svg';
 import { ReactComponent as CheckboxChackedIcon } from '../../assets/icons/checkbox-chacked.svg';
 
 interface ICheckbox {
   name: string;
-  onChange: () => void;
+  onChange: (e: ChangeEvent<unknown>) => void;
   text: string;
   isChecked?: boolean;
 }

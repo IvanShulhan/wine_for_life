@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { orderFormSchema, loginSchema } from '../../schemas';
 import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
 import { selectBagItems } from '../../store/slices/bag/bag.slice';
-import { loginUser, registerUser, selectUserToken } from '../../store/slices/auth/auth.slice';
+import { loginUser, selectUserToken } from '../../store/slices/auth/auth.slice';
 import { getUser, selectUser } from '../../store/slices/user/user.slice';
 import { ButtonTypes } from '../../common/types/button-types.enum';
 import helperFuncs from '../../common/utils/helper.funcs';
@@ -27,11 +27,11 @@ import adreses from '../../data/warehouses.json';
 import { FooterComponent } from '../../components/footer';
 import classNames from 'classnames';
 import './order.scss';
-import orderService from '../../services/order.service';
+import { ROUTER_KEYS } from '../../common/consts';
+import { makeOrder } from '../../store/slices/order/order.slice';
 
 export const OrderPage = () => {
   const [isNewCustomer, setIsNewCustomer] = useState(true);
-  const [isRegisterAfterOrder, setIsRegisterAfterOrder] = useState(false);
   const userToken = useAppSelector(selectUserToken);
   const BagItems = useAppSelector(selectBagItems);
   const navigate = useNavigate();
@@ -57,35 +57,47 @@ export const OrderPage = () => {
       lastName: user?.lastName || '',
       email: user?.email || '',
       phoneNumber: user?.phone || '',
+      password: '',
+      createAccount: false,
       payment: '',
       region: 'Ukraine',
       city: user?.shippingDetails?.city || '',
       deliveryService: 'Nova Poshta',
-      wareHouse: user?.shippingDetails?.warehouse || '',
+      warehouse: user?.shippingDetails?.warehouse || '',
       isGift: false
     },
     validationSchema: orderFormSchema,
     validateOnChange: true,
     validateOnMount: true,
     enableReinitialize: true,
-    onSubmit: async (values) => {
+    onSubmit: (values) => {
       const products = BagItems.reduce((obj: IObj, el) => {
         obj[el.product.id.toString()] = el.count;
 
         return obj;
       }, {});
 
-      await orderService.makeOrder({
-        ...values,
+      const requestBody = {
+        userRequest: {
+          firstName: values.firstName,
+          lastName: values.lastName,
+          email: values.email,
+          phoneNumber: values.phoneNumber,
+          password: values.password,
+          shippingDetailsRequest: {
+            region: values.region,
+            city: values.city,
+            deliveryService: values.deliveryService,
+            warehouse: values.warehouse
+          }
+        },
+        createAccount: values.createAccount,
+        payment: values.payment,
+        isGift: values.isGift,
         products
-      });
+      };
 
-      if (isRegisterAfterOrder && !loginFormik.errors.password) {
-        const { firstName, lastName, email } = values;
-        const { password } = loginFormik.values;
-
-        dispatch(registerUser({ firstName, lastName, email, password }));
-      }
+      dispatch(makeOrder(requestBody));
     }
   });
 
@@ -106,10 +118,6 @@ export const OrderPage = () => {
   const warehouses = useMemo(() => {
     return helperFuncs.generateRandomAdress(adreses.streets);
   }, [orderFormik.values.city]);
-
-  const handleWithGift = () => {
-    orderFormik.setValues((val) => ({ ...val, isGift: !val.isGift }));
-  };
 
   const setFormicValue = async (key: string, value: string) => {
     await orderFormik.setValues((values) => ({ ...values, [key]: value }));
@@ -238,7 +246,7 @@ export const OrderPage = () => {
                             <InputComponent
                               isPhoneInput={true}
                               isDark={true}
-                              name="phone"
+                              name="phoneNumber"
                               placeholder="Enter your phone"
                               value={orderFormik.values.phoneNumber}
                               onChange={orderFormik.handleChange}
@@ -254,35 +262,34 @@ export const OrderPage = () => {
                               helperText={orderFormik.errors.phoneNumber}
                             />
                           </InputLabelComponent>
-                          {isRegisterAfterOrder && (
+                          {orderFormik.values.createAccount && (
                             <InputLabelComponent text="Password">
                               <InputComponent
-                                isPhoneInput={true}
                                 isDark={true}
                                 name="password"
                                 placeholder="Enter your password"
-                                value={loginFormik.values.password}
-                                onChange={loginFormik.handleChange}
+                                value={orderFormik.values.password}
+                                onChange={orderFormik.handleChange}
                                 warning={
-                                  !loginFormik.touched.password &&
-                                  Boolean(loginFormik.values.password) &&
-                                  Boolean(loginFormik.errors.password)
+                                  !orderFormik.touched.password &&
+                                  Boolean(orderFormik.values.password) &&
+                                  Boolean(orderFormik.errors.password)
                                 }
                                 error={
-                                  loginFormik.touched.password &&
-                                  Boolean(loginFormik.errors.password)
+                                  orderFormik.touched.password &&
+                                  Boolean(orderFormik.errors.password)
                                 }
-                                helperText={loginFormik.errors.password}
+                                helperText={orderFormik.errors.password}
                               />
                             </InputLabelComponent>
                           )}
                           {!user && (
                             <div className="order__checkbox-wrapper">
                               <CheckboxComponent
-                                name="create account"
-                                onChange={() => setIsRegisterAfterOrder(!isRegisterAfterOrder)}
+                                name="createAccount"
+                                onChange={orderFormik.handleChange}
                                 text="Create account?"
-                                isChecked={isRegisterAfterOrder}
+                                isChecked={orderFormik.values.createAccount}
                               />
                             </div>
                           )}
@@ -292,7 +299,7 @@ export const OrderPage = () => {
                         step={2}
                         maxStep={4}
                         name="Shipping details"
-                        isFinished={!orderFormik.errors.city && !orderFormik.errors.wareHouse}>
+                        isFinished={!orderFormik.errors.city && !orderFormik.errors.warehouse}>
                         <div className="order__blocks-inputs">
                           <InputLabelComponent text="Region">
                             <SelectComponent name="Ukraine" isDisabled={true} isFull={true} />
@@ -300,7 +307,7 @@ export const OrderPage = () => {
                           <InputLabelComponent
                             text="City"
                             error={
-                              orderFormik.touched.wareHouse && Boolean(orderFormik.errors.wareHouse)
+                              orderFormik.touched.warehouse && Boolean(orderFormik.errors.warehouse)
                             }
                             errorMsg={orderFormik.errors.city}>
                             <SelectComponent
@@ -319,15 +326,15 @@ export const OrderPage = () => {
                           <InputLabelComponent
                             text="Warehouse"
                             error={
-                              orderFormik.touched.wareHouse && Boolean(orderFormik.errors.wareHouse)
+                              orderFormik.touched.warehouse && Boolean(orderFormik.errors.warehouse)
                             }
-                            errorMsg={orderFormik.errors.wareHouse}>
+                            errorMsg={orderFormik.errors.warehouse}>
                             <SelectComponent
                               isDisabled={!orderFormik.values.city}
                               name="choose your warehouse"
                               values={warehouses}
-                              currentVal={orderFormik.values.wareHouse}
-                              property="warehause"
+                              currentVal={orderFormik.values.warehouse}
+                              property="warehouse"
                               onChangeFun={setFormicValue}
                               withParams={false}
                               isFull={true}
@@ -379,8 +386,8 @@ export const OrderPage = () => {
                         <span className="order__blocks-check">Please, check your order.</span>
                       </BlockComponent>
                       <CheckboxComponent
-                        name="withGift"
-                        onChange={handleWithGift}
+                        name="isGift"
+                        onChange={orderFormik.handleChange}
                         text="This Order is for Gift, make it beautiful!"
                         isChecked={orderFormik.values.isGift}
                       />
@@ -430,7 +437,7 @@ export const OrderPage = () => {
                               helperText={loginFormik.errors.password}
                             />
                           </InputLabelComponent>
-                          <Link className="link order__link" to="/restore-password">
+                          <Link className="link order__link" to={ROUTER_KEYS.RESTORE}>
                             Forgot password?
                           </Link>
                         </div>

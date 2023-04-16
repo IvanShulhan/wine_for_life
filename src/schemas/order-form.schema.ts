@@ -23,6 +23,11 @@ export const orderFormSchema = yup.object({
   payment: yup.string().required('Paiment method is required'),
   region: yup.string().required('Region is required'),
   city: yup.string().required('Chose your city'),
+  createAccount: yup.bool(),
+  password: yup
+    .string()
+    .matches(COMMON_CONST.ONE_NUMBER, 'At least 1 number (0-9)')
+    .matches(COMMON_CONST.MIN_LENGTH, 'At least 8 characters'),
   deliveryService: yup.string().required('Chose your delivery service'),
-  wareHouse: yup.string().required('Choose adress of warehouse')
+  warehouse: yup.string().required('Choose adress of warehouse')
 });
