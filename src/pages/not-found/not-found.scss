@@ -1,0 +1,36 @@
+@import '../../styles/mixins';
+
+.page {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  &__inner {
+    flex-grow: 1;
+    @include flex;
+
+    @include media(tn) {
+      align-items: end;
+      padding-bottom: toEm(30);
+    }
+  }
+
+  &__content {
+    width: 100%;
+    max-width: 387px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+
+    @include media(tn) {
+      padding: 0 16px;
+    }
+
+    & .title:last-of-type {
+      margin-bottom: 108px;
+    }
+  }
+}

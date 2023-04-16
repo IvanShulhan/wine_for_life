@@ -23,6 +23,27 @@
   }
 }
 
+@mixin media($breakpoint) {
+  @if $breakpoint == tn {
+    @media (max-width: 425px) {
+      @content;
+    }
+  } @else if $breakpoint == sm {
+    @media (min-width: 426px) and (max-width: 767px) {
+      @content;
+    }
+  }
+    @else if $breakpoint == md {
+    @media (min-width: 768px) and (max-width: 1023px) {
+      @content;
+    }
+  } @else if $breakpoint == lg {
+    @media (min-width: 1024px) {
+      @content;
+    }
+  }
+}
+
 @function toEm($pixels, $context: $browser-font-size) {
   @return #{calc($pixels/$context)}em;
 }

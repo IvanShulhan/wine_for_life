@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { ROUTER_KEYS } from '../common/consts';
 import { CatalogPage } from '../pages/catalog';
 import { DetailsPage } from '../pages/details';
@@ -7,6 +7,7 @@ import { OrderPage } from '../pages/order';
 import { LoginPage } from '../pages/login';
 import { RegistrationPage } from '../pages/register';
 import { ProfilePage } from '../pages/profile';
+import { NotFoundPage } from '../pages/not-found';
 
 export const MainRouter = () => {
   return (
@@ -26,7 +27,7 @@ export const MainRouter = () => {
         <Route path={ROUTER_KEYS.REGISTRATION} element={<RegistrationPage />} />
         <Route path={ROUTER_KEYS.LOGIN} element={<LoginPage />} />
         <Route path={ROUTER_KEYS.PROFILE} element={<ProfilePage />} />
-        <Route path={ROUTER_KEYS.ANOTHER} element={<Navigate to={ROUTER_KEYS.CATALOG} />} />
+        <Route path={ROUTER_KEYS.ANOTHER} element={<NotFoundPage />} />
       </Routes>
     </HashRouter>
   );
