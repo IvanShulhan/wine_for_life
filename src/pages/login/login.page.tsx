@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
-import { loginUser, resetAuthStatus, selectUserToken } from '../../store/slices/auth/auth.slice';
+import { loginUser, resetAuthStatus, selectAuthStatus, selectUserToken } from '../../store/slices/auth/auth.slice';
 import { ROUTER_KEYS, STORAGE_KEYS } from '../../common/consts';
 import { ButtonTypes } from '../../common/types/button-types.enum';
 import { loginSchema } from '../../schemas';
@@ -17,6 +17,7 @@ export const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const userToken = useAppSelector(selectUserToken);
+  const status = useAppSelector(selectAuthStatus);
 
   interface IValues {
     email: string;

@@ -1,0 +1,51 @@
+@import '../../styles/colors';
+@import '../../styles/mixins';
+
+.loader {
+  background-color: $color_screen;
+  padding: toEm(40) toEm(50);
+  @include flex;
+  gap: 19px;
+
+  &__item {
+    &--is-left {
+      animation: left-to-center 1.4s linear infinite;
+    }
+
+    &--is-right {
+      animation: right-to-center 1.4s linear infinite;
+    }
+  }
+}
+
+@keyframes left-to-center {
+  0% {
+    transform: translate(0, 0);
+  } 20% {
+    transform: translate(0, 6px);
+  } 40% {
+    transform: translate(6px, 6px);
+  } 60% {
+    transform: translate(10px, 0px);
+  } 80% {
+    transform: translate(6px, 6px);
+  } 100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes right-to-center {
+  0% {
+    transform: translate(0, 0);
+  } 20% {
+    transform: translate(0, -6px);
+  } 40% {
+    transform: translate(-6px, -6px);
+  } 60% {
+    transform: translate(-10px, 0px);
+  } 80% {
+    transform: translate(-6px, -6px);
+  } 100% {
+    transform: translate(0, 0);
+  }
+}

@@ -1,0 +1,17 @@
+@import '../../styles/colors';
+@import '../../styles/mixins';
+
+.success {
+  @include flex;
+
+  &__content {
+    padding: toEm(20);
+    text-align: center;
+    background-color: $color_screen;
+    max-width: 480px;
+
+    @include media(tn) {
+      max-width: 100%;
+    }
+  }
+}
