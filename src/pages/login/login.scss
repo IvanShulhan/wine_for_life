@@ -25,6 +25,7 @@
   }
 
   &__content {
+    max-width: 387px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -32,7 +33,6 @@
 
     @include media(sm) {
       padding: 0 toEm(16);
-      max-width: 387px;
       width: 100%;
     }
   }

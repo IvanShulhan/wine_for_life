@@ -1,11 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
-import {
-  registerUser,
-  selectAuthStatus,
-  selectUserToken
-} from '../../store/slices/auth/auth.slice';
+import { registerUser, selectAuthStatus } from '../../store/slices/auth/auth.slice';
 import { registrtionSchema } from '../../schemas';
 import { ROUTER_KEYS, STORAGE_KEYS } from '../../common/consts';
 import { ButtonTypes } from '../../common/types/button-types.enum';
@@ -16,15 +12,15 @@ import { TitleComponent } from '../../components/title';
 import { ButtonComponent } from '../../components/button';
 import { HeaderComponent } from '../../components/header';
 import { CheckboxComponent } from '../../components/checkbox/checkbox.component';
-import './registration.scss';
 import { ContentWrapperComponent } from '../../components/content-wrapper';
+import './registration.scss';
 
 export const RegistrationPage = () => {
+  const [isSubmit, setIsSubmit] = useState(false);
   const [doRemember, setDoRemember] = useState(false);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const status = useAppSelector(selectAuthStatus);
-  const userToken = useAppSelector(selectUserToken);
 
   const formik = useFormik({
     initialValues: {
@@ -38,6 +34,7 @@ export const RegistrationPage = () => {
     validateOnMount: true,
     onSubmit: (values) => {
       const { email, password } = values;
+      setIsSubmit(true);
 
       if (doRemember) {
         localStorage.setItem(STORAGE_KEYS.REMEMBER_DATA, JSON.stringify({ email, password }));
@@ -51,9 +48,12 @@ export const RegistrationPage = () => {
     setDoRemember(!doRemember);
   };
 
-  if (status === 'idle' && userToken) {
-    navigate(ROUTER_KEYS.LOGIN);
-  }
+  useEffect(() => {
+    console.log(status, isSubmit);
+    if (status === 'idle' && isSubmit) {
+      navigate(ROUTER_KEYS.LOGIN);
+    }
+  }, [isSubmit, status]);
 
   return (
     <section className="registration">

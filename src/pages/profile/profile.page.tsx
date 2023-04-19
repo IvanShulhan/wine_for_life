@@ -64,8 +64,6 @@ export const ProfilePage = () => {
     }
   });
 
-  console.log(profileFormik.errors);
-
   const warehouses = useMemo(() => {
     return helperFuncs.generateRandomAdress(adreses.streets);
   }, [profileFormik.values.city]);

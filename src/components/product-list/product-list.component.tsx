@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect, useMemo } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
 import { ProductCardComponent } from '../product-card';
 import { SelectComponent } from '../select';
@@ -10,6 +10,7 @@ import {
   selectProducts
 } from '../../store/slices/products/products.slice';
 import './product-list.scss';
+import { LoaderComponent } from '../loader';
 
 const sortValues = ['low to high', 'high to low'];
 
@@ -56,14 +57,23 @@ export const ProductListComponent = () => {
         <SelectComponent name="sort by popularity" values={sortValues} />
         <SelectComponent name="sort by price" values={sortValues} />
       </div>
-      <div className="product-list__content">
-        {products.map((product) => (
-          <Fragment key={product.id}>
-            <ProductCardComponent product={product} />
-          </Fragment>
-        ))}
-        <ButtonComponent text="Load more" outlined={true} onClick={increasePage} />
-      </div>
+
+      {products.length ? (
+        <div className="product-list__content">
+          <ul className="product-list__list">
+            {products.map((product) => (
+              <li className="product-list__list-item" key={product.id}>
+                <ProductCardComponent product={product} />
+              </li>
+            ))}
+          </ul>
+          <ButtonComponent text="Load more" outlined={true} onClick={increasePage} />
+        </div>
+      ) : (
+        <div className="product-list__load">
+          <LoaderComponent />
+        </div>
+      )}
     </div>
   );
 };
