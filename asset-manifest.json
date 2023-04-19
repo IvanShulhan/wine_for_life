@@ -1,13 +1,12 @@
 {
   "files": {
-    "main.css": "/wine_for_life/static/css/main.fbc206a2.css",
-    "main.js": "/wine_for_life/static/js/main.98339b49.js",
+    "main.css": "/wine_for_life/static/css/main.81f7bafd.css",
+    "main.js": "/wine_for_life/static/js/main.559f9e34.js",
     "static/media/pexels-dan-cristian-pădureț-3000968-1920x1080-50fps.mp4": "/wine_for_life/static/media/pexels-dan-cristian-pădureț-3000968-1920x1080-50fps.352ce562ed62de9e5e5a.mp4",
     "static/media/tasre.svg": "/wine_for_life/static/media/tasre.06a58c4f02b3a7c9409f4eaba89692f9.svg",
     "static/media/grape.svg": "/wine_for_life/static/media/grape.07a60e2dd7e55ad60a159290656d6b46.svg",
     "static/media/cheese.svg": "/wine_for_life/static/media/cheese.1db703ff10ccefb4c5e9831566c7865c.svg",
     "static/media/temperature.svg": "/wine_for_life/static/media/temperature.e3c8fb20f6c1be28c07373dad3eab781.svg",
-    "static/media/large__bottle.png": "/wine_for_life/static/media/large__bottle.dd1bbf490de06329963b.png",
     "static/media/bottle.png": "/wine_for_life/static/media/bottle.4f19bf78321b4a32bfdb.png",
     "static/media/scroll_for.svg": "/wine_for_life/static/media/scroll_for.d47b75f72f0bd725a24aca0d21a89f18.svg",
     "static/media/logo_white.svg": "/wine_for_life/static/media/logo_white.18c04e7455a3fa8856b41eb86718d38f.svg",
@@ -18,8 +17,11 @@
     "static/media/twitter.svg": "/wine_for_life/static/media/twitter.b885695c8d49b968979de6ca3ed2cb45.svg",
     "static/media/user.svg": "/wine_for_life/static/media/user.128531f68d01baa5ce91b46f369854b1.svg",
     "static/media/eye.svg": "/wine_for_life/static/media/eye.840deebdf9e750c251be64ad5969f920.svg",
+    "static/media/bocal-right.svg": "/wine_for_life/static/media/bocal-right.2275e9115c6cd8e7506d7089816fc90c.svg",
+    "static/media/bocal-left.svg": "/wine_for_life/static/media/bocal-left.5192801dc02b55fd651d2e314d46c045.svg",
     "static/media/bag.svg": "/wine_for_life/static/media/bag.590c643b521876bf6673320b8f866a53.svg",
     "static/media/search.svg": "/wine_for_life/static/media/search.11c6984968aacbd3f8f01b162c528007.svg",
+    "static/media/handbag.svg": "/wine_for_life/static/media/handbag.e3cf23446cce3fffa2f8.svg",
     "static/media/cross.svg": "/wine_for_life/static/media/cross.3626f0346c2f5cb6fa789d233ddc2c4f.svg",
     "static/media/arrow-down.svg": "/wine_for_life/static/media/arrow-down.6755e1f2c0ecaea1c2f3c564cf2d00f9.svg",
     "static/media/arrow-top.svg": "/wine_for_life/static/media/arrow-top.5663fcae16de9932ff7f354e49f95fe4.svg",
@@ -33,11 +35,11 @@
     "static/media/pipe.svg": "/wine_for_life/static/media/pipe.0c2fe262c3f85a42615e76bf31accc07.svg",
     "static/media/checkbox.svg": "/wine_for_life/static/media/checkbox.22a0cf3f17dbe61bf65d3f366d2f4ea2.svg",
     "static/media/radio.svg": "/wine_for_life/static/media/radio.5d2e44badbce44e8911268d15e76f173.svg",
-    "main.fbc206a2.css.map": "/wine_for_life/static/css/main.fbc206a2.css.map",
-    "main.98339b49.js.map": "/wine_for_life/static/js/main.98339b49.js.map"
+    "main.81f7bafd.css.map": "/wine_for_life/static/css/main.81f7bafd.css.map",
+    "main.559f9e34.js.map": "/wine_for_life/static/js/main.559f9e34.js.map"
   },
   "entrypoints": [
-    "static/css/main.fbc206a2.css",
-    "static/js/main.98339b49.js"
+    "static/css/main.81f7bafd.css",
+    "static/js/main.559f9e34.js"
   ]
 }
