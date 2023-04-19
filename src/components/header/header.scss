@@ -8,6 +8,17 @@
   padding: toEm(19) 0;
   border-bottom: 1px solid $color_darker_gray;
 
+  @include media(sm) {
+    padding: toEm(16) 0;
+    height: #{$header-height-sm}px;
+  };
+
+  & .search {
+    @include media(sm) {
+      display: none;
+    };
+  }
+
   &__bag-mask {
     position: absolute;
     top: #{$header-height}px;
@@ -20,6 +31,11 @@
     background: #37373799;
     transition: transition(transform), transition(opacity);
 
+    @include media(sm) {
+      top: #{$header-height-sm}px;
+      height: calc(100vh - #{$header-height-sm}px);
+    };
+
     &--is-visible {
       opacity: 1;
       transform: translateX(0)
@@ -31,6 +47,7 @@
   }
 
   &__link {
+    @include flex;
     @include no-border();
   }
 

@@ -64,6 +64,8 @@ export const SidebarComponent = () => {
   };
 
   const onSubmit = () => {
+    searchParams.delete('page');
+    setSearchParams(searchParams);
     dispatch(getProducts(search));
   };
 

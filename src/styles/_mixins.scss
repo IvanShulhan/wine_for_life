@@ -29,12 +29,17 @@
       @content;
     }
   } @else if $breakpoint == sm {
-    @media (min-width: 426px) and (max-width: 767px) {
+    @media (max-width: 767px) {
       @content;
     }
   }
+    @else if $breakpoint == bmd {
+      @media (max-width: 910px) {
+        @content;
+      }
+  }
     @else if $breakpoint == md {
-    @media (min-width: 768px) and (max-width: 1023px) {
+    @media (max-width: 1023px) {
       @content;
     }
   } @else if $breakpoint == lg {

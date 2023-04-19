@@ -14,7 +14,7 @@ export interface authState {
 
 const initialState: authState = {
   userToken: localStorage.getItem(STORAGE_KEYS.TOKEN),
-  status: 'loading'
+  status: 'idle'
 };
 
 export const registerUser = createAsyncThunk('auth/registerUser', async (body: IRegisterUser) => {
@@ -37,7 +37,7 @@ export const authSlice = createSlice({
       state.userToken = null;
     },
     resetAuthStatus: (state) => {
-      state.status = 'loading';
+      state.status = 'idle';
     }
   },
   extraReducers: (builder) => {

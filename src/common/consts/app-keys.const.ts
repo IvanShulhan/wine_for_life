@@ -1,6 +1,5 @@
 export const STORAGE_KEYS = {
   BAG: 'BAG',
-  FAVOURITE: 'FAVOURITE',
   TOKEN: 'TOKEN',
   REMEMBER_DATA: 'REMEMBER'
 };

@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { IProduct } from '../../../common/types/product.type';
 import productsService from '../../../services/products.service';
-import products from '../../../data/data.json';
+// import products from '../../../data/data.json';
 
 export interface productsState {
   products: IProduct[];
@@ -18,6 +18,15 @@ const initialState: productsState = {
 
 export const getProducts = createAsyncThunk(
   'products/getProducts',
+  async (queryParams?: string) => {
+    const { data } = await productsService.getAllProducts(queryParams);
+
+    return data;
+  }
+);
+
+export const getMoreProducts = createAsyncThunk(
+  'products/getMoreProducts',
   async (queryParams?: string) => {
     const { data } = await productsService.getAllProducts(queryParams);
 
@@ -40,7 +49,17 @@ export const productsSlice = createSlice({
       })
       .addCase(getProducts.rejected, (state) => {
         state.status = 'failed';
-        state.products = products;
+        state.products = [];
+      })
+      .addCase(getMoreProducts.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(getMoreProducts.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.products.push(...action.payload);
+      })
+      .addCase(getMoreProducts.rejected, (state) => {
+        state.status = 'failed';
       });
   }
 });

@@ -14,12 +14,11 @@ import taste from '../../assets/icons/tasre.svg';
 import temperature from '../../assets/icons/temperature.svg';
 import './details.scss';
 
-// delete
-import bottle from '../../assets/images/large__bottle.png';
 import { NavigationComponent } from '../../components/navigation/navigation.component';
 import productsService from '../../services/products.service';
 import { IProduct } from '../../common/types/product.type';
 import { FooterComponent } from '../../components/footer';
+import helperFuncs from '../../common/utils/helper.funcs';
 
 export const DetailsPage = () => {
   const [product, setProduct] = useState<IProduct | null>(null);
@@ -65,7 +64,7 @@ export const DetailsPage = () => {
               <div className="details__content">
                 <div className="details__content-item">
                   <div className="details__image-block">
-                    <img src={bottle} alt="bottle fo wine" className="details__image" />
+                    <img src={product.imageLink} alt="bottle fo wine" className="details__image" />
                   </div>
                 </div>
                 <div className="details__content-item">
@@ -90,11 +89,8 @@ export const DetailsPage = () => {
                       <DescriptionItemComponent name="Type" text={product.type} />
                       <DescriptionItemComponent name="Vine color" text={product.color} />
                       <DescriptionItemComponent name="Vintage" text={product.vintage} />
-                      <DescriptionItemComponent
-                        name="Country"
-                        text={product.manufactured.country}
-                      />
-                      <DescriptionItemComponent name="Region" text={product.manufactured.region} />
+                      <DescriptionItemComponent name="Country" text={product.country} />
+                      <DescriptionItemComponent name="Region" text={product.region} />
                       <DescriptionItemComponent name="Grape" text={product.grape} />
                     </div>
                     <div className="details__taste">
@@ -108,27 +104,22 @@ export const DetailsPage = () => {
                 <div className="details__card">
                   <h4 className="details__card-title">Pairing</h4>
                   <img src={cheese} alt="cheese" className="details__card-icon" />
-                  <p className="details__card-text">
-                    Perfect for all types of aperitifs, fish, rice, smoked dishes, white meat and
-                    cheese.
-                  </p>
+                  <p className="details__card-text">{product.pairing}</p>
                 </div>
                 <div className="details__card">
                   <h4 className="details__card-title">Grape variety</h4>
                   <img src={grape} alt="grape" className="details__card-icon" />
-                  <p className="details__card-text">100% {product.grape}</p>
+                  <p className="details__card-text">{product.grape}</p>
                 </div>
                 <div className="details__card">
                   <h4 className="details__card-title">Taste</h4>
                   <img src={taste} alt="taste" className="details__card-icon" />
-                  <p className="details__card-text">
-                    Warm, creamy and very pleasant con the palate.
-                  </p>
+                  <p className="details__card-text">{helperFuncs.cutByDote(product.taste)}</p>
                 </div>
                 <div className="details__card">
                   <h4 className="details__card-title">Temperature</h4>
                   <img src={temperature} alt="taste" className="details__card-icon" />
-                  <p className="details__card-text">Serve between {product.temperature} C.</p>
+                  <p className="details__card-text">{product.temperature}</p>
                 </div>
               </div>
             </div>

@@ -22,6 +22,12 @@
     z-index: 3;
     bottom: 100px;
     right: 100px;
+
+    @include media(sm) {
+      left: 50%;
+      bottom: 23px;
+      transform: translateX(-50%);
+    };
     
     &-circle {
       width: 100%;
@@ -34,6 +40,11 @@
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
+      transform-origin: center;
+
+      @include media(sm) {
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
     }
   }
 
@@ -47,10 +58,11 @@
     padding: toEm(10);
     @include no-border;
     background-color: transparent;
-    border-bottom: 1px solid $color_white;
-    transition: transition(transform);
+    border-bottom: 1px solid transparent;
+    transition: transition(transform), transition(border-color);
 
     &:hover {
+      border-color: $color_white;
       transform: translateY(1px);
     }
   }
@@ -69,6 +81,14 @@
 
   & .title {
     max-width: 566px;
+
+    @include media(sm) {
+      @include toRem(55);
+    };
+
+    @include media(tn) {
+      @include toRem(32);
+    };
   }
 
   &__subtitle {
@@ -85,6 +105,11 @@
     width: 83px;
     height: 40px;
     z-index: 2;
+
+    @include media(sm) {
+      left: 50%;
+      transform: translateX(-50%)
+    };
   }
 
   &__video {

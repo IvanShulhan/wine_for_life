@@ -19,6 +19,15 @@ $gap: 20px;
   flex-direction: column;
   transition: transition(transform), transition(opacity);
 
+  @include media(sm) {
+    padding: toEm(16);
+    height: calc(100vh - #{$header-height-sm}px);
+  }
+
+  @include media(tn) {
+    width: 100%;
+  }
+
   &--is-visible {
     opacity: 1;
     transform: translate(0, calc(100% + 1px));
@@ -27,8 +36,13 @@ $gap: 20px;
   &__header {
     padding-bottom: toEm(23);
     border-bottom: 1px solid $color_dividers;
-    margin-bottom: toEm($gap);
+    margin-bottom: 20px;
     @include flex(space-between);
+
+    @include media(sm) {
+      padding-bottom: toEm(16);
+      margin-bottom: 16px;
+    }
   }
 
   &__body {
@@ -36,6 +50,7 @@ $gap: 20px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    height: calc(100% - 175px);
     
     &::after {
       content: "";
@@ -45,12 +60,26 @@ $gap: 20px;
       bottom: 0;
       left: -$gap;
       background-color: $color_dividers;
+
+      @include media(sm) {
+        left: -16px;
+        width: calc(100% + 16px*2);
+      }
+    }
+
+    &--is-empty {
+      &::after {
+        height: 0;
+      }
+    }
+
+    @include media(sm) {
+      flex-grow: 0;
     }
   }
 
   &__body-list-wrapper {
     overflow: auto;
-    max-height: 430px;
 
     &::-webkit-scrollbar {
       width: 0;
@@ -64,6 +93,10 @@ $gap: 20px;
 
     & li {
       list-style: none;
+    }
+
+    @include media(sm) {
+      gap: 16px;
     }
   }
 
@@ -93,11 +126,10 @@ $gap: 20px;
 
   &__body-button-wrapper {
     width: 100%;
-    opacity: 1;
     transition: transition(opacity);
 
     &--is-hidden {
-      opacity: 0;
+      display: none;
 
       & button {
         cursor: default;
@@ -114,13 +146,19 @@ $gap: 20px;
   }
 
   &__footer {
-    justify-self: flex-end;
+    flex-grow: 1;
     display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 20px;
+    flex-direction: column;
+    justify-content: end;
     padding: toEm(16) 0;
+
+    &-content {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
 
     &-text {
       @include toRem();
@@ -130,6 +168,12 @@ $gap: 20px;
 
     &-price {
       color: $color_almost_black;
+    }
+
+    @include media(sm) {
+      padding: toEm(16) 0 0;
+      gap: 16px;
+      justify-self: flex-end;
     }
   }
 }

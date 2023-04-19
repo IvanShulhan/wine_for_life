@@ -12,6 +12,11 @@
   
   & .title {
     margin-bottom: 40px;
+
+    @include media(sm) {
+      font-weight: 400;
+      @include toRem(32);
+    }
   }
 
   &__link {
@@ -20,10 +25,16 @@
   }
 
   &__content {
-    width: 387px;
+    width: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
+
+    @include media(sm) {
+      padding: 0 toEm(16);
+      max-width: 387px;
+      width: 100%;
+    }
   }
 
   & form {

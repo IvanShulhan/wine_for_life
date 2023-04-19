@@ -5,7 +5,7 @@ import { IProduct } from '../common/types/product.type';
 class ProductsService extends HttpSerivce {
   async getAllProducts(queryParams = '') {
     const res = await this.get<IProduct[]>(
-      { url: `${BACKEND_KEYS.PRODUCTS}${queryParams && `/${queryParams}`}` },
+      { url: `${BACKEND_KEYS.PRODUCTS}${queryParams && `${queryParams}`}` },
       false
     );
     return res;

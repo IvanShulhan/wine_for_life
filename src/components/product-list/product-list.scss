@@ -7,9 +7,21 @@ $gap: 20px;
   flex-direction: column;
   gap: $gap;
 
+  @include media(sm) {
+    width: calc(60% - $gap);
+
+    & .select {
+      width: 100%;
+    }
+  }
+
   &__header {
     display: flex;
     gap: $gap;
+
+    @include media(sm) {
+      flex-wrap: wrap;
+    }
   }
 
   &__content {

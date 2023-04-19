@@ -7,8 +7,16 @@ class HelperFuncs {
     return str[0].toUpperCase() + str.slice(1);
   }
 
+  modifyText(str: string): string {
+    return str[0].toUpperCase() + str.slice(1).toLowerCase();
+  }
+
   cutText(str: string, length = 100): string {
     return str.slice(0, length);
+  }
+
+  cutByDote(str: string, length = 2) {
+    return str.split('.').slice(0, length).join('.') + '.';
   }
 
   getLocalStorageData(key: string) {

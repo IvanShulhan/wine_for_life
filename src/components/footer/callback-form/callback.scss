@@ -6,6 +6,11 @@
   width: 32%;
   @extend %footer-box;
 
+  @include media(sm) {
+    width: 100%;
+    padding: 16px;
+  }
+
   &__form {
     gap: 24px;
   }

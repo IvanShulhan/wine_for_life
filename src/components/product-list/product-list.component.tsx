@@ -1,10 +1,14 @@
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState, useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
 import { ProductCardComponent } from '../product-card';
 import { SelectComponent } from '../select';
 import { ButtonComponent } from '../button';
 import { useLocation, useSearchParams } from 'react-router-dom';
-import { getProducts, selectProducts } from '../../store/slices/products/products.slice';
+import {
+  getMoreProducts,
+  getProducts,
+  selectProducts
+} from '../../store/slices/products/products.slice';
 import './product-list.scss';
 
 const sortValues = ['low to high', 'high to low'];
@@ -12,24 +16,39 @@ const sortValues = ['low to high', 'high to low'];
 export const ProductListComponent = () => {
   const { search } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams(search);
-  const [page, setPage] = useState(searchParams.get('page') || 1);
+  const currentPage = searchParams.get('page') || 0;
+  const popularityValue = searchParams.get('sort by popularity') || '';
+  const priceValue = searchParams.get('sort by price') || '';
+
+  const [page, setPage] = useState(+currentPage);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    searchParams.set('page', page.toString());
-    setSearchParams(searchParams);
-    dispatch(getProducts(search));
+    if (page) {
+      searchParams.set('page', page.toString());
+      setSearchParams(searchParams);
+    }
   }, [page]);
 
   const increasePage = () => {
-    setPage(+page + 1);
+    setPage(page + 1);
   };
 
   const products = useAppSelector(selectProducts);
 
   useEffect(() => {
-    dispatch(getProducts(search));
-  }, []);
+    setPage(0);
+    searchParams.delete('page');
+    setSearchParams(searchParams);
+  }, [popularityValue, priceValue]);
+
+  useEffect(() => {
+    if (currentPage) {
+      dispatch(getMoreProducts(search));
+    } else {
+      dispatch(getProducts(search));
+    }
+  }, [popularityValue, priceValue, currentPage]);
 
   return (
     <div className="product-list">

@@ -14,6 +14,14 @@
   background-color: $color_screen;
   color: $color_text_gray;
 
+  & .title {
+    text-align: center;
+  }
+
+  @include media(sm) {
+    width: 100%;
+  }
+
   &__link {
     display: flex;
     flex-direction: column;
@@ -28,6 +36,10 @@
   &__image-box {
     width: 200px;
     height: 300px;
+
+    @include media(bmd) {
+      height: 162px;
+    }
   }
 
   &__image {
@@ -62,5 +74,22 @@
   &__button-wrapper {
     width: 50%;
     z-index: 1;
+
+    @include media(bmd) {
+      display: flex;
+      justify-content: end;
+    }
+  }
+
+  & .button {
+    @include media(bmd) {
+      @include flex;
+      font-size: 0;
+      width: 48px;
+      height: 48px;
+      background-image: url('../../assets/icons/handbag.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+    }
   }
 }

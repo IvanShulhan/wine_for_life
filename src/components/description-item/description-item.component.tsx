@@ -10,7 +10,7 @@ interface IProps {
 export const DescriptionItemComponent: React.FC<IProps> = React.memo(({ name, text }) => (
   <div className="description-item">
     <div className="description-item__name">{name}</div>
-    <div className="description-item__text">{helperFuncs.modifyFirstChar(`${text}`)}</div>
+    <div className="description-item__text">{helperFuncs.modifyText(`${text}`)}</div>
   </div>
 ));
 

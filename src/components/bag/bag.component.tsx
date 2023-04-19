@@ -2,14 +2,14 @@ import React, { useMemo } from 'react';
 import { ReactComponent as Cross } from '../../assets/icons/cross.svg';
 import { useAppSelector } from '../../store/app/hooks';
 import { selectBagItems } from '../../store/slices/bag/bag.slice';
-import { OrderItemComponent } from '../order-item';
-import { ButtonComponent } from '../button';
-import { useNavigate } from 'react-router-dom';
-import './bag.scss';
 import { ColorShema } from '../../common/types/button-types.enum';
 import classNames from 'classnames';
 import { ROUTER_KEYS } from '../../common/consts';
 import helperFuncs from '../../common/utils/helper.funcs';
+import { OrderItemComponent } from '../order-item';
+import { ButtonComponent } from '../button';
+import { useNavigate } from 'react-router-dom';
+import './bag.scss';
 
 interface IBag {
   closeFn: () => void;
@@ -32,7 +32,7 @@ export const BagComponent: React.FC<IBag> = React.memo(({ closeFn, isOpen }) => 
           <Cross />
         </button>
       </div>
-      <div className="bag__body">
+      <div className={classNames('bag__body', { 'bag__body--is-empty': !BagItems.length })}>
         <div className="bag__body-list-wrapper">
           {BagItems.length ? (
             <ul className="bag__body-list">
@@ -48,18 +48,20 @@ export const BagComponent: React.FC<IBag> = React.memo(({ closeFn, isOpen }) => 
         </div>
       </div>
       <div className="bag__footer">
-        <span className="bag__footer-text">Total</span>
-        <span className="bag__footer-price">${totalPrice.toFixed(2)}</span>
-        <div
-          className={classNames('bag__body-button-wrapper', {
-            'bag__body-button-wrapper--is-hidden': !BagItems.length
-          })}>
-          <ButtonComponent
-            isDisabled={!BagItems.length}
-            text="Order"
-            onClick={() => navigate(`${ROUTER_KEYS.CATALOG}${ROUTER_KEYS.ORDER}`)}
-            colorSchema={ColorShema.red}
-          />
+        <div className="bag__footer-content">
+          <span className="bag__footer-text">Total</span>
+          <span className="bag__footer-price">${totalPrice.toFixed(2)}</span>
+          <div
+            className={classNames('bag__body-button-wrapper', {
+              'bag__body-button-wrapper--is-hidden': !BagItems.length
+            })}>
+            <ButtonComponent
+              isDisabled={!BagItems.length}
+              text="Order"
+              onClick={() => navigate(`${ROUTER_KEYS.CATALOG}${ROUTER_KEYS.ORDER}`)}
+              colorSchema={ColorShema.red}
+            />
+          </div>
         </div>
       </div>
     </div>

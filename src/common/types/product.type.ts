@@ -1,18 +1,17 @@
 export interface IProduct {
   id: number;
   name: string;
-  image: string;
-  taste: string;
   price: number;
-  type: string;
   color: string;
-  manufactured: {
-    country: string;
-    region: string;
-  };
-  vintage: number;
+  type: string;
+  event: string;
   pairing: string;
+  dishes: string[];
+  vintage: number;
+  country: string;
+  region: string;
   grape: string;
+  taste: string;
   temperature: string;
-  inStock: boolean;
+  imageLink: string;
 }

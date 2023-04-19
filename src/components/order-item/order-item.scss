@@ -9,6 +9,10 @@
   display: flex;
   gap: 22px;
 
+  @include media(sm) {
+    padding: toEm(8);
+  }
+
   &__image-box {
     width: 108px;
     height: 162px;
@@ -32,6 +36,11 @@
     @include toRem(18);
     line-height: 1.2;
     color: $color_text_gray;
+
+    @include media(sm) {
+      @include toRem(16);
+      font-weight: 600;
+    }
   }
 
   &__price {

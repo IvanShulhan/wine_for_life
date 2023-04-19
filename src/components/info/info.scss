@@ -1,14 +1,19 @@
 @import '../../styles/colors';
 @import '../../styles/mixins';
 
-.success {
+.info {
   @include flex;
 
   &__content {
-    padding: toEm(20);
+    padding: toEm(30);
+    @include flex;
     text-align: center;
     background-color: $color_screen;
     max-width: 480px;
+
+    & h2.title {
+      margin-bottom: 0;
+    }
 
     @include media(tn) {
       max-width: 100%;
