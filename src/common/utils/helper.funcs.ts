@@ -44,7 +44,7 @@ class HelperFuncs {
     return jwt_decode(srt);
   }
 
-  getModifyQueryParams = (queryParams?: string) => {
+  getModifyQueryParams(queryParams?: string) {
     if (!queryParams?.length) {
       return '';
     }
@@ -87,7 +87,7 @@ class HelperFuncs {
     });
 
     return '?' + anotherParams?.join('&');
-  };
+  }
 }
 
 const helperFuncs = new HelperFuncs();

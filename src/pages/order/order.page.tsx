@@ -94,7 +94,7 @@ export const OrderPage = () => {
           }
         },
         createAccount: values.createAccount,
-        payment: values.payment,
+        payment: values.payment.toUpperCase().split(' ').join('_'),
         isGift: values.isGift,
         products
       };
@@ -273,6 +273,7 @@ export const OrderPage = () => {
                                 <InputComponent
                                   isDark={true}
                                   name="password"
+                                  type="password"
                                   placeholder="Enter your password"
                                   value={orderFormik.values.password}
                                   onChange={orderFormik.handleChange}

@@ -28,6 +28,10 @@
     @media (max-width: 425px) {
       @content;
     }
+  } @else if $breakpoint == bsm {
+    @media (max-width: 575px) {
+      @content;
+    }
   } @else if $breakpoint == sm {
     @media (max-width: 767px) {
       @content;

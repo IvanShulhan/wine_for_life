@@ -3,14 +3,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import orderService from '../../../services/order.service';
-import products from '../../../data/data.json';
 import { IOrder } from '../../../common/types/order.type';
 
-export interface productsState {
+export interface orderState {
   status: 'idle' | 'loading' | 'failed';
 }
 
-const initialState: productsState = {
+const initialState: orderState = {
   status: 'idle'
 };
 

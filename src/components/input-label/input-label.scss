@@ -8,6 +8,10 @@
   flex-direction: column;
   gap: 8px;
 
+  @include media(bsm) {
+    width: 100%;
+  }
+
   &--is-full {
     width: 100%;
   }

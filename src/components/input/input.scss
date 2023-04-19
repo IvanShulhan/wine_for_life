@@ -81,6 +81,12 @@
     position: absolute;
     left: 0;
     bottom: -20px;
+
+    @include media(bsm) {
+      left: auto;
+      right: 0;
+      font-size: 14px;
+    }
   }
 
   &__warning {
