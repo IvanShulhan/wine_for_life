@@ -4,6 +4,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { IProduct } from '../../../common/types/product.type';
 import productsService from '../../../services/products.service';
+import helperFuncs from '../../../common/utils/helper.funcs';
 // import products from '../../../data/data.json';
 
 export interface productsState {
@@ -19,7 +20,9 @@ const initialState: productsState = {
 export const getProducts = createAsyncThunk(
   'products/getProducts',
   async (queryParams?: string) => {
-    const { data } = await productsService.getAllProducts(queryParams);
+    const modifyQueryParams = helperFuncs.getModifyQueryParams(queryParams);
+
+    const { data } = await productsService.getAllProducts(modifyQueryParams);
 
     return data;
   }
@@ -28,7 +31,9 @@ export const getProducts = createAsyncThunk(
 export const getMoreProducts = createAsyncThunk(
   'products/getMoreProducts',
   async (queryParams?: string) => {
-    const { data } = await productsService.getAllProducts(queryParams);
+    const modifyQueryParams = helperFuncs.getModifyQueryParams(queryParams);
+
+    const { data } = await productsService.getAllProducts(modifyQueryParams);
 
     return data;
   }

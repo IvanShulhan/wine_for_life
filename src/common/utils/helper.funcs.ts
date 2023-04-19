@@ -43,6 +43,51 @@ class HelperFuncs {
   getUserFromToken(srt: string): IUser {
     return jwt_decode(srt);
   }
+
+  getModifyQueryParams = (queryParams?: string) => {
+    if (!queryParams?.length) {
+      return '';
+    }
+
+    const params = queryParams?.slice(1).split('&');
+
+    const anotherParams = params?.map((param) => {
+      const items = param.split('=');
+
+      let modifyKey = items[0]
+        .split('+')
+        .map((it, i) => (!i ? it : helperFuncs.modifyFirstChar(it)))
+        .join('');
+
+      if (modifyKey === 'pairWith') {
+        modifyKey = 'dish';
+      }
+
+      const getModifyValues = () => {
+        switch (modifyKey) {
+          case 'color':
+          case 'event':
+          case 'type':
+            return items[1]
+              .toUpperCase()
+              .split('%2F')
+              .map((el) => el.split('+').join('_'))
+              .join(',');
+          case 'sortByPopularity':
+          case 'sortByPrice':
+            return items[1] === 'high+to+low' ? 'ASC' : 'DESC';
+          default:
+            return items[1].split('%2F').join(',');
+        }
+      };
+
+      const modifyValues = getModifyValues();
+
+      return modifyKey + '=' + modifyValues;
+    });
+
+    return '?' + anotherParams?.join('&');
+  };
 }
 
 const helperFuncs = new HelperFuncs();
