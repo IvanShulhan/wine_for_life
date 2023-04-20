@@ -31,7 +31,7 @@ export const OrderItemComponent: React.FC<IOrderItem> = React.memo(({ item }) =>
   return (
     <div className="order-item">
       <div className="order-item__image-box">
-        <img src={image} alt="bottle of wine" className="order-item__image" />
+        <img src={item.product.imageLink} alt="bottle of wine" className="order-item__image" />
       </div>
       <div className="order-item__content">
         <h4 className="order-item__title">{item.product.name}</h4>

@@ -64,7 +64,7 @@ export const DetailsPage = () => {
               <div className="details__content">
                 <div className="details__content-item">
                   <div className="details__image-block">
-                    <img src={bottle} alt="bottle fo wine" className="details__image" />
+                    <img src={product.imageLink} alt="bottle fo wine" className="details__image" />
                   </div>
                 </div>
                 <div className="details__content-item">
