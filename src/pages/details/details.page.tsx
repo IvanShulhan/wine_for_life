@@ -17,7 +17,7 @@ import cheese from '../../assets/icons/cheese.svg';
 import grape from '../../assets/icons/grape.svg';
 import taste from '../../assets/icons/tasre.svg';
 import temperature from '../../assets/icons/temperature.svg';
-import bottle from '../../assets/images/large__bottle.png';
+// import bottle from '../../assets/images/large__bottle.png';
 import './details.scss';
 
 export const DetailsPage = () => {

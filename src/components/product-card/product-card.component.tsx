@@ -10,7 +10,7 @@ import { addToBag } from '../../store/slices/bag/bag.slice';
 import './product-card.scss';
 
 // delete
-import bottle from '../../assets/images/bottle.png';
+// import bottle from '../../assets/images/bottle.png';
 import { ROUTER_KEYS } from '../../common/consts';
 
 interface IProps {

@@ -4,7 +4,7 @@ import { CounterComponent } from '../counter';
 import { IBagItem, changeCount, removeFromBag } from '../../store/slices/bag/bag.slice';
 import './order-item.scss';
 // delete
-import image from '../../assets/images/bottle.png';
+// import image from '../../assets/images/bottle.png';
 
 interface IOrderItem {
   item: IBagItem;

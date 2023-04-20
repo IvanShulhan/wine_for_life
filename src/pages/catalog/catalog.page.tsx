@@ -30,7 +30,7 @@ export const CatalogPage = () => {
         </div>
         <div className="container">
           <div className="catalog__content">
-            {isPhone && isVisibleFilter && <SidebarComponent />}
+            {!isPhone && <SidebarComponent />}
             <ProductListComponent isPhone={isPhone} onClick={handleIsOpen} />
           </div>
         </div>
