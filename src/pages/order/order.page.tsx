@@ -61,7 +61,7 @@ export const OrderPage = () => {
       phoneNumber: user?.phone || '',
       password: '',
       createAccount: false,
-      payment: '',
+      payment: 'credit card',
       region: 'Ukraine',
       city: user?.shippingDetails?.city || '',
       deliveryService: 'Nova Poshta',
@@ -153,7 +153,7 @@ export const OrderPage = () => {
           <div className="order__inner">
             <div className="order__header">
               <NavigationComponent currentPage="Order" />
-              <TitleComponent title="Order" isLarge={true} />
+              <TitleComponent title="Ordering" isLarge={true} />
             </div>
             <div className="order__content-wrapper">
               {!user ? (

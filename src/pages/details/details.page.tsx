@@ -2,23 +2,23 @@ import { useEffect, useState } from 'react';
 import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { useAppDispatch } from '../../store/app/hooks';
 import { addToBag } from '../../store/slices/bag/bag.slice';
+import productsService from '../../services/products.service';
+import { IProduct } from '../../common/types/product.type';
+import { FooterComponent } from '../../components/footer';
+import helperFuncs from '../../common/utils/helper.funcs';
 import { HeaderComponent } from '../../components/header';
 import { TitleComponent } from '../../components/title';
 import { ButtonComponent } from '../../components/button';
 import { CounterComponent } from '../../components/counter';
 import { ColorShema } from '../../common/types/button-types.enum';
 import { DescriptionItemComponent } from '../../components/description-item';
+import { NavigationComponent } from '../../components/navigation/navigation.component';
 import cheese from '../../assets/icons/cheese.svg';
 import grape from '../../assets/icons/grape.svg';
 import taste from '../../assets/icons/tasre.svg';
 import temperature from '../../assets/icons/temperature.svg';
+import bottle from '../../assets/images/large__bottle.png';
 import './details.scss';
-
-import { NavigationComponent } from '../../components/navigation/navigation.component';
-import productsService from '../../services/products.service';
-import { IProduct } from '../../common/types/product.type';
-import { FooterComponent } from '../../components/footer';
-import helperFuncs from '../../common/utils/helper.funcs';
 
 export const DetailsPage = () => {
   const [product, setProduct] = useState<IProduct | null>(null);
@@ -64,7 +64,7 @@ export const DetailsPage = () => {
               <div className="details__content">
                 <div className="details__content-item">
                   <div className="details__image-block">
-                    <img src={product.imageLink} alt="bottle fo wine" className="details__image" />
+                    <img src={bottle} alt="bottle fo wine" className="details__image" />
                   </div>
                 </div>
                 <div className="details__content-item">

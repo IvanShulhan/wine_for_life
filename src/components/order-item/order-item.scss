@@ -54,6 +54,11 @@
     width: 100%;
     @include flex(space-between);
     gap: 10px;
+
+    @include media(tn) {
+      align-items: start;
+      flex-direction: column;
+    }
   }
 
   &__count-text {

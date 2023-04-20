@@ -28,7 +28,18 @@ $gap: 20px;
     width: 57%;
     @include flex(space-between);
     margin-bottom: toEm(20);
+
+    @include media(sm) {
+      flex-direction: column;
+      align-items: start;
+      width: 100%;
+    }
+
+    & .title {
+      align-self: center;
+    }
   }
+
 
   &__buttons {
     margin-bottom: toEm(40);
@@ -41,6 +52,28 @@ $gap: 20px;
     width: 100%;
     display: flex;
     gap: $gap;
+
+    @include media(bmd) {
+      flex-direction: column-reverse;
+
+      & .order__list-box {
+        padding: toEm(16) toEm(25);
+        width: 100%;
+      }
+    }
+
+    @include media(sm) {
+      & .order__list-box {
+        padding: toEm(16);
+      }
+    }
+
+    @include media(tn) {
+      & .order__list-box {
+        padding: toEm(10);
+      }
+    }
+
   }
 
   &__blocks {
@@ -58,6 +91,10 @@ $gap: 20px;
     display: flex;
     gap: $gap;
     flex-wrap: wrap;
+
+    @include media(sm) {
+      gap: 10px;
+    }
   }
 
   &__list-box {
@@ -68,6 +105,19 @@ $gap: 20px;
     display: flex;
     flex-direction: column;
     gap: $gap;
+
+    @include media(bmd) {
+      height: auto;
+      padding: toEm(16) toEm(25);
+    }
+
+    @include media(sm) {
+      padding: toEm(16);
+    }
+
+    @include media(tn) {
+      padding: toEm(10);
+    }
   }
 
   &__input-label {
@@ -91,6 +141,12 @@ $gap: 20px;
     display: flex;
     flex-direction: column;
     gap: $gap;
+
+    
+    @include media(bmd) {
+      height: auto;
+      max-height: 415px;
+    }
 
     &::-webkit-scrollbar {
       width: 0;
