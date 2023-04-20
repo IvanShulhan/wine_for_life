@@ -58,7 +58,7 @@ export const OrderPage = () => {
       firstName: user?.firstName || '',
       lastName: user?.lastName || '',
       email: user?.email || '',
-      phoneNumber: user?.phone || '',
+      phoneNumber: user?.phoneNumber || '',
       password: '',
       createAccount: false,
       payment: 'credit card',

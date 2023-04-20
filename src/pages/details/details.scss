@@ -42,6 +42,10 @@ $gap: 20px;
 
     &-item {
       width: calc(50% - $gap/2);
+
+      @include media(bmd) {
+        height: 415px;
+      }
     }
   }
 
@@ -51,7 +55,7 @@ $gap: 20px;
     color: $color_text_gray;
   }
 
-  &__description-block, &__description-header,&__description {
+  &__description-block, &__description-header,&__description, &__description-wrapper {
     display: flex;
     flex-direction: column;
   }
@@ -60,13 +64,30 @@ $gap: 20px;
     gap: 24px;
   }
 
-  &__description-block {
+  &__description-block, &__description-wrapper {
     gap: 36px;
+
+    @include media(bmd) {
+      gap: 24px;
+    }
+  }
+
+  &__description-wrapper {
+    overflow-x: hidden;
+     @include media(bmd) {
+      height: 135px;
+      overflow: scroll;
+    }
   }
 
   &__buttons-wrapper {
     display: flex;
     gap: $gap;
+
+    @include media(bmd) {
+      flex-direction: column;
+    }
+
   }
 
   &__description {

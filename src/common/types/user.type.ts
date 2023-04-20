@@ -10,7 +10,7 @@ export interface IUser {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  phoneNumber: string;
   birthDate: string;
   shippingDetails: IShipping;
 }
@@ -35,7 +35,7 @@ export interface IUpdateUser {
   firstName: string;
   lastName: string;
   email: string;
-  phone?: string;
+  phoneNumber?: string;
   region?: string;
   city?: string;
   birthDate?: string;

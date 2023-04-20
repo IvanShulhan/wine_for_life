@@ -5,7 +5,7 @@ import { ReactComponent as Facebook } from '../../../assets/icons/facebook.svg';
 import './social.scss';
 
 export const SocialComponent = () => (
-  <div className="social">
+  <div className="social" id="social">
     <TitleComponent title="Keep in touch" isWhite={true} isThin={true} />
     <div className="social__links">
       <a

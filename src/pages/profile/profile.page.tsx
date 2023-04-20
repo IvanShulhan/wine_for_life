@@ -1,5 +1,5 @@
 import { useMemo, useEffect } from 'react';
-import { useFormik } from 'formik';
+import { Formik, useFormik } from 'formik';
 import { profileSchema } from '../../schemas';
 import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
 import { logout, selectUserId, selectUserToken } from '../../store/slices/auth/auth.slice';
@@ -40,13 +40,13 @@ export const ProfilePage = () => {
       firstName: user?.firstName || '',
       lastName: user?.lastName || '',
       email: user?.email || '',
-      phoneNumber: user?.phone || '',
+      phoneNumber: user?.phoneNumber || '',
       region: 'Ukraine',
       city: user?.shippingDetails?.city || '',
       birthDate: user?.birthDate || '',
       deliveryService: 'Nova Poshta',
-      wareHouse: user?.shippingDetails?.warehouse || '',
-      password: '',
+      warehouse: user?.shippingDetails?.warehouse || '',
+      newPassword: '',
       oldPassword: ''
     },
     validationSchema: profileSchema,
@@ -55,7 +55,6 @@ export const ProfilePage = () => {
     validateOnMount: true,
     enableReinitialize: true,
     onSubmit: (values, { setSubmitting }) => {
-      console.log(values);
       if (userId) {
         const params = { id: userId, body: values };
         dispatch(updateUser(params));
@@ -65,7 +64,15 @@ export const ProfilePage = () => {
   });
 
   const warehouses = useMemo(() => {
-    return helperFuncs.generateRandomAdress(adreses.streets);
+    const list = helperFuncs.generateRandomAdress(adreses.streets);
+
+    if (profileFormik.values.city === user?.shippingDetails.city) {
+      if (user?.shippingDetails.warehouse) {
+        list[list.length - 1] = user?.shippingDetails.warehouse;
+      }
+    }
+
+    return list;
   }, [profileFormik.values.city]);
 
   const setFormicValue = async (key: string, value: string) => {
@@ -81,7 +88,9 @@ export const ProfilePage = () => {
   };
 
   useEffect(() => {
-    setFormicValue('warehause', '');
+    if (profileFormik.values.city !== user?.shippingDetails.city) {
+      setFormicValue('warehouse', '');
+    }
   }, [profileFormik.values.city]);
 
   return (
@@ -187,7 +196,7 @@ export const ProfilePage = () => {
                           <InputComponent
                             isDark={true}
                             name="birthDate"
-                            placeholder="DD/MM/YYYY"
+                            placeholder="YYYY-MM-DD"
                             value={profileFormik.values.birthDate}
                             onChange={profileFormik.handleChange}
                             warning={
@@ -213,8 +222,8 @@ export const ProfilePage = () => {
                         <InputLabelComponent
                           text="City"
                           error={
-                            profileFormik.touched.wareHouse &&
-                            Boolean(profileFormik.errors.wareHouse)
+                            profileFormik.touched.warehouse &&
+                            Boolean(profileFormik.errors.warehouse)
                           }
                           errorMsg={profileFormik.errors.city}>
                           <SelectComponent
@@ -232,13 +241,13 @@ export const ProfilePage = () => {
                         </InputLabelComponent>
                         <InputLabelComponent
                           text="Warehouse"
-                          errorMsg={profileFormik.errors.wareHouse}>
+                          errorMsg={profileFormik.errors.warehouse}>
                           <SelectComponent
                             isDisabled={!profileFormik.values.city}
                             name="choose your warehouse"
                             values={warehouses}
-                            currentVal={profileFormik.values.wareHouse}
-                            property="warehause"
+                            currentVal={profileFormik.values.warehouse}
+                            property="warehouse"
                             onChangeFun={setFormicValue}
                             withParams={false}
                             isFull={true}
@@ -253,6 +262,7 @@ export const ProfilePage = () => {
                           <InputComponent
                             isDark={true}
                             name="oldPassword"
+                            type="password"
                             placeholder="Enter your new password"
                             value={profileFormik.values.oldPassword}
                             onChange={profileFormik.handleChange}
@@ -267,21 +277,22 @@ export const ProfilePage = () => {
                         <InputLabelComponent text="New password">
                           <InputComponent
                             isDark={true}
-                            name="password"
+                            type="password"
+                            name="newPassword"
                             placeholder="Enter your new password"
-                            value={profileFormik.values.password}
+                            value={profileFormik.values.newPassword}
                             onChange={profileFormik.handleChange}
                             warning={
-                              !profileFormik.touched.password &&
-                              Boolean(profileFormik.values.password) &&
-                              Boolean(profileFormik.errors.password)
+                              !profileFormik.touched.newPassword &&
+                              Boolean(profileFormik.values.newPassword) &&
+                              Boolean(profileFormik.errors.newPassword)
                             }
                             error={
-                              profileFormik.touched.password &&
-                              Boolean(profileFormik.values.password) &&
-                              Boolean(profileFormik.errors.password)
+                              profileFormik.touched.newPassword &&
+                              Boolean(profileFormik.values.newPassword) &&
+                              Boolean(profileFormik.errors.newPassword)
                             }
-                            helperText={profileFormik.errors.password}
+                            helperText={profileFormik.errors.newPassword}
                           />
                         </InputLabelComponent>
                       </div>

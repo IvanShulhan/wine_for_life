@@ -2,7 +2,7 @@ import { TitleComponent } from '../../title';
 import './contacts.scss';
 
 export const ContactsComponent = () => (
-  <div className="contacts">
+  <div className="contacts" id="contacts">
     <TitleComponent title="Contact and service" isWhite={true} isThin={true} />
 
     <div className="contacts__content">

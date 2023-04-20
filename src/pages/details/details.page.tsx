@@ -85,17 +85,19 @@ export const DetailsPage = () => {
                         />
                       </div>
                     </div>
-                    <div className="details__description">
-                      <DescriptionItemComponent name="Type" text={product.type} />
-                      <DescriptionItemComponent name="Vine color" text={product.color} />
-                      <DescriptionItemComponent name="Vintage" text={product.vintage} />
-                      <DescriptionItemComponent name="Country" text={product.country} />
-                      <DescriptionItemComponent name="Region" text={product.region} />
-                      <DescriptionItemComponent name="Grape" text={product.grape} />
-                    </div>
-                    <div className="details__taste">
-                      <h4 className="details__taste-title">Taste</h4>
-                      <p className="details__taste-text">{product.taste}</p>
+                    <div className="details__description-wrapper">
+                      <div className="details__description">
+                        <DescriptionItemComponent name="Type" text={product.type} />
+                        <DescriptionItemComponent name="Vine color" text={product.color} />
+                        <DescriptionItemComponent name="Vintage" text={product.vintage} />
+                        <DescriptionItemComponent name="Country" text={product.country} />
+                        <DescriptionItemComponent name="Region" text={product.region} />
+                        <DescriptionItemComponent name="Grape" text={product.grape} />
+                      </div>
+                      <div className="details__taste">
+                        <h4 className="details__taste-title">Taste</h4>
+                        <p className="details__taste-text">{product.taste}</p>
+                      </div>
                     </div>
                   </div>
                 </div>

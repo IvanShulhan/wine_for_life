@@ -21,7 +21,7 @@ export const CallbackFormComponent = () => {
   });
 
   return (
-    <div className="callback">
+    <div className="callback" id="callback">
       <TitleComponent title="Call back form" isWhite={true} isThin={true} />
       <form className="callback__form" onSubmit={formik.handleSubmit}>
         <div className="callback__form-inputs">
