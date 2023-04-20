@@ -7,12 +7,23 @@ $gap: 20px;
   flex-direction: column;
   gap: $gap;
 
+  &__button {
+    @include toRem(18);
+    color: $color_gray_dark;
+    @include no-border;
+    background-color: transparent;
+  }
+
   @include media(sm) {
     width: calc(60% - $gap);
 
     & .select {
       width: 100%;
     }
+  }
+
+  @include media(bsm) {
+    width: 100%;
   }
 
   &__header {

@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
 import useMediaQuery from '../../common/utils/useMediaQuery.hook';
+import classNames from 'classnames';
 import { ROUTER_KEYS } from '../../common/consts';
 import { selectBagItems } from '../../store/slices/bag/bag.slice';
 import { SearchComponent } from './search';
@@ -10,11 +11,10 @@ import { ReactComponent as Logo } from '../../assets/icons/logo.svg';
 import { ReactComponent as User } from '../../assets/icons/user.svg';
 import { ReactComponent as Bag } from '../../assets/icons/bag.svg';
 import { logout, selectUserToken } from '../../store/slices/auth/auth.slice';
-import classNames from 'classnames';
 import { ReactComponent as Burger } from '../../assets/icons/burger.svg';
 import { ReactComponent as Cross } from '../../assets/icons/cross.svg';
-import './header.scss';
 import { MenuComponent } from '../menu';
+import './header.scss';
 
 interface IProps {
   hasSearch?: boolean;

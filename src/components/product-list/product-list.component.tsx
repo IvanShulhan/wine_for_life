@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
 import { ProductCardComponent } from '../product-card';
 import { SelectComponent } from '../select';
@@ -14,7 +14,12 @@ import { LoaderComponent } from '../loader';
 
 const sortValues = ['low to high', 'high to low'];
 
-export const ProductListComponent = () => {
+interface IProps {
+  onClick: () => void;
+  isPhone: boolean;
+}
+
+export const ProductListComponent: React.FC<IProps> = React.memo(({ isPhone, onClick }) => {
   const { search } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams(search);
   const currentPage = searchParams.get('page') || 0;
@@ -56,6 +61,11 @@ export const ProductListComponent = () => {
       <div className="product-list__header">
         <SelectComponent name="sort by popularity" values={sortValues} />
         <SelectComponent name="sort by price" values={sortValues} />
+        {isPhone && (
+          <button className="product-list__button" onClick={onClick}>
+            Filter
+          </button>
+        )}
       </div>
 
       {products.length ? (
@@ -76,4 +86,6 @@ export const ProductListComponent = () => {
       )}
     </div>
   );
-};
+});
+
+ProductListComponent.displayName = 'ProductListComponent';
