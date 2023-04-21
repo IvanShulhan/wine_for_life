@@ -17,8 +17,9 @@ import cheese from '../../assets/icons/cheese.svg';
 import grape from '../../assets/icons/grape.svg';
 import taste from '../../assets/icons/tasre.svg';
 import temperature from '../../assets/icons/temperature.svg';
-// import bottle from '../../assets/images/large__bottle.png';
 import './details.scss';
+
+import useMediaQuery from '../../common/utils/useMediaQuery.hook';
 
 export const DetailsPage = () => {
   const [product, setProduct] = useState<IProduct | null>(null);
@@ -27,6 +28,7 @@ export const DetailsPage = () => {
   const [count, setCount] = useState(+(serchParams.get('count') || 0));
   const dispatch = useAppDispatch();
   const { id = '' } = useParams();
+  const isTablet = useMediaQuery('(max-width: 768px)');
 
   useEffect(() => {
     productsService.getProduct(+id).then(({ data }) => setProduct(data));
@@ -34,6 +36,7 @@ export const DetailsPage = () => {
 
   const addHandler = () => {
     product && dispatch(addToBag({ item: { count, product } }));
+    setCount(0);
   };
 
   useEffect(() => {
@@ -63,6 +66,11 @@ export const DetailsPage = () => {
               </span>
               <div className="details__content">
                 <div className="details__content-item">
+                  {isTablet && (
+                    <div className="details__top-title-block">
+                      <TitleComponent title={product.name} />
+                    </div>
+                  )}
                   <div className="details__image-block">
                     <img src={product.imageLink} alt="bottle fo wine" className="details__image" />
                   </div>
@@ -70,7 +78,7 @@ export const DetailsPage = () => {
                 <div className="details__content-item">
                   <div className="details__description-block">
                     <div className="details__description-header">
-                      <TitleComponent title={product.name} isLarge={true} />
+                      {!isTablet && <TitleComponent title={product.name} isLarge={true} />}
                       <span className="details__price">${product.price}</span>
                       <div className="details__buttons-wrapper">
                         <CounterComponent

@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
-import { ProductCardComponent } from '../product-card';
 import { SelectComponent } from '../select';
 import { ButtonComponent } from '../button';
 import { useLocation, useSearchParams } from 'react-router-dom';
+import { LoaderComponent } from '../loader';
+import { ProductCardComponent } from '../product-card';
 import {
   getMoreProducts,
   getProducts,
   selectProducts
 } from '../../store/slices/products/products.slice';
 import './product-list.scss';
-import { LoaderComponent } from '../loader';
 
 const sortValues = ['low to high', 'high to low'];
 

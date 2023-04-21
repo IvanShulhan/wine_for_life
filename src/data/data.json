@@ -2,115 +2,52 @@
   {
     "id": 1,
     "name": "Chardonnay Barrel",
-    "image": "../assets/images/bottle.png",
-    "description": "Warm, creamy and very pleasant con the palate.",
     "price": 259.99,
-    "taste": "White wine with a bright yellow hue flecked with gold. Very pleasant first impression, with subtle vanilla and smoky aromas as well as floral and honey notes. It is warm, creamy, and very pleasant on the palate. Fermentation and ageing of the lees have given this wine personality without masking the grape variety. The finish is complex, flavoursome, round and well-balanced.",
-    "type": "dry",
     "color": "white",
-    "manufactured": {
-      "country": "France",
-      "region": "Toscana"
-    },
-    "vintage": 1970,
+    "type": "dry",
+    "event": "for good mood",
     "pairing": "Perfect for all types of aperitifs, fish, rice, smoked dishes, white meat and cheese.",
+    "dishes": [],
+    "vintage": 1970,
+    "country": "France",
+    "region": "Toscana",
     "grape": "Chardonnay",
-    "temperature": "10° - 12°",
-    "inStock": true
+    "taste": "White wine with a bright yellow hue flecked with gold. Very pleasant first impression, with subtle vanilla and smoky aromas as well as floral and honey notes. It is warm, creamy, and very pleasant on the palate. Fermentation and ageing of the lees have given this wine personality without masking the grape variety. The finish is complex, flavoursome, round and well-balanced.",
+    "temperature": "10° - 12° C",
+    "imageLink": "./images/bottle.png"
   },
   {
     "id": 2,
     "name": "Chardonnay Barrel",
-    "image": "../assets/images/bottle.png",
-    "description": "Warm, creamy and very pleasant con the palate.",
     "price": 259.99,
-    "taste": "White wine with a bright yellow hue flecked with gold. Very pleasant first impression, with subtle vanilla and smoky aromas as well as floral and honey notes. It is warm, creamy, and very pleasant on the palate. Fermentation and ageing of the lees have given this wine personality without masking the grape variety. The finish is complex, flavoursome, round and well-balanced.",
-    "type": "dry",
     "color": "white",
-    "manufactured": {
-      "country": "France",
-      "region": "Toscana"
-    },
-    "vintage": 1970,
+    "type": "dry",
+    "event": "for good mood",
     "pairing": "Perfect for all types of aperitifs, fish, rice, smoked dishes, white meat and cheese.",
+    "dishes": [],
+    "vintage": 1970,
+    "country": "France",
+    "region": "Toscana",
     "grape": "Chardonnay",
-    "temperature": "10° - 12°",
-    "inStock": true
+    "taste": "White wine with a bright yellow hue flecked with gold. Very pleasant first impression, with subtle vanilla and smoky aromas as well as floral and honey notes. It is warm, creamy, and very pleasant on the palate. Fermentation and ageing of the lees have given this wine personality without masking the grape variety. The finish is complex, flavoursome, round and well-balanced.",
+    "temperature": "10° - 12° C",
+    "imageLink": "./images/bottle.png"
   },
   {
     "id": 3,
     "name": "Chardonnay Barrel",
-    "image": "../assets/images/bottle.png",
-    "description": "Warm, creamy and very pleasant con the palate.",
     "price": 259.99,
-    "taste": "White wine with a bright yellow hue flecked with gold. Very pleasant first impression, with subtle vanilla and smoky aromas as well as floral and honey notes. It is warm, creamy, and very pleasant on the palate. Fermentation and ageing of the lees have given this wine personality without masking the grape variety. The finish is complex, flavoursome, round and well-balanced.",
-    "type": "dry",
     "color": "white",
-    "manufactured": {
-      "country": "France",
-      "region": "Toscana"
-    },
-    "vintage": 1970,
-    "pairing": "Perfect for all types of aperitifs, fish, rice, smoked dishes, white meat and cheese.",
-    "grape": "Chardonnay",
-    "temperature": "10° - 12°",
-    "inStock": true
-  },
-  {
-    "id": 4,
-    "name": "Chardonnay Barrel",
-    "image": "../assets/images/bottle.png",
-    "description": "Warm, creamy and very pleasant con the palate.",
-    "price": 259.99,
-    "taste": "White wine with a bright yellow hue flecked with gold. Very pleasant first impression, with subtle vanilla and smoky aromas as well as floral and honey notes. It is warm, creamy, and very pleasant on the palate. Fermentation and ageing of the lees have given this wine personality without masking the grape variety. The finish is complex, flavoursome, round and well-balanced.",
     "type": "dry",
-    "color": "white",
-    "manufactured": {
-      "country": "France",
-      "region": "Toscana"
-    },
-    "vintage": 1970,
+    "event": "for good mood",
     "pairing": "Perfect for all types of aperitifs, fish, rice, smoked dishes, white meat and cheese.",
+    "dishes": [],
+    "vintage": 1970,
+    "country": "France",
+    "region": "Toscana",
     "grape": "Chardonnay",
-    "temperature": "10° - 12°",
-    "inStock": true
-  },
-  {
-    "id": 5,
-    "name": "Chardonnay Barrel",
-    "image": "../assets/images/bottle.png",
-    "description": "Warm, creamy and very pleasant con the palate.",
-    "price": 259.99,
     "taste": "White wine with a bright yellow hue flecked with gold. Very pleasant first impression, with subtle vanilla and smoky aromas as well as floral and honey notes. It is warm, creamy, and very pleasant on the palate. Fermentation and ageing of the lees have given this wine personality without masking the grape variety. The finish is complex, flavoursome, round and well-balanced.",
-    "type": "dry",
-    "color": "white",
-    "manufactured": {
-      "country": "France",
-      "region": "Toscana"
-    },
-    "vintage": 1970,
-    "pairing": "Perfect for all types of aperitifs, fish, rice, smoked dishes, white meat and cheese.",
-    "grape": "Chardonnay",
-    "temperature": "10° - 12°",
-    "inStock": true
-  },
-  {
-    "id": 6,
-    "name": "Chardonnay Barrel",
-    "image": "../assets/images/bottle.png",
-    "description": "Warm, creamy and very pleasant con the palate.",
-    "price": 259.99,
-    "taste": "White wine with a bright yellow hue flecked with gold. Very pleasant first impression, with subtle vanilla and smoky aromas as well as floral and honey notes. It is warm, creamy, and very pleasant on the palate. Fermentation and ageing of the lees have given this wine personality without masking the grape variety. The finish is complex, flavoursome, round and well-balanced.",
-    "type": "dry",
-    "color": "white",
-    "manufactured": {
-      "country": "France",
-      "region": "Toscana"
-    },
-    "vintage": 1970,
-    "pairing": "Perfect for all types of aperitifs, fish, rice, smoked dishes, white meat and cheese.",
-    "grape": "Chardonnay",
-    "temperature": "10° - 12°",
-    "inStock": true
+    "temperature": "10° - 12° C",
+    "imageLink": "./images/bottle.png"
   }
 ]

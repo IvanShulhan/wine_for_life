@@ -18,6 +18,7 @@ import { SelectComponent } from '../../components/select';
 import adreses from '../../data/warehouses.json';
 import { FooterComponent } from '../../components/footer';
 import './profile.scss';
+import { NavigationComponent } from '../../components/navigation';
 
 export const ProfilePage = () => {
   const dispatch = useAppDispatch();
@@ -34,6 +35,12 @@ export const ProfilePage = () => {
       dispatch(getUser(user.id));
     }
   }, []);
+
+  useEffect(() => {
+    if (!userToken) {
+      navigate(ROUTER_KEYS.CATALOG);
+    }
+  }, [userToken]);
 
   const profileFormik = useFormik({
     initialValues: {
@@ -99,6 +106,9 @@ export const ProfilePage = () => {
       <div className="profile__wrapper">
         <div className="container">
           <div className="profile__inner">
+            <div className="profile__navigation-wrapper">
+              <NavigationComponent currentPage="Profile" />
+            </div>
             <div className="profile__header">
               <TitleComponent title="Profile" isLarge={true} />
             </div>

@@ -10,6 +10,10 @@ $gap: 20px;
 
   &__navigation-wrapper {
     margin-bottom: toEm(40);
+
+    @include media(sm) {
+      margin-bottom: toEm(8);
+    }
   }
 
   &__wrapper {
@@ -21,6 +25,10 @@ $gap: 20px;
     display: flex;
     flex-direction: column;
     padding: toEm(38) 0 toEm(50);
+
+    @include media(sm) {
+      padding: toEm(8) 0 toEm(16);
+    }
   }
 
   &__image-block {
@@ -40,11 +48,29 @@ $gap: 20px;
     gap: $gap;
     margin-bottom: $gap;
 
+    @include media(sm) {
+      flex-direction: column;
+    }
+
     &-item {
       width: calc(50% - $gap/2);
 
       @include media(bmd) {
         height: 415px;
+      }
+
+      @include media(sm) {
+        width: 100%;
+
+        &:first-of-type {
+          width: calc(100% + 32px);
+          position: relative;
+          transform: translateX(-16px);
+        }
+
+        &:last-of-type {
+          height: auto;
+        }
       }
     }
   }
@@ -53,6 +79,14 @@ $gap: 20px;
     font-weight: 800;
     @include toRem(24);
     color: $color_text_gray;
+
+    @include media(sm) {
+      & {
+        width: max-content;
+        position: relative;
+        transform: translateY(200%);
+      }
+    }
   }
 
   &__description-block, &__description-header,&__description, &__description-wrapper {
@@ -72,11 +106,31 @@ $gap: 20px;
     }
   }
 
+  &__top-title-block {
+    text-align: center;
+    padding: toEm(16);
+  }
+
   &__description-wrapper {
     overflow-x: hidden;
-     @include media(bmd) {
-      height: 135px;
-      overflow: scroll;
+
+    @include media(bmd) {
+      max-height: 130px;
+      overflow-y: auto;
+    }
+
+    @include media(sm) {
+      height: max-content;
+      overflow: visible;
+      max-height: none;
+    }
+
+    ::-webkit-scrollbar {
+      width: 0;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
     }
   }
 
@@ -88,6 +142,11 @@ $gap: 20px;
       flex-direction: column;
     }
 
+    @include media(sm) {
+      & .counter {
+        align-self: flex-end;
+      }
+    }
   }
 
   &__description {
@@ -118,6 +177,10 @@ $gap: 20px;
   &__cards {
     display: flex;
     gap: $gap;
+
+    @include media(sm) {
+      flex-wrap: wrap;
+    }
   }
 
   &__card {
@@ -128,6 +191,15 @@ $gap: 20px;
     flex-direction: column;
     align-items: center;
     gap: 16px;
+
+    @include media(sm) {
+      width: calc(50% - $gap/2);
+    }
+
+    @include media(tn) {
+      width: calc(100%);
+    }
+
 
     &-title {
       font-weight: 600;
@@ -143,6 +215,8 @@ $gap: 20px;
       @include toRem(14);
       line-height: 1.5;
       color: $color_secondary_text;
+      max-height: 65px;
+      overflow-y: hidden;
     }
   }
 }

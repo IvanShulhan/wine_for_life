@@ -12,12 +12,22 @@ $gap: 20px;
     @include flex;
   }
 
+  &__navigation-wrapper {
+    @include media(sm) {
+      margin-bottom: 20px;
+    }
+  }
+
   &__wrapper {
     flex-grow: 1;
   }
 
   &__inner {
     padding: toEm(20) 0 toEm(40);
+
+    @include media(sm) {
+      padding: toEm(8) 0 toEm(20);
+    }
   }
 
   &__content-wrapper {
