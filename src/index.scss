@@ -5,7 +5,7 @@
 @import "./styles/link";
 
 body {
-  &.is-open-bag {
+  &.is-open-block, &.is-open-filter {
     overflow: hidden;
   }
 }

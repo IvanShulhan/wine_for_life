@@ -9,16 +9,23 @@ import './catalog.scss';
 
 export const CatalogPage = () => {
   const isPhone = useMediaQuery('(max-width: 575px)');
-  const [isVisibleFilter, setIsVisibleFilter] = useState(!isPhone);
+  const [isVisibleFilter, setIsVisibleFilter] = useState(false);
+
+  useEffect(() => {
+    if (!isPhone && isVisibleFilter) {
+      setIsVisibleFilter(false);
+    }
+  }, [isPhone]);
 
   const handleIsOpen = () => {
+    window.scrollTo({ top: 0 });
     setIsVisibleFilter(!isVisibleFilter);
   };
 
   useEffect(() => {
     isVisibleFilter
-      ? document.body.classList.add('is-open-bag')
-      : document.body.classList.remove('is-open-bag');
+      ? document.body.classList.add('is-open-filter')
+      : document.body.classList.remove('is-open-filter');
   }, [isVisibleFilter]);
 
   return (
@@ -30,7 +37,7 @@ export const CatalogPage = () => {
         </div>
         <div className="container">
           <div className="catalog__content">
-            {!isPhone && <SidebarComponent />}
+            <SidebarComponent isOpen={isPhone && isVisibleFilter} onClick={handleIsOpen} />
             <ProductListComponent isPhone={isPhone} onClick={handleIsOpen} />
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 import { TitleComponent } from '../title';
@@ -7,15 +7,22 @@ import { filterValues } from '../../common/consts/filterValues.const';
 import { FilterListComponent } from './filter-list/filter-list.component';
 import helperFuncs from '../../common/utils/helper.funcs';
 import { ColorShema } from '../../common/types/button-types.enum';
-import './sidebar.scss';
 import { useAppDispatch } from '../../store/app/hooks';
 import { getProducts } from '../../store/slices/products/products.slice';
+import classNames from 'classnames';
+import { ReactComponent as Cross } from '../../assets/icons/cross.svg';
+import './sidebar.scss';
 
 interface IFilterKeys {
   [key: string]: string[];
 }
 
-export const SidebarComponent = () => {
+interface IProps {
+  isOpen: boolean;
+  onClick: () => void;
+}
+
+export const SidebarComponent: React.FC<IProps> = React.memo(({ isOpen, onClick }) => {
   const { search } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams(search);
   const dispatch = useAppDispatch();
@@ -64,13 +71,22 @@ export const SidebarComponent = () => {
   };
 
   const onSubmit = () => {
+    onClick();
     searchParams.delete('page');
     setSearchParams(searchParams);
     dispatch(getProducts(search));
   };
 
   return (
-    <div className="sidebar">
+    <div className={classNames('sidebar', { 'sidebar--is-open': isOpen })}>
+      {isOpen && (
+        <button className="sidebar__button" onClick={onClick}>
+          <Cross />
+        </button>
+      )}
+      <div className="sidebar__title-block">
+        <TitleComponent isLarge={true} title="Filters" />
+      </div>
       <div className="sidebar__inner">
         {filterValues.map((obj) => (
           <div className="sidebar__filter-item" key={uuid()}>
@@ -82,4 +98,6 @@ export const SidebarComponent = () => {
       <ButtonComponent onClick={onSubmit} text="Apply" colorSchema={ColorShema.dark} />
     </div>
   );
-};
+});
+
+SidebarComponent.displayName = 'SidebarComponent';

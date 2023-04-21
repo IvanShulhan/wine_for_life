@@ -5,12 +5,12 @@ import useMediaQuery from '../../common/utils/useMediaQuery.hook';
 import classNames from 'classnames';
 import { ROUTER_KEYS } from '../../common/consts';
 import { selectBagItems } from '../../store/slices/bag/bag.slice';
+import { logout, selectUserToken } from '../../store/slices/auth/auth.slice';
 import { SearchComponent } from './search';
 import { BagComponent } from '../bag';
 import { ReactComponent as Logo } from '../../assets/icons/logo.svg';
 import { ReactComponent as User } from '../../assets/icons/user.svg';
 import { ReactComponent as Bag } from '../../assets/icons/bag.svg';
-import { logout, selectUserToken } from '../../store/slices/auth/auth.slice';
 import { ReactComponent as Burger } from '../../assets/icons/burger.svg';
 import { ReactComponent as Cross } from '../../assets/icons/cross.svg';
 import { MenuComponent } from '../menu';
@@ -49,14 +49,20 @@ export const HeaderComponent: React.FC<IProps> = React.memo(
 
     useEffect(() => {
       if (!isTablet) {
-        setIsOpenMenu(false);
+        if (isOpenBag) {
+          setIsOpenBag(false);
+        }
+
+        if (isOpenMenu) {
+          setIsOpenMenu(false);
+        }
       }
     }, [isTablet]);
 
     useEffect(() => {
       isOpenBag || isOpenMenu
-        ? document.body.classList.add('is-open-bag')
-        : document.body.classList.remove('is-open-bag');
+        ? document.body.classList.add('is-open-block')
+        : document.body.classList.remove('is-open-block');
     }, [isOpenBag, isOpenMenu]);
 
     const buttonActions = () => {
