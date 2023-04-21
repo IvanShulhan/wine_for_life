@@ -5,7 +5,6 @@ import { RootState } from '../../app/store';
 import { IProduct } from '../../../common/types/product.type';
 import productsService from '../../../services/products.service';
 import helperFuncs from '../../../common/utils/helper.funcs';
-import data from '../../../data/data.json';
 
 export interface productsState {
   products: IProduct[];

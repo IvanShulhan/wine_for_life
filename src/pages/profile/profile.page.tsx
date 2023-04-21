@@ -1,5 +1,5 @@
 import { useMemo, useEffect } from 'react';
-import { Formik, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import { profileSchema } from '../../schemas';
 import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
 import { logout, selectUserId, selectUserToken } from '../../store/slices/auth/auth.slice';
