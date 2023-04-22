@@ -8,9 +8,12 @@ import { ProductCardComponent } from '../product-card';
 import {
   getMoreProducts,
   getProducts,
-  selectProducts
+  selectProducts,
+  selectProductsStatus
 } from '../../store/slices/products/products.slice';
 import './product-list.scss';
+import { TitleComponent } from '../title';
+import classNames from 'classnames';
 
 const sortValues = ['low to high', 'high to low'];
 
@@ -25,6 +28,7 @@ export const ProductListComponent: React.FC<IProps> = React.memo(({ isPhone, onC
   const currentPage = searchParams.get('page') || 0;
   const popularityValue = searchParams.get('sort by popularity') || '';
   const priceValue = searchParams.get('sort by price') || '';
+  const status = useAppSelector(selectProductsStatus);
 
   const [page, setPage] = useState(+currentPage);
   const dispatch = useAppDispatch();
@@ -42,6 +46,8 @@ export const ProductListComponent: React.FC<IProps> = React.memo(({ isPhone, onC
 
   const products = useAppSelector(selectProducts);
 
+  // const isVisibleHeader = useMemo(() => {}, []);
+
   useEffect(() => {
     setPage(0);
     searchParams.delete('page');
@@ -58,17 +64,24 @@ export const ProductListComponent: React.FC<IProps> = React.memo(({ isPhone, onC
 
   return (
     <div className="product-list">
-      <div className="product-list__header">
-        <SelectComponent name="sort by popularity" values={sortValues} />
-        <SelectComponent name="sort by price" values={sortValues} />
+      <div
+        className={classNames('product-list__header', {
+          'product-list__header--is-visible': (products.length && status === 'idle') || true
+        })}>
+        <SelectComponent name="sort by popularity" values={sortValues} isDisabled={true} />
+        <SelectComponent name="sort by price" values={sortValues} isDisabled={true} />
         {isPhone && (
           <button className="product-list__button" onClick={onClick}>
             Filter
           </button>
         )}
       </div>
-
-      {products.length ? (
+      {status === 'loading' && (
+        <div className="product-list__info">
+          <LoaderComponent />
+        </div>
+      )}
+      {Boolean(products.length) && status === 'idle' && (
         <div className="product-list__content">
           <ul className="product-list__list">
             {products.map((product) => (
@@ -79,9 +92,10 @@ export const ProductListComponent: React.FC<IProps> = React.memo(({ isPhone, onC
           </ul>
           <ButtonComponent text="Load more" outlined={true} onClick={increasePage} />
         </div>
-      ) : (
-        <div className="product-list__load">
-          <LoaderComponent />
+      )}
+      {!products.length && status === 'idle' && (
+        <div className="product-list__info">
+          <TitleComponent title="No products were found according to your filters" />
         </div>
       )}
     </div>

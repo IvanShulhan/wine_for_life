@@ -33,6 +33,7 @@ export const SearchComponent = () => {
     <div className="search">
       <input
         placeholder="Search"
+        disabled
         type="text"
         className="search__input"
         value={value}

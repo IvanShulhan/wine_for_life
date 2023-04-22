@@ -17,8 +17,8 @@ import { InputLabelComponent } from '../../components/input-label/input-label.co
 import { SelectComponent } from '../../components/select';
 import adreses from '../../data/warehouses.json';
 import { FooterComponent } from '../../components/footer';
-import './profile.scss';
 import { NavigationComponent } from '../../components/navigation';
+import './profile.scss';
 
 export const ProfilePage = () => {
   const dispatch = useAppDispatch();
@@ -85,6 +85,8 @@ export const ProfilePage = () => {
   const setFormicValue = async (key: string, value: string) => {
     await profileFormik.setValues((values) => ({ ...values, [key]: value }));
   };
+
+  console.log(profileFormik.errors);
 
   const deleteAccount = () => {
     if (userId) {

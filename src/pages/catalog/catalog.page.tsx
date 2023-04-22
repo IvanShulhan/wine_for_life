@@ -37,7 +37,10 @@ export const CatalogPage = () => {
         </div>
         <div className="container">
           <div className="catalog__content">
-            <SidebarComponent isOpen={isPhone && isVisibleFilter} onClick={handleIsOpen} />
+            <SidebarComponent
+              isOpen={isPhone && isVisibleFilter}
+              onClick={() => setIsVisibleFilter(false)}
+            />
             <ProductListComponent isPhone={isPhone} onClick={handleIsOpen} />
           </div>
         </div>
