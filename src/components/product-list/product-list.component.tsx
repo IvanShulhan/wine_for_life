@@ -46,8 +46,6 @@ export const ProductListComponent: React.FC<IProps> = React.memo(({ isPhone, onC
 
   const products = useAppSelector(selectProducts);
 
-  // const isVisibleHeader = useMemo(() => {}, []);
-
   useEffect(() => {
     setPage(0);
     searchParams.delete('page');

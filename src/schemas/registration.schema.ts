@@ -1,16 +1,20 @@
 import * as yup from 'yup';
-import { COMMON_CONST } from '../common/consts';
+import { REGEXES } from '../common/consts';
 
 export const registrtionSchema = yup.object({
   firstName: yup
     .string()
     .min(3, 'Must be at least 3 characters long')
-    .matches(COMMON_CONST.ONLY_CHAR_REGEX, 'Only letters')
+    .matches(REGEXES.ONLY_CHAR, 'Only letters')
+    .matches(REGEXES.ONLY_ONE_SPACE, 'Max one space in a row')
+    .matches(REGEXES.WITHOUT_SPACES, "Name can't start/finish with a space")
     .required('First name is required'),
   lastName: yup
     .string()
     .min(3, 'Must be at least 3 characters long')
-    .matches(COMMON_CONST.ONLY_CHAR_REGEX, 'Only letters')
+    .matches(REGEXES.ONLY_CHAR, 'Only letters')
+    .matches(REGEXES.ONLY_ONE_SPACE, 'Max one space in a row')
+    .matches(REGEXES.WITHOUT_SPACES, "Name can't start/finish with a space")
     .required('Last name is required'),
   email: yup.string().email('Invalid email format').required('Email is required'),
   password: yup

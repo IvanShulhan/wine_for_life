@@ -5,20 +5,18 @@ import { InfoComponent } from '../info';
 
 interface IProps {
   children: JSX.Element;
-  status: 'idle' | 'loading' | 'failed';
+  status: 'idle' | 'loading' | 'failed' | 'success';
 }
 
 export const ContentWrapperComponent: React.FC<IProps> = React.memo(({ children, status }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   useEffect(() => {
-    if (status !== 'idle') {
-      setIsOpenModal(true);
-    }
+    setIsOpenModal(true);
 
     const timerId = setTimeout(() => {
       setIsOpenModal(false);
-    }, 1500);
+    }, 1000);
 
     return () => {
       clearTimeout(timerId);
@@ -29,11 +27,11 @@ export const ContentWrapperComponent: React.FC<IProps> = React.memo(({ children,
     <>
       {isOpenModal ? (
         <ModalComponent>
-          {status === 'loading' ? (
-            <LoaderComponent />
-          ) : (
-            <InfoComponent isSuccess={status === 'idle'} />
-          )}
+          <>
+            {status === 'loading' && <LoaderComponent />}
+            {status === 'failed' && <InfoComponent />}
+            {status === 'success' && <InfoComponent isSuccess={true} />}
+          </>
         </ModalComponent>
       ) : (
         <>{children}</>

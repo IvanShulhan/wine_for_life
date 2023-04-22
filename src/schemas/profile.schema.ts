@@ -1,21 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as yup from 'yup';
-import { COMMON_CONST } from '../common/consts';
+import { REGEXES } from '../common/consts';
 
 export const profileSchema = yup.object().shape({
   firstName: yup
     .string()
     .min(3, 'Must be at least 3 characters long')
-    .matches(COMMON_CONST.ONLY_CHAR_REGEX, 'Only letters')
+    .matches(REGEXES.ONLY_CHAR, 'Only letters')
+    .matches(REGEXES.ONLY_ONE_SPACE, 'Max one space in a row')
+    .matches(REGEXES.WITHOUT_SPACES, "Name can't start/finish with a space")
     .required('First name is required'),
   lastName: yup
     .string()
     .min(3, 'Must be at least 3 characters long')
-    .matches(COMMON_CONST.ONLY_CHAR_REGEX, 'Only letters')
+    .matches(REGEXES.ONLY_CHAR, 'Only letters')
+    .matches(REGEXES.ONLY_ONE_SPACE, 'Max one space in a row')
+    .matches(REGEXES.WITHOUT_SPACES, "Name can't start/finish with a space")
     .required('Last name is required'),
   email: yup.string().email('Invalid email format').required('Email is required'),
-  birthDate: yup.string().matches(COMMON_CONST.DATE_REGEX, 'Invalid date format YYYY-MM-DD'),
-  phoneNumber: yup.string().matches(COMMON_CONST.PHONE_NUMBER, 'Invalid format'),
+  birthDate: yup.string().matches(REGEXES.DATE, 'Invalid date format YYYY-MM-DD'),
+  phoneNumber: yup.string().matches(REGEXES.PHONE_NUMBER, 'Invalid format'),
   region: yup.string(),
   city: yup.string(),
   deliveryService: yup.string(),
@@ -23,6 +27,6 @@ export const profileSchema = yup.object().shape({
   oldPassword: yup.string(),
   newPassword: yup
     .string()
-    .matches(COMMON_CONST.ONE_NUMBER, 'At least 1 number (0-9)')
-    .matches(COMMON_CONST.MIN_LENGTH, 'At least 8 characters')
+    .matches(REGEXES.ONE_NUMBER, 'At least 1 number (0-9)')
+    .matches(REGEXES.MIN_LENGTH, 'At least 8 characters')
 });

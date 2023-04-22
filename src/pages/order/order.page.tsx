@@ -32,10 +32,12 @@ import { ContentWrapperComponent } from '../../components/content-wrapper';
 import './order.scss';
 
 export const OrderPage = () => {
+  const [isVisibleButtons, setIsVisibleButtons] = useState(true);
   const [isNewCustomer, setIsNewCustomer] = useState(true);
   const userToken = useAppSelector(selectUserToken);
   const BagItems = useAppSelector(selectBagItems);
   const orderStatus = useAppSelector(selectOrdertatus);
+  const authStatus = useAppSelector(selectOrdertatus);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -85,7 +87,7 @@ export const OrderPage = () => {
           lastName: values.lastName,
           email: values.email,
           phoneNumber: values.phoneNumber,
-          password: values.password,
+          password: values.password.length ? values.password : null,
           shippingDetailsRequest: {
             region: values.region,
             city: values.city,
@@ -143,6 +145,10 @@ export const OrderPage = () => {
     loginFormik.setValues({ password: '', email: '' });
   }, [isNewCustomer]);
 
+  useEffect(() => {
+    setIsVisibleButtons(Boolean(!user));
+  }, [user]);
+
   const getIsChacked = (val: string) => orderFormik.values.payment === val;
 
   return (
@@ -156,7 +162,7 @@ export const OrderPage = () => {
               <TitleComponent title="Ordering" isLarge={true} />
             </div>
             <div className="order__content-wrapper">
-              {!user ? (
+              {isVisibleButtons ? (
                 <div className="order__buttons">
                   <NakedButtonComponent
                     text="New customer"
@@ -406,58 +412,63 @@ export const OrderPage = () => {
                       </>
                     </ContentWrapperComponent>
                   ) : (
-                    <div>
-                      <BlockComponent
-                        step={1}
-                        maxStep={4}
-                        name="Log In"
-                        withDivider={false}
-                        isFinished={!loginFormik.errors.email && !loginFormik.errors.password}>
-                        <div className="order__blocks-inputs">
-                          <InputLabelComponent text="Email">
-                            <InputComponent
-                              isDark={true}
-                              name="email"
-                              placeholder="Enter your email"
-                              value={loginFormik.values.email}
-                              onChange={loginFormik.handleChange}
-                              warning={
-                                !orderFormik.touched.email &&
-                                Boolean(loginFormik.values.email) &&
-                                Boolean(loginFormik.errors.email)
-                              }
-                              error={loginFormik.touched.email && Boolean(loginFormik.errors.email)}
-                              helperText={loginFormik.errors.email}
-                            />
-                          </InputLabelComponent>
-                          <InputLabelComponent text="Password">
-                            <InputComponent
-                              isDark={true}
-                              type="password"
-                              name="password"
-                              placeholder="Enter your password"
-                              value={loginFormik.values.password}
-                              onChange={loginFormik.handleChange}
-                              warning={
-                                !loginFormik.touched.password &&
-                                Boolean(loginFormik.values.password) &&
-                                Boolean(loginFormik.errors.password)
-                              }
-                              error={
-                                loginFormik.touched.password && Boolean(loginFormik.errors.password)
-                              }
-                              helperText={loginFormik.errors.password}
-                            />
-                          </InputLabelComponent>
-                          <Link className="link order__link" to={ROUTER_KEYS.RESTORE}>
-                            Forgot password?
-                          </Link>
+                    <ContentWrapperComponent status={authStatus}>
+                      <div>
+                        <BlockComponent
+                          step={1}
+                          maxStep={4}
+                          name="Log In"
+                          withDivider={false}
+                          isFinished={!loginFormik.errors.email && !loginFormik.errors.password}>
+                          <div className="order__blocks-inputs">
+                            <InputLabelComponent text="Email">
+                              <InputComponent
+                                isDark={true}
+                                name="email"
+                                placeholder="Enter your email"
+                                value={loginFormik.values.email}
+                                onChange={loginFormik.handleChange}
+                                warning={
+                                  !orderFormik.touched.email &&
+                                  Boolean(loginFormik.values.email) &&
+                                  Boolean(loginFormik.errors.email)
+                                }
+                                error={
+                                  loginFormik.touched.email && Boolean(loginFormik.errors.email)
+                                }
+                                helperText={loginFormik.errors.email}
+                              />
+                            </InputLabelComponent>
+                            <InputLabelComponent text="Password">
+                              <InputComponent
+                                isDark={true}
+                                type="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                value={loginFormik.values.password}
+                                onChange={loginFormik.handleChange}
+                                warning={
+                                  !loginFormik.touched.password &&
+                                  Boolean(loginFormik.values.password) &&
+                                  Boolean(loginFormik.errors.password)
+                                }
+                                error={
+                                  loginFormik.touched.password &&
+                                  Boolean(loginFormik.errors.password)
+                                }
+                                helperText={loginFormik.errors.password}
+                              />
+                            </InputLabelComponent>
+                            <Link className="link order__link" to={ROUTER_KEYS.RESTORE}>
+                              Forgot password?
+                            </Link>
+                          </div>
+                        </BlockComponent>
+                        <div className="order__button-wrapper">
+                          <ButtonComponent text="Login" type={ButtonTypes.submit} />
                         </div>
-                      </BlockComponent>
-                      <div className="order__button-wrapper">
-                        <ButtonComponent text="Login" type={ButtonTypes.submit} />
                       </div>
-                    </div>
+                    </ContentWrapperComponent>
                   )}
                 </form>
                 <div className="order__list-box">

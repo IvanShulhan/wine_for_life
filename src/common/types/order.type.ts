@@ -8,7 +8,7 @@ export interface IOrder {
     lastName: string;
     email: string;
     phoneNumber: string;
-    password: string;
+    password: string | null;
     shippingDetailsRequest: {
       region: string;
       city: string;

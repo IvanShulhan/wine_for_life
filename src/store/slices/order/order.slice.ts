@@ -6,7 +6,7 @@ import orderService from '../../../services/order.service';
 import { IOrder } from '../../../common/types/order.type';
 
 export interface orderState {
-  status: 'idle' | 'loading' | 'failed';
+  status: 'idle' | 'loading' | 'failed' | 'success';
 }
 
 const initialState: orderState = {
@@ -14,9 +14,7 @@ const initialState: orderState = {
 };
 
 export const makeOrder = createAsyncThunk('order/makeOrder', async (body: IOrder) => {
-  const { data } = await orderService.makeOrder(body);
-
-  return data;
+  await orderService.makeOrder(body);
 });
 
 export const orderSlice = createSlice({
@@ -29,7 +27,7 @@ export const orderSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(makeOrder.fulfilled, (state) => {
-        state.status = 'idle';
+        state.status = 'success';
       })
       .addCase(makeOrder.rejected, (state) => {
         state.status = 'failed';
