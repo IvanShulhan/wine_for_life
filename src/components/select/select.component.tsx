@@ -34,6 +34,8 @@ export const SelectComponent: React.FC<IProps> = React.memo(
     const [value, setValue] = useState(withParams ? searchParams.get(name) || '' : '');
     const [isOpen, setIsOpen] = useState(false);
 
+    console.log(currentVal);
+
     const handleChange = (value: string) => {
       setValue(value);
       if (withParams) {
@@ -49,7 +51,9 @@ export const SelectComponent: React.FC<IProps> = React.memo(
     }, [value]);
 
     useEffect(() => {
-      setValue(currentVal);
+      if (value !== currentVal && currentVal) {
+        setValue(currentVal);
+      }
     }, [currentVal]);
 
     return (

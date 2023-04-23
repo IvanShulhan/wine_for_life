@@ -7,7 +7,7 @@ import userService from '../../../services/user.service';
 
 export interface userState {
   user: IUser | null;
-  status: 'idle' | 'loading' | 'failed';
+  status: 'idle' | 'loading' | 'failed' | 'success';
 }
 
 const initialState: userState = {
@@ -54,7 +54,7 @@ export const authSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(removeUser.fulfilled, (state) => {
-        state.status = 'idle';
+        state.status = 'success';
       })
       .addCase(updateUser.rejected, (state) => {
         state.status = 'failed';
@@ -63,7 +63,7 @@ export const authSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(updateUser.fulfilled, (state, action) => {
-        state.status = 'idle';
+        state.status = 'success';
         state.user = action.payload;
       });
   }

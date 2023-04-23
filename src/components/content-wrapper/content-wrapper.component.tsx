@@ -25,12 +25,12 @@ export const ContentWrapperComponent: React.FC<IProps> = React.memo(({ children,
 
   return (
     <>
-      {isOpenModal ? (
+      {isOpenModal && status !== 'idle' ? (
         <ModalComponent>
           <>
             {status === 'loading' && <LoaderComponent />}
-            {status === 'failed' && <InfoComponent />}
-            {status === 'success' && <InfoComponent isSuccess={true} />}
+            {status === 'failed' && <InfoComponent isSuccess={false} />}
+            {status === 'success' && <InfoComponent />}
           </>
         </ModalComponent>
       ) : (

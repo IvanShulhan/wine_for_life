@@ -40,7 +40,7 @@ export interface IUpdateUser {
   city?: string;
   birthDate?: string;
   deliveryService?: string;
-  warehause?: string;
-  password?: string;
+  warehouse?: string;
+  newPassword?: string;
   oldPassword?: string;
 }
