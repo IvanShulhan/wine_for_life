@@ -6,12 +6,12 @@ import { IProduct } from '../../../common/types/product.type';
 import productsService from '../../../services/products.service';
 import helperFuncs from '../../../common/utils/helper.funcs';
 
-export interface productsState {
+export interface IProductsState {
   products: IProduct[];
   status: 'idle' | 'loading' | 'failed';
 }
 
-const initialState: productsState = {
+const initialState: IProductsState = {
   products: [],
   status: 'idle'
 };

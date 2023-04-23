@@ -41,6 +41,6 @@ export interface IUpdateUser {
   birthDate?: string;
   deliveryService?: string;
   warehouse?: string;
-  newPassword?: string;
-  oldPassword?: string;
+  newPassword?: string | null;
+  oldPassword?: string | null;
 }

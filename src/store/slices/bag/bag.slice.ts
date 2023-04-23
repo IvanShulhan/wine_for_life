@@ -11,11 +11,11 @@ export interface IBagItem {
   count: number;
 }
 
-export interface BagState {
+export interface IBagState {
   bagItems: IBagItem[];
 }
 
-const initialState: BagState = {
+const initialState: IBagState = {
   bagItems: helperFuncs.getLocalStorageData(STORAGE_KEYS.BAG)
 };
 
@@ -23,7 +23,7 @@ export const bagSlice = createSlice({
   name: 'bag',
   initialState,
   reducers: {
-    addToBag: (state: BagState, action: PayloadAction<{ item: IBagItem }>) => {
+    addToBag: (state: IBagState, action: PayloadAction<{ item: IBagItem }>) => {
       if (!action.payload.item.count) return;
 
       const bagItem = state.bagItems.find((el) => el.product.id === action.payload.item.product.id);
@@ -36,23 +36,28 @@ export const bagSlice = createSlice({
 
       localStorage.setItem(STORAGE_KEYS.BAG, JSON.stringify(state.bagItems));
     },
-    removeFromBag: (state: BagState, action: PayloadAction<{ id: number }>) => {
+    removeFromBag: (state: IBagState, action: PayloadAction<{ id: number }>) => {
       state.bagItems =
         state.bagItems?.filter((item) => item.product.id !== action.payload.id) || null;
 
       localStorage.setItem(STORAGE_KEYS.BAG, JSON.stringify(state.bagItems));
     },
-    changeCount: (state: BagState, action: PayloadAction<{ id: number; count: number }>) => {
+    changeCount: (state: IBagState, action: PayloadAction<{ id: number; count: number }>) => {
       const item = state.bagItems?.find((item) => item.product.id === action.payload.id);
 
       if (item) {
         item.count = action.payload.count;
         localStorage.setItem(STORAGE_KEYS.BAG, JSON.stringify(state.bagItems));
       }
+    },
+    clearBag: (state: IBagState) => {
+      state.bagItems = [];
+
+      localStorage.setItem(STORAGE_KEYS.BAG, JSON.stringify(state.bagItems));
     }
   }
 });
 
-export const { addToBag, removeFromBag, changeCount } = bagSlice.actions;
+export const { addToBag, removeFromBag, changeCount, clearBag } = bagSlice.actions;
 export const selectBagItems = (state: RootState) => state.bag.bagItems;
 export default bagSlice.reducer;

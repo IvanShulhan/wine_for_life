@@ -7,12 +7,12 @@ import authSerivce from '../../../services/auth.service';
 import { STORAGE_KEYS } from '../../../common/consts';
 import helperFuncs from '../../../common/utils/helper.funcs';
 
-export interface authState {
+export interface IAuthState {
   userToken: string | null;
-  status: 'idle' | 'loading' | 'failed';
+  status: 'idle' | 'loading' | 'failed' | 'success';
 }
 
-const initialState: authState = {
+const initialState: IAuthState = {
   userToken: localStorage.getItem(STORAGE_KEYS.TOKEN),
   status: 'idle'
 };
@@ -46,7 +46,7 @@ export const authSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.status = 'idle';
+        state.status = 'success';
         state.userToken = action.payload.token;
       })
       .addCase(loginUser.rejected, (state) => {
@@ -56,7 +56,7 @@ export const authSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(registerUser.fulfilled, (state) => {
-        state.status = 'idle';
+        state.status = 'success';
       })
       .addCase(registerUser.rejected, (state) => {
         state.status = 'failed';

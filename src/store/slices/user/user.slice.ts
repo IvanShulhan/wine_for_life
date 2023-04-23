@@ -5,12 +5,12 @@ import { RootState } from '../../app/store';
 import { IUpdateUser, IUser } from '../../../common/types/user.type';
 import userService from '../../../services/user.service';
 
-export interface userState {
+export interface IUserState {
   user: IUser | null;
   status: 'idle' | 'loading' | 'failed' | 'success';
 }
 
-const initialState: userState = {
+const initialState: IUserState = {
   user: null,
   status: 'idle'
 };
@@ -34,10 +34,14 @@ export const updateUser = createAsyncThunk('user/updateUser', async (params: IUp
   return data;
 });
 
-export const authSlice = createSlice({
+export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    resetUserStatus(state: IUserState) {
+      state.status = 'idle';
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getUser.pending, (state) => {
@@ -69,6 +73,7 @@ export const authSlice = createSlice({
   }
 });
 
+export const { resetUserStatus } = userSlice.actions;
 export const selectUser = (state: RootState) => state.user.user;
 export const selectUserStatus = (state: RootState) => state.user.status;
-export default authSlice.reducer;
+export default userSlice.reducer;

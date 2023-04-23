@@ -5,11 +5,11 @@ import { RootState } from '../../app/store';
 import orderService from '../../../services/order.service';
 import { IOrder } from '../../../common/types/order.type';
 
-export interface orderState {
+export interface IOrderState {
   status: 'idle' | 'loading' | 'failed' | 'success';
 }
 
-const initialState: orderState = {
+const initialState: IOrderState = {
   status: 'idle'
 };
 
@@ -20,7 +20,11 @@ export const makeOrder = createAsyncThunk('order/makeOrder', async (body: IOrder
 export const orderSlice = createSlice({
   name: 'order',
   initialState,
-  reducers: {},
+  reducers: {
+    resetOrderStatus(state: IOrderState) {
+      state.status = 'idle';
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(makeOrder.pending, (state) => {
@@ -35,5 +39,6 @@ export const orderSlice = createSlice({
   }
 });
 
-export const selectOrdertatus = (state: RootState) => state.products.status;
+export const { resetOrderStatus } = orderSlice.actions;
+export const selectOrdertatus = (state: RootState) => state.order.status;
 export default orderSlice.reducer;

@@ -31,6 +31,7 @@ export const LoginPage = () => {
   }
 
   useEffect(() => {
+    dispatch(resetAuthStatus());
     return () => {
       localStorage.removeItem(STORAGE_KEYS.REMEMBER_DATA);
     };

@@ -4,7 +4,7 @@ import { LoaderComponent } from '../loader';
 import { InfoComponent } from '../info';
 
 interface IProps {
-  children: JSX.Element;
+  children?: JSX.Element;
   status: 'idle' | 'loading' | 'failed' | 'success';
 }
 
@@ -16,7 +16,7 @@ export const ContentWrapperComponent: React.FC<IProps> = React.memo(({ children,
 
     const timerId = setTimeout(() => {
       setIsOpenModal(false);
-    }, 1000);
+    }, 1500);
 
     return () => {
       clearTimeout(timerId);

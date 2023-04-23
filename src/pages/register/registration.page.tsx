@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import { useAppDispatch, useAppSelector } from '../../store/app/hooks';
-import { registerUser, selectAuthStatus } from '../../store/slices/auth/auth.slice';
+import {
+  registerUser,
+  resetAuthStatus,
+  selectAuthStatus
+} from '../../store/slices/auth/auth.slice';
 import { registrtionSchema } from '../../schemas';
 import { ROUTER_KEYS, STORAGE_KEYS } from '../../common/consts';
 import { ButtonTypes } from '../../common/types/button-types.enum';
@@ -49,8 +53,15 @@ export const RegistrationPage = () => {
   };
 
   useEffect(() => {
-    console.log(status, isSubmit);
-    if (status === 'idle' && isSubmit) {
+    dispatch(resetAuthStatus());
+
+    return () => {
+      dispatch(resetAuthStatus());
+    };
+  }, []);
+
+  useEffect(() => {
+    if (status === 'success' && isSubmit) {
       navigate(ROUTER_KEYS.LOGIN);
     }
   }, [isSubmit, status]);

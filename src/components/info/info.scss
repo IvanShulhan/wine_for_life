@@ -10,6 +10,11 @@
     text-align: center;
     background-color: $color_screen;
     max-width: 480px;
+    border-bottom: 5px solid $color_warning;
+
+    &--is-success {
+      border-bottom-color: $color_sucsess;
+    }
 
     & h2.title {
       margin-bottom: 0;
