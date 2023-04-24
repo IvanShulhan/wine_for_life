@@ -9,9 +9,9 @@ import helperFuncs from '../../common/utils/helper.funcs';
 import { OrderItemComponent } from '../order-item';
 import { ButtonComponent } from '../button';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import './bag.scss';
 import useWindowHeight from '../../common/utils/useWindowHight.hook';
+import useMediaQuery from '../../common/utils/useMediaQuery.hook';
 
 interface IBag {
   closeFn: () => void;
@@ -22,21 +22,16 @@ export const BagComponent: React.FC<IBag> = React.memo(({ closeFn, isOpen }) => 
   const BagItems = useAppSelector(selectBagItems);
   const navigate = useNavigate();
   const windowHeight = useWindowHeight();
+  const isTablet = useMediaQuery('(max-width: 768px)');
+
+  const height = isTablet ? `${windowHeight - 68}px` : `${windowHeight - 80}px`;
 
   const totalPrice = useMemo(() => {
     return helperFuncs.getTotalPrice(BagItems);
   }, [BagItems]);
 
-  console.log(windowHeight);
-
-  const Box = styled.div`
-    @media (max-width: 768px) {
-      height: ${windowHeight - 68}px;
-    }
-  `;
-
   return (
-    <Box className={classNames('bag', { 'bag--is-visible': isOpen })}>
+    <div className={classNames('bag', { 'bag--is-visible': isOpen })} style={{ height }}>
       <div className="bag__header">
         <h3 className="bag__title">Your bag</h3>
         <button className="bag__close-button" onClick={() => closeFn()}>
@@ -75,7 +70,7 @@ export const BagComponent: React.FC<IBag> = React.memo(({ closeFn, isOpen }) => 
           </div>
         </div>
       </div>
-    </Box>
+    </div>
   );
 });
 

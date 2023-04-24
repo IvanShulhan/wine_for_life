@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { TitleComponent } from '../title';
 import { ROUTER_KEYS } from '../../common/consts';
@@ -7,6 +7,7 @@ import { useAppSelector } from '../../store/app/hooks';
 import { selectUserToken } from '../../store/slices/auth/auth.slice';
 import './menu.scss';
 import classNames from 'classnames';
+import useWindowHeight from '../../common/utils/useWindowHight.hook';
 
 interface IProps {
   isVisible: boolean;
@@ -17,6 +18,9 @@ interface IProps {
 export const MenuComponent: React.FC<IProps> = React.memo(
   ({ isVisible, onClick, buttonActions }) => {
     const userToken = useAppSelector(selectUserToken);
+    const windowHeight = useWindowHeight();
+
+    const height = `${windowHeight - 68}px`;
 
     const handleNavigate = () => {
       onClick();
@@ -24,7 +28,7 @@ export const MenuComponent: React.FC<IProps> = React.memo(
     };
 
     return (
-      <div className={classNames('menu', { 'menu--is-visible': isVisible })}>
+      <div className={classNames('menu', { 'menu--is-visible': isVisible })} style={{ height }}>
         <div className="menu__content">
           <button onClick={onClick} className="menu__content-item">
             <TitleComponent title="About us" />

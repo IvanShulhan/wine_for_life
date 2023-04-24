@@ -4,13 +4,13 @@ import helperFuncs from '../../common/utils/helper.funcs';
 
 interface IProps {
   name: string;
-  text: string | number;
+  text?: string | number;
 }
 
 export const DescriptionItemComponent: React.FC<IProps> = React.memo(({ name, text }) => (
   <div className="description-item">
     <div className="description-item__name">{name}</div>
-    <div className="description-item__text">{helperFuncs.modifyText(`${text}`)}</div>
+    <div className="description-item__text">{text ? helperFuncs.modifyText(`${text}`) : ''}</div>
   </div>
 ));
 
