@@ -21,7 +21,7 @@ $gap: 20px;
 
   @include media(sm) {
     padding: toEm(16);
-    height: calc(100vh - #{$header-height-sm}px);
+    // height: calc(100vh - #{$header-height-sm}px);
   }
 
   @include media(tn) {

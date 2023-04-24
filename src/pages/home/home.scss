@@ -123,6 +123,7 @@
   }
 
   &__video {
+    background-color: $color_screen;
     width: 100%;
     height: 100%;
     object-fit: cover;
