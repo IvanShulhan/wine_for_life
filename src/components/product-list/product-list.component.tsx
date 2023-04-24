@@ -66,8 +66,8 @@ export const ProductListComponent: React.FC<IProps> = React.memo(({ isPhone, onC
         className={classNames('product-list__header', {
           'product-list__header--is-visible': (products.length && status === 'idle') || true
         })}>
-        <SelectComponent name="sort by popularity" values={sortValues} isDisabled={true} />
-        <SelectComponent name="sort by price" values={sortValues} isDisabled={true} />
+        <SelectComponent name="sort by popularity" values={sortValues} />
+        <SelectComponent name="sort by price" values={sortValues} />
         {isPhone && (
           <button className="product-list__button" onClick={onClick}>
             Filter

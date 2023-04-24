@@ -35,6 +35,7 @@ export const DetailsPage = () => {
   const isTablet = useMediaQuery('(max-width: 768px)');
 
   useEffect(() => {
+    window.scrollTo({ top: 0 });
     setStatus('loading');
     productsService.getProduct(+id).then(({ data }) => {
       setStatus('idle');

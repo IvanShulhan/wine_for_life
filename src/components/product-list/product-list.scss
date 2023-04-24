@@ -9,9 +9,12 @@ $gap: 20px;
   gap: $gap;
 
   &__button {
+    padding: 12px 24px;
+    font-weight: 700;
+    border: 1px solid $color_gray_dark;
+    background-color: transparent;
     @include toRem(18);
     color: $color_gray_dark;
-    @include no-border;
     background-color: transparent;
   }
 

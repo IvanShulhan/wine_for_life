@@ -33,9 +33,11 @@ export const MenuComponent: React.FC<IProps> = React.memo(
           <button onClick={onClick} className="menu__content-item">
             <TitleComponent title="About us" />
           </button>
-          <Link to={ROUTER_KEYS.PROFILE} onClick={onClick} className="menu__content-item">
-            <TitleComponent title="Account" />
-          </Link>
+          {userToken && (
+            <Link to={ROUTER_KEYS.PROFILE} onClick={onClick} className="menu__content-item">
+              <TitleComponent title="Account" />
+            </Link>
+          )}
           <button onClick={handleNavigate} className="menu__content-item">
             <TitleComponent title="Contact and service" />
           </button>
