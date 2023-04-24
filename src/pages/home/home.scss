@@ -22,6 +22,7 @@
     z-index: 3;
     bottom: 100px;
     right: 100px;
+    animation: showMark 3s linear;
 
     @include media(sm) {
       left: 50%;
@@ -60,6 +61,7 @@
     background-color: transparent;
     border-bottom: 1px solid transparent;
     transition: transition(transform), transition(border-color);
+    animation: showText 3s linear;
 
     &:hover {
       border-color: $color_white;
@@ -81,6 +83,7 @@
 
   & .title {
     max-width: 566px;
+    animation: showText 3s linear;
 
     @include media(sm) {
       @include toRem(55);
@@ -96,15 +99,22 @@
     @include toRem(16);
     line-height: 1.4;
     color: $color_white;
+    animation: showText 3s linear;
   }
 
   &__logo {
     position: absolute;
+    opacity: 1;
     left: 60px;
     top: 40px;
     width: 83px;
     height: 40px;
     z-index: 2;
+    animation: showLogo 3s linear;
+    background-image: url('../../assets/icons/logo_white.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+  
 
     @include media(sm) {
       left: 50%;
@@ -116,6 +126,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    animation: showVideo 3s linear;
   }
 
   &__content-mask {
@@ -126,6 +137,67 @@
     bottom: 0;
     z-index: 1;
     background-color: $dark-bg;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    animation: showMask 3s linear;
+  }
+}
+
+@keyframes showVideo {
+  0% {
+    opacity: 0;
+  } 50% {
+    opacity: 0;
+  } 100% {
+    opacity: 1;
+  }
+}
+
+@keyframes showMark {
+  0% {
+    opacity: 0;
+  } 50% {
+    opacity: 0;
+  } 100% {
+    opacity: 1;
+  }
+}
+
+@keyframes showMask {
+  0% {
+    opacity: 0;
+    background-image: url('../../assets/images/hero-bg.png');
+  } 50% {
+    opacity: 1;
+    background-image: url('../../assets/images/hero-bg.png');
+  } 100% {
+    background-image: none;
+    background-color: $dark-bg;
+  }
+}
+
+@keyframes showLogo {
+  0% {
+    opacity: 0;
+    background-image: none;
+  } 50% {
+    opacity: 1;
+    background-image: url('../../assets/icons/logo.svg');
+  } 100% {
+    background-image: url('../../assets/icons/logo_white.svg');
+  }
+}
+
+@keyframes showText {
+  0% {
+    opacity: 0;
+    color: transparent;
+  } 50% {
+    opacity: 1;
+    color: $color_black;
+  } 100% {
+    color: $color_white;
   }
 }
 

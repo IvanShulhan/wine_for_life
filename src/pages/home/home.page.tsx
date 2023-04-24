@@ -2,7 +2,7 @@ import { TitleComponent } from '../../components/title';
 import { useNavigate } from 'react-router-dom';
 import { ROUTER_KEYS } from '../../common/consts';
 import bgVideo from '../../assets/video/pexels-dan-cristian-pădureț-3000968-1920x1080-50fps.mp4';
-import logo from '../../assets/icons/logo_white.svg';
+import { ReactComponent as Logo } from '../../assets/icons/logo_white.svg';
 import circle from '../../assets/icons/scroll_for.svg';
 import arrow from '../../assets/icons/thin_arrow.svg';
 import './home.scss';
@@ -14,7 +14,7 @@ export const HomePage = () => {
     <div className="home">
       <div className="home__hero">
         <span className="home__content-mask" />
-        <img className="home__logo" src={logo} alt="Logo" />
+        <span className="home__logo" />
         <span className="home__mark">
           <img className="home__mark-circle" src={circle} alt="Logo" />
           <img className="home__mark-arrow" src={arrow} alt="Logo" />
