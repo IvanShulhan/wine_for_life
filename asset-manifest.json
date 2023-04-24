@@ -1,14 +1,15 @@
 {
   "files": {
-    "main.css": "/wine_for_life/static/css/main.bac8bc4c.css",
-    "main.js": "/wine_for_life/static/js/main.8f126ddb.js",
+    "main.css": "/wine_for_life/static/css/main.f89317fe.css",
+    "main.js": "/wine_for_life/static/js/main.223fa29d.js",
     "static/media/pexels-dan-cristian-pădureț-3000968-1920x1080-50fps.mp4": "/wine_for_life/static/media/pexels-dan-cristian-pădureț-3000968-1920x1080-50fps.352ce562ed62de9e5e5a.mp4",
+    "static/media/hero-bg.png": "/wine_for_life/static/media/hero-bg.d8bddd9bce87335bcd78.png",
     "static/media/tasre.svg": "/wine_for_life/static/media/tasre.06a58c4f02b3a7c9409f4eaba89692f9.svg",
     "static/media/grape.svg": "/wine_for_life/static/media/grape.07a60e2dd7e55ad60a159290656d6b46.svg",
     "static/media/cheese.svg": "/wine_for_life/static/media/cheese.1db703ff10ccefb4c5e9831566c7865c.svg",
     "static/media/temperature.svg": "/wine_for_life/static/media/temperature.e3c8fb20f6c1be28c07373dad3eab781.svg",
     "static/media/scroll_for.svg": "/wine_for_life/static/media/scroll_for.d47b75f72f0bd725a24aca0d21a89f18.svg",
-    "static/media/logo_white.svg": "/wine_for_life/static/media/logo_white.18c04e7455a3fa8856b41eb86718d38f.svg",
+    "static/media/logo_white.svg": "/wine_for_life/static/media/logo_white.18c04e7455a3fa8856b4.svg",
     "static/media/logo.svg": "/wine_for_life/static/media/logo.1feadcf8bb134bde50689baae4c3673e.svg",
     "static/media/instagram.svg": "/wine_for_life/static/media/instagram.c6100a5dfd769e94eb03b3f14d46a1a0.svg",
     "static/media/crosed-eye.svg": "/wine_for_life/static/media/crosed-eye.34cb9f7d9a543936d175f5f2ece5bfa7.svg",
@@ -35,11 +36,11 @@
     "static/media/pipe.svg": "/wine_for_life/static/media/pipe.0c2fe262c3f85a42615e76bf31accc07.svg",
     "static/media/checkbox.svg": "/wine_for_life/static/media/checkbox.22a0cf3f17dbe61bf65d3f366d2f4ea2.svg",
     "static/media/radio.svg": "/wine_for_life/static/media/radio.5d2e44badbce44e8911268d15e76f173.svg",
-    "main.bac8bc4c.css.map": "/wine_for_life/static/css/main.bac8bc4c.css.map",
-    "main.8f126ddb.js.map": "/wine_for_life/static/js/main.8f126ddb.js.map"
+    "main.f89317fe.css.map": "/wine_for_life/static/css/main.f89317fe.css.map",
+    "main.223fa29d.js.map": "/wine_for_life/static/js/main.223fa29d.js.map"
   },
   "entrypoints": [
-    "static/css/main.bac8bc4c.css",
-    "static/js/main.8f126ddb.js"
+    "static/css/main.f89317fe.css",
+    "static/js/main.223fa29d.js"
   ]
 }
