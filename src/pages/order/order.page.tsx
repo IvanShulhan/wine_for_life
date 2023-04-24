@@ -52,12 +52,13 @@ export const OrderPage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    setIsVisibleButtons(Boolean(!userToken));
     if (userToken) {
       const user = helperFuncs.getUserFromToken(userToken);
 
       dispatch(getUser(user.id));
     }
-  }, []);
+  }, [userToken]);
 
   interface IObj {
     [key: string]: number;
@@ -169,10 +170,6 @@ export const OrderPage = () => {
   useEffect(() => {
     loginFormik.setValues({ password: '', email: '' });
   }, [isNewCustomer]);
-
-  useEffect(() => {
-    setIsVisibleButtons(Boolean(!user));
-  }, [user]);
 
   const getIsChacked = (val: string) => orderFormik.values.payment === val;
 

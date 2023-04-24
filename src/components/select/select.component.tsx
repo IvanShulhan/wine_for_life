@@ -71,7 +71,7 @@ export const SelectComponent: React.FC<IProps> = React.memo(
           <h3 className="select__text">
             {withParams
               ? helperFuncs.modifyFirstChar(name)
-              : value || helperFuncs.modifyFirstChar(name)}
+              : currentVal || helperFuncs.modifyFirstChar(name)}
           </h3>
           {!isDisabled && (isOpen ? <ArrowTop /> : <ArrowDown />)}
           <ul className={classNames('select__list', { 'select__list--is-visible': isOpen })}>
