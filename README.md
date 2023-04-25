@@ -1,46 +1,31 @@
-# Getting Started with Create React App
+# Wine for life
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
+"Wine for Life" is an online marketplace where true connoisseurs of exquisite drinks can choose a wonderful wine to suit any taste, mood, or budget, or as a gift. 
 
-## Available Scripts
+## Demo
 
-In the project directory, you can run:
+- [Link](https://ivanshulhan.github.io/wine_for_life/)
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **React.js**
+- **TypeScript** - for strict typization
+- **React router dom v6** - for routing
+- **Redux/toolkit** - for global state managment 
+- **Formik** - for working with forms
+- **Yup** - for validations forms fields
+- **Axios** - for HTTP requests
+- **classnames** - for adding dynamic classes
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Features
 
-### `npm test`
+- Get products from server
+- Sort products by price and popularity
+- Filter products by many values
+- Get product from server by id
+- Add products to cart
+- Make order
+- Login/register user
+- Update user data
+- And many other things
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
