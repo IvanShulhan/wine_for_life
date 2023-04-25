@@ -9,16 +9,16 @@ export const SearchComponent = () => {
   const dispatch = useAppDispatch();
   const { search } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams(search);
-  const currentSearchVavue = searchParams.get('query') || '';
+  const currentSearchVavue = searchParams.get('name') || '';
   const [value, setValue] = useState(currentSearchVavue);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const { value } = e.target;
 
     if (value) {
-      searchParams.set('query', value);
+      searchParams.set('name', value);
     } else {
-      searchParams.delete('query');
+      searchParams.delete('name');
     }
     searchParams.delete('page');
     setSearchParams(searchParams);
@@ -33,7 +33,6 @@ export const SearchComponent = () => {
     <div className="search">
       <input
         placeholder="Search"
-        disabled
         type="text"
         className="search__input"
         value={value}
