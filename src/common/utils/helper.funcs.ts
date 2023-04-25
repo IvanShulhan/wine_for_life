@@ -75,7 +75,7 @@ class HelperFuncs {
               .join(',');
           case 'sortByPopularity':
           case 'sortByPrice':
-            return items[1] === 'high+to+low' ? 'ASC' : 'DESC';
+            return items[1] === 'high+to+low' ? 'DESC' : 'ASC';
           default:
             return items[1].split('%2F').join(',');
         }
