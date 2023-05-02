@@ -14,4 +14,5 @@ export interface IProduct {
   taste: string;
   temperature: string;
   imageLink: string;
+  image: string;
 }

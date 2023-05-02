@@ -31,7 +31,11 @@ export const ProductCardComponent: React.FC<IProps> = React.memo(({ product }) =
         to={`${ROUTER_KEYS.CATALOG}${ROUTER_KEYS.DETAILS}/${product.id}`}>
         <TitleComponent title={product.name} />
         <div className="product-card__image-box">
-          <img src={product.imageLink} alt="bottle of good wine" className="product-card__image" />
+          <img
+            src={`data:image/jpeg;base64,${product.image}`}
+            alt="bottle of good wine"
+            className="product-card__image"
+          />
         </div>
         <p className="product-card__description">{helperFuncs.cutText(product.taste, 80)}...</p>
       </Link>

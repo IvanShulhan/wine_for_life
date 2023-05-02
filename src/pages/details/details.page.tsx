@@ -85,7 +85,11 @@ export const DetailsPage = () => {
                   </div>
                 )}
                 <div className="details__image-block">
-                  <img src={product?.imageLink} alt="bottle fo wine" className="details__image" />
+                  <img
+                    src={`data:image/jpeg;base64,${product?.image}`}
+                    alt="bottle fo wine"
+                    className="details__image"
+                  />
                 </div>
               </div>
               <div className="details__content-item">

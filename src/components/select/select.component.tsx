@@ -37,7 +37,11 @@ export const SelectComponent: React.FC<IProps> = React.memo(
     const handleChange = (value: string) => {
       setValue(value);
       if (withParams) {
-        searchParams.set(name, value);
+        if (value) {
+          searchParams.set(name, value);
+        } else {
+          searchParams.delete(name);
+        }
         setSearchParams(searchParams);
       }
     };
@@ -67,6 +71,9 @@ export const SelectComponent: React.FC<IProps> = React.memo(
           tabIndex={0}
           onClick={() => {
             if (!isDisabled) setIsOpen(!isOpen);
+            if (value && isOpen) {
+              handleChange('');
+            }
           }}>
           <h3 className="select__text">
             {withParams
